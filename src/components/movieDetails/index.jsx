@@ -19,7 +19,7 @@ const styles = {
   },
   chipLabel: {
     margin: 0.5,
-  },
+  }
 }};
 
 const MovieDetails = ( props) => {
@@ -56,7 +56,7 @@ const MovieDetails = ( props) => {
       <Paper component="ul" sx={styles.chipSet}>
         <Chip label="Production Countries" sx={styles.chipLabel} color="primary" />
         {movie.production_countries.map((pc) => (
-            <Chip label={pc.name}  />
+            <Chip label={pc.name} />
         ))}
       </Paper>
       </>
