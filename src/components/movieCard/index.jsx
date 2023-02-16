@@ -34,7 +34,7 @@ export default function MovieCard(props) {
 
   return (
       <Card sx={styles.card}>
-            <CardHeader
+        <CardHeader
         sx={styles.header}
         avatar={
           movie.favourite ? (
