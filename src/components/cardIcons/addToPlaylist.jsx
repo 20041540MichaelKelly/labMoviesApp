@@ -8,7 +8,7 @@ const AddToPlaylistIcon = ({ movie }) => {
 
   const onUserSelect = (e) => {
     e.preventDefault();
-    //context.addToFavourites(movie);
+    context.addToPlaylist(movie);
   };
   return (
     <IconButton aria-label="add to favorites" onClick={onUserSelect}>
