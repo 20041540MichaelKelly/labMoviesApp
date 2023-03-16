@@ -31,6 +31,8 @@ const styles = {
   },
 };
 
+//TODO: Could the below paper component be minimised out into it's own componenet
+
 const MovieDetails = ( {movie}) => {
   const [drawerOpen, setDrawerOpen] = useState(false); // New
 
