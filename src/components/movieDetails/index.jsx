@@ -5,11 +5,14 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import MonetizationIcon from "@mui/icons-material/MonetizationOn";
 import StarRate from "@mui/icons-material/StarRate";
 import Typography from "@mui/material/Typography";
-
+import { useQuery } from "react-query";
 import NavigationIcon from "@mui/icons-material/Navigation";
 import Fab from "@mui/material/Fab";
 import Drawer from "@mui/material/Drawer";
 import MovieReviews from '../movieReviews'
+import { getMovieCredits } from "../../api/tmdb-api";
+import Spinner from '../../components/spinner';
+
 
 const styles = {
   chipSet: {
@@ -36,6 +39,23 @@ const styles = {
 const MovieDetails = ( {movie}) => {
   const [drawerOpen, setDrawerOpen] = useState(false); // New
 
+  const { data, error, isLoading, isError } = useQuery(
+    ["cast", { id: movie.id }],
+    getMovieCredits
+  );
+
+  if (isLoading) {
+    return <Spinner />;
+  }
+
+  if (isError) {
+    return <h1>{error.message}</h1>;
+  }
+
+  const casts = data.cast
+
+  console.log(casts)
+
   return (
     <>
       <Typography variant="h5" component="h3">
@@ -53,6 +73,16 @@ const MovieDetails = ( {movie}) => {
         {movie.genres.map((g) => (
           <li key={g.name}>
             <Chip label={g.name}  />
+          </li>
+        ))}
+      </Paper>
+      <Paper component="ul" sx={styles.chipSet}>
+        <li>
+          <Chip label="Cast" sx={styles.chipLabel} color="primary" />
+        </li>
+        {casts.map((c) => (
+          <li key={c.name}>
+            <Chip label={c.name}  />
           </li>
         ))}
       </Paper>

@@ -27,7 +27,7 @@ const MovieDetailsPage = () => {
       {movie ? (
         <>
           <PageTemplate movie={movie}>
-            <MovieDetails movie={movie} />
+            <MovieDetails movie={movie}/>
           </PageTemplate>
         </>
       ) : (
