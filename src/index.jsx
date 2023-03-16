@@ -13,6 +13,8 @@ import MoviesContextProvider from "./contexts/moviesContext";
 import AddMovieReviewPage from './pages/addMovieReviewPage';
 import UpcomingMoviesPage from './pages/upcomingMoviesPage';
 import MostPopularMoviesPage from './pages/mostPopularMoviesPage';
+import MoviesNowPlayingPage from './pages/moviesNowPlayingPage';
+
 
 
 
@@ -33,6 +35,7 @@ const App = () => {
         <SiteHeader />
           <MoviesContextProvider>
             <Routes>
+              <Route path="/movies/playing" element={<MoviesNowPlayingPage />} />
               <Route path="/movies/popular" element={<MostPopularMoviesPage />} />
               <Route path="/movies/playlist" element={<MoviePlaylistPage />} />
               <Route path="/reviews/form" element={<AddMovieReviewPage/>} />
