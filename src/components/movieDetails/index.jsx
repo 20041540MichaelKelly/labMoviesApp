@@ -5,17 +5,11 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import MonetizationIcon from "@mui/icons-material/MonetizationOn";
 import StarRate from "@mui/icons-material/StarRate";
 import Typography from "@mui/material/Typography";
-import { useQuery } from "react-query";
+
 import NavigationIcon from "@mui/icons-material/Navigation";
 import Fab from "@mui/material/Fab";
 import Drawer from "@mui/material/Drawer";
 import MovieReviews from '../movieReviews'
-import { getMovieCredits } from "../../api/tmdb-api";
-import Spinner from '../../components/spinner';
-import { Link } from "react-router-dom";
-import Button from "@mui/material/Button";
-import CardActions from "@mui/material/CardActions";
-
 
 const styles = {
   chipSet: {
@@ -37,27 +31,8 @@ const styles = {
   },
 };
 
-//TODO: Could the below paper component be minimised out into it's own componenet
-
 const MovieDetails = ( {movie}) => {
   const [drawerOpen, setDrawerOpen] = useState(false); // New
-
-  const { data, error, isLoading, isError } = useQuery(
-    ["cast", { id: movie.id }],
-    getMovieCredits
-  );
-
-  if (isLoading) {
-    return <Spinner />;
-  }
-
-  if (isError) {
-    return <h1>{error.message}</h1>;
-  }
-
-  const casts = data.cast
-
-  console.log(casts)
 
   return (
     <>
@@ -80,16 +55,6 @@ const MovieDetails = ( {movie}) => {
         ))}
       </Paper>
       <Paper component="ul" sx={styles.chipSet}>
-        <li>
-          <Chip label="Cast" sx={styles.chipLabel} color="primary" />
-        </li>
-        {casts.map((c) => (
-          <li key={c.name}>
-            <Chip label={c.name}  />
-          </li>
-        ))}
-      </Paper>
-      <Paper component="ul" sx={styles.chipSet}>
         <Chip icon={<AccessTimeIcon />} label={`${movie.runtime} min.`} />
         <Chip
           icon={<MonetizationIcon />}
@@ -100,13 +65,6 @@ const MovieDetails = ( {movie}) => {
           label={`${movie.vote_average} (${movie.vote_count}`}
         />
         <Chip label={`Released: ${movie.release_date}`} />
-        <CardActions disableSpacing>
-        <Link to={`/movies/${movie.id}/similar`}>
-          <Button variant="outlined" size="medium" color="primary">
-            Similar Movies ...
-          </Button>
-        </Link>
-        </CardActions>
       </Paper>
       <Fab    
         color="secondary"

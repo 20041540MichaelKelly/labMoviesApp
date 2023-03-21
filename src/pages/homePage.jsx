@@ -9,7 +9,6 @@ import AddToFavouritesIcon from '../components/cardIcons/addToFavourites'
 import MovieFilterUI, {
   titleFilter,
   genreFilter,
-  voteFilter,
 } from "../components/movieFilterUI";
 
 const titleFiltering = {
@@ -21,12 +20,6 @@ const genreFiltering = {
   name: "genre",
   value: "0",
   condition: genreFilter,
-};
-
-const voteFiltering = {
-  name: "vote",
-  value: "0",
-  condition: voteFilter,
 };
 
 const HomePage = (props) => {
