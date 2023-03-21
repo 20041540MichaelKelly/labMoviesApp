@@ -12,6 +12,10 @@ export const genreFilter = function (movie, value) {
   return genreId > 0 ? movie.genre_ids.includes(genreId) : true;
 };
 
+export const voteFilter = function (movie, value) {
+ return value > 0 ? movie.vote_average>= value : true;
+};
+
 const styles = {
   root: {
     backgroundColor: "#bfbfbf",
@@ -24,7 +28,7 @@ const styles = {
   },
 };
 
-const MovieFilterUI = ({ onFilterValuesChange, titleFilter, genreFilter }) => {
+const MovieFilterUI = ({ onFilterValuesChange, titleFilter, genreFilter}) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (

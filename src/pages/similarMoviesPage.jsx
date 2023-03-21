@@ -1,15 +1,15 @@
 import React from "react";
-import PageTemplate from "../components/templateMovieListPage";
 import { useQuery } from "react-query";
+import { useParams } from "react-router-dom";
+import PageTemplate from '../components/templateMovieListPage'
+import { getSimilarMovies } from "../api/tmdb-api";
+import AddToPlaylistIcon from '../components/cardIcons/addToPlaylist';
 import Spinner from "../components/spinner";
-import { getMovies } from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
-import AddToFavouritesIcon from '../components/cardIcons/addToFavourites'
 
 import MovieFilterUI, {
   titleFilter,
   genreFilter,
-  voteFilter,
 } from "../components/movieFilterUI";
 
 const titleFiltering = {
@@ -23,14 +23,14 @@ const genreFiltering = {
   condition: genreFilter,
 };
 
-const voteFiltering = {
-  name: "vote",
-  value: "0",
-  condition: voteFilter,
-};
+const SimilarMoviesPage = (props) => {
+  const { id } = useParams();
 
-const HomePage = (props) => {
-  const { data, error, isLoading, isError } = useQuery("discover", getMovies);
+  const { data: similar, error, isLoading, isError } = useQuery(
+    ["similar", { id: id }],
+    getSimilarMovies
+  );
+
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],
     [titleFiltering, genreFiltering]
@@ -53,25 +53,24 @@ const HomePage = (props) => {
     setFilterValues(updatedFilterSet);
   };
 
-  const movies = data ? data.results : [];
+  const movies = similar ? similar.results : [];
   const displayedMovies = filterFunction(movies);
 
   return (
     <>
-     <PageTemplate
-       title="Discover Movies"
-       movies={displayedMovies}
-       action={(movie) => {
-         return <AddToFavouritesIcon movie={movie} />
-       }}
-     />
-      <MovieFilterUI
+    <PageTemplate
+      title='Similar Movies'
+      movies={displayedMovies}
+      action={(similar) => {
+        return <AddToPlaylistIcon movie={similar} />
+      }}
+    />
+    <MovieFilterUI
         onFilterValuesChange={changeFilterValues}
         titleFilter={filterValues[0].value}
         genreFilter={filterValues[1].value}
-      />
+     />
     </>
   );
 };
-
-export default HomePage;
+export default SimilarMoviesPage;

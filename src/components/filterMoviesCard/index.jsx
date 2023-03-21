@@ -10,7 +10,6 @@ import SortIcon from '@mui/icons-material/Sort';
 import { getGenres } from "../../api/tmdb-api";
 import { useQuery } from "react-query";
 import Spinner from '../spinner'
-
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
