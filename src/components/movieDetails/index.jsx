@@ -12,6 +12,9 @@ import Drawer from "@mui/material/Drawer";
 import MovieReviews from '../movieReviews'
 import { getMovieCredits } from "../../api/tmdb-api";
 import Spinner from '../../components/spinner';
+import { Link } from "react-router-dom";
+import Button from "@mui/material/Button";
+import CardActions from "@mui/material/CardActions";
 
 
 const styles = {
@@ -97,6 +100,13 @@ const MovieDetails = ( {movie}) => {
           label={`${movie.vote_average} (${movie.vote_count}`}
         />
         <Chip label={`Released: ${movie.release_date}`} />
+        <CardActions disableSpacing>
+        <Link to={`/movies/${movie.id}/similar`}>
+          <Button variant="outlined" size="medium" color="primary">
+            Similar Movies ...
+          </Button>
+        </Link>
+        </CardActions>
       </Paper>
       <Fab    
         color="secondary"
