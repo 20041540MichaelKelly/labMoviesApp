@@ -2,10 +2,10 @@ import React from "react";
 import Grid from "@mui/material/Grid";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-import { getActorImages } from "../../api/tmdb-api";
+import { getActorImages } from "../../../api/tmdb-api";
 import { useQuery } from "react-query";
-import Spinner from '../spinner'
-import ActorHeader from "../actors/headerActor";
+import Spinner from '../../spinner'
+import ActorHeader from "../../actors/headerActor";
 
 const styles = {
   gridListRoot: {

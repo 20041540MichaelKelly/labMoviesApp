@@ -1,11 +1,11 @@
 import React from "react";
-import MovieHeader from "../movies/headerMovie";
+import MovieHeader from "../headerMovie";
 import Grid from "@mui/material/Grid";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-import { getMovieImages } from "../../api/tmdb-api";
+import { getMovieImages } from "../../../api/tmdb-api";
 import { useQuery } from "react-query";
-import Spinner from '../spinner'
+import Spinner from '../../spinner'
 
 const styles = {
   gridListRoot: {
