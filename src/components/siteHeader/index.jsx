@@ -11,6 +11,9 @@ import Menu from "@mui/material/Menu";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import StyledAvatar from "../styledButton";
+
+
 
 const styles = {
   title: {
@@ -87,25 +90,26 @@ const SiteHeader = () => {
                 onClose={() => setAnchorEl(null)}
               >
                 {menuOptions.map((opt) => (
-                  <MenuItem
-                    key={opt.label}
+                  StyledAvatar(<MenuItem
+                  key={opt.label}
                     onClick={() => handleMenuSelect(opt.path)}
                   >
                     {opt.label}
-                  </MenuItem>
+                  </MenuItem>)
                 ))}
               </Menu>
             </>
           ) : (
             <>
               {menuOptions.map((opt) => (
+                StyledAvatar(
                 <Button
                   key={opt.label}
                   color="inherit"
                   onClick={() => handleMenuSelect(opt.path)}
                 >
                   {opt.label}
-                </Button>
+                </Button>)
               ))}
             </>
           )}

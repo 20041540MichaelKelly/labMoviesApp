@@ -25,7 +25,7 @@ const styles = {
     flexWrap: "wrap",
     listStyle: "none",
     padding: 1.5,
-    margin: 0,
+    margin: 0
   },
   chipLabel: {
     margin: 0.5,
@@ -79,13 +79,13 @@ const MovieDetails = ( {movie}) => {
           </li>
         ))}
       </Paper>
-      <Paper component="ul" sx={styles.chipSet}>
+      <Paper component="ul" sx={styles.chipSet} >
         <li>
           <Chip label="Cast" sx={styles.chipLabel} color="primary" />
         </li>
         {casts.map((c) => (
           <li key={c.name}>
-            <Chip label={c.name}  />
+            <Chip label={c.name} />
           </li>
         ))}
       </Paper>
