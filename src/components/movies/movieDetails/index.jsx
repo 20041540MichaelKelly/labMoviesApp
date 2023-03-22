@@ -10,8 +10,8 @@ import NavigationIcon from "@mui/icons-material/Navigation";
 import Fab from "@mui/material/Fab";
 import Drawer from "@mui/material/Drawer";
 import MovieReviews from '../movieReviews'
-import { getMovieCredits } from "../../api/tmdb-api";
-import Spinner from '../../components/spinner';
+import { getMovieCredits } from "../../../api/tmdb-api";
+import Spinner from '../../spinner';
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import CardActions from "@mui/material/CardActions";

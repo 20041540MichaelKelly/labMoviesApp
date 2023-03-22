@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "../headerMovieList";
+import Header from "../../movies/headerMovieList";
 import Grid from "@mui/material/Grid";
 import ActorsList from "../actorsList";
 

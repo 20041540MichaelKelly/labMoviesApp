@@ -24,38 +24,11 @@ const styles = {
 };
 
 export default function ActorCard({ actor, action }) {
-//   const { favourites, addToFavourites } = useContext(MoviesContext);
-//   const { playlist, addToPlaylist } = useContext(MoviesContext);
-
-
-//   if (favourites.find((id) => id === movie.id)) {
-//     movie.favourite = true;
-//   } else {
-//     movie.favourite = false
-//   }
-
-//   if (playlist.find((id) => id === movie.id)) {
-//     movie.playlist = true;
-//   } else {
-//     movie.playlist = false
-//   }
 
   return (
       <Card sx={styles.card}>
         <CardHeader
         sx={styles.header}
-        // avatar={
-        //   movie.favourite ? (
-        //     <Avatar sx={styles.avatar}>
-        //       <FavoriteIcon />
-        //     </Avatar>
-        //   ) : null |
-        //   movie.playlist ? (
-        //     <Avatar sx={styles.avatar}>
-        //       <PlaylistIcon />
-        //     </Avatar>
-        //   ) : null
-        // }
         title={
           <Typography variant="h5" component="p">
             {actor.name}{" "}
@@ -87,7 +60,6 @@ export default function ActorCard({ actor, action }) {
         </Grid>
       </CardContent>
       <CardActions disableSpacing>
-          {/* {action(actor)} */}
           <Link to={`/person/${actor.id}`}>
           <Button variant="outlined" size="medium" color="primary">
            More Info ...

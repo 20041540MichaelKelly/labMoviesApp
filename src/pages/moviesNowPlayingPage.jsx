@@ -1,6 +1,6 @@
 import React from "react";
 import { useQuery } from "react-query";
-import PageTemplate from '../components/templateMovieListPage'
+import PageTemplate from '../components/movies/templateMovieListPage'
 import { getMoviesNowPlaying, getUpcomingMovies } from "../api/tmdb-api";
 import AddToPlaylistIcon from '../components/cardIcons/addToPlaylist';
 import Spinner from "../components/spinner";
@@ -9,7 +9,7 @@ import useFiltering from "../hooks/useFiltering";
 import MovieFilterUI, {
   titleFilter,
   genreFilter,
-} from "../components/movieFilterUI";
+} from "../components/movies/movieFilterUI";
 
 const titleFiltering = {
   name: "title",

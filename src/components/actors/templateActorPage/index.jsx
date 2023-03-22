@@ -5,7 +5,7 @@ import ImageListItem from "@mui/material/ImageListItem";
 import { getActorImages } from "../../api/tmdb-api";
 import { useQuery } from "react-query";
 import Spinner from '../spinner'
-import ActorHeader from "../headerActor";
+import ActorHeader from "../actors/headerActor";
 
 const styles = {
   gridListRoot: {
