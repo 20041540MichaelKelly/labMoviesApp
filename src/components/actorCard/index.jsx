@@ -13,8 +13,7 @@ import StarRateIcon from "@mui/icons-material/StarRate";
 import Grid from "@mui/material/Grid";
 import img from '../../images/film-poster-placeholder.png'
 import { Link } from "react-router-dom";
-import Avatar from "@mui/material/Avatar";
-import { MoviesContext } from "../../contexts/moviesContext";
+import BadgeIcon from '@mui/icons-material/Badge';
 
 const styles = {
   card: { maxWidth: 345 },
@@ -75,24 +74,24 @@ export default function ActorCard({ actor, action }) {
         <Grid container>
           <Grid item xs={6}>
             <Typography variant="h6" component="p">
-              <CalendarIcon fontSize="small" />
-              {actor.age}
+              <BadgeIcon fontSize="small" />
+              {actor.name}
             </Typography>
           </Grid>
           <Grid item xs={6}>
             <Typography variant="h6" component="p">
               <StarRateIcon fontSize="small" />
-              {"  "} {actor.name}{" "}
+              {"  "} {actor.popularity}{" "}
             </Typography>
           </Grid>
         </Grid>
       </CardContent>
       <CardActions disableSpacing>
           {/* {action(actor)} */}
-        <Link to={`/actors/${actor.id}`}>
+          <Link to={`/person/${actor.id}`}>
           <Button variant="outlined" size="medium" color="primary">
-            More Info ...
-          </Button>
+           More Info ...
+        </Button>
         </Link>
       </CardActions>
     </Card>
