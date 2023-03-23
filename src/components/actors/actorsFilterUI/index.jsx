@@ -1,22 +1,22 @@
 import React, { useState } from "react";
-import FilterCard from "../../movies/filterMoviesCard";
+import FilterCard from "../filterActorsCard";
 import Fab from "@mui/material/Fab";
 import Drawer from "@mui/material/Drawer";
 
-export const titleFilter = function (movie, value) {
-  return movie.title.toLowerCase().search(value.toLowerCase()) !== -1;
-};
+// export const titleFilter = function (movie, value) {
+//   return movie.title.toLowerCase().search(value.toLowerCase()) !== -1;
+// };
 
-export const genreFilter = function (movie, value) {
-  const genreId = Number(value);
-  return genreId > 0 ? movie.genre_ids.includes(genreId) : true;
-};
+// export const genreFilter = function (movie, value) {
+//   const genreId = Number(value);
+//   return genreId > 0 ? movie.genre_ids.includes(genreId) : true;
+// };
 
-export const voteFilter = function (movie, value) {
- return value > 0 ? movie.vote_average>= value : true;
-};
+// export const voteFilter = function (movie, value) {
+//  return value > 0 ? movie.vote_average>= value : true;
+// };
 
-export const nameFilter = function (movie, value) {
+export const nameFilter = function (actor, value) {
   return actor.name.toLowerCase().search(value.toLowerCase()) !== -1;
 };
 
@@ -32,7 +32,7 @@ const styles = {
   },
 };
 
-const MovieFilterUI = ({ onFilterValuesChange, titleFilter, genreFilter}) => {
+const ActorsFilterUI = ({ onFilterValuesChange, nameFilter}) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
@@ -52,12 +52,13 @@ const MovieFilterUI = ({ onFilterValuesChange, titleFilter, genreFilter}) => {
       >
         <FilterCard
           onUserInput={onFilterValuesChange}
-          titleFilter={titleFilter}
-          genreFilter={genreFilter}
+        //   titleFilter={titleFilter}
+        //   genreFilter={genreFilter}
+          nameFilter={nameFilter}
         />
       </Drawer>
     </>
   );
 };
 
-export default MovieFilterUI;
+export default ActorsFilterUI;

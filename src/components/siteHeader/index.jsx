@@ -40,6 +40,7 @@ const SiteHeader = () => {
     { label: "Popular Movies", path: "/movies/popular" },
     { label: "Now Playing", path: "/movies/playing" },
     { label: "Famous People", path: "/person/popular" },
+    { label: "Actors", path: "/person/popular" }
   ];
 
   const handleMenuSelect = (pageURL) => {
@@ -72,7 +73,7 @@ const SiteHeader = () => {
               >
                 <MenuIcon />
               </IconButton>
-              <Menu
+              <Menu label="Movies"
                 id="menu-appbar"
                 anchorEl={anchorEl}
                 anchorOrigin={{
