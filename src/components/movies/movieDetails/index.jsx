@@ -9,13 +9,14 @@ import { useQuery } from "react-query";
 import NavigationIcon from "@mui/icons-material/Navigation";
 import Fab from "@mui/material/Fab";
 import Drawer from "@mui/material/Drawer";
-import MovieReviews from '../movieReviews'
+import MovieReviews from '../movieReviews';
 import { getMovieCredits } from "../../../api/tmdb-api";
 import Spinner from '../../spinner';
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import CardActions from "@mui/material/CardActions";
-
+import Stack from '@mui/material/Stack';
+import { useNavigate } from "react-router-dom";
 
 const styles = {
   chipSet: {
@@ -41,11 +42,16 @@ const styles = {
 
 const MovieDetails = ( {movie}) => {
   const [drawerOpen, setDrawerOpen] = useState(false); // New
+  const navigate = useNavigate();
 
   const { data, error, isLoading, isError } = useQuery(
     ["cast", { id: movie.id }],
     getMovieCredits
   );
+
+  const handleClick = (pageURL) => {
+    navigate(pageURL);
+  };
 
   if (isLoading) {
     return <Spinner />;
@@ -85,7 +91,10 @@ const MovieDetails = ( {movie}) => {
         </li>
         {casts.map((c) => (
           <li key={c.name}>
-            <Chip label={c.name} />
+              {/* <Chip label={c.name} onClick={handleClick(`/person/${c.id}`)} /> */}
+             <Link to={`/person/${c.id}`}>
+                <Chip label={c.name} />
+            </Link> 
           </li>
         ))}
       </Paper>
