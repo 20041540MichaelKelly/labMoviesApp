@@ -17,6 +17,8 @@ import MoviesNowPlayingPage from './pages/moviesNowPlayingPage';
 import SimilarMoviesPage from './pages/similarMoviesPage';
 import ActorsPage from './pages/actorsPage';
 import ActorDetailsPage from './pages/actorDetailsPage';
+import TvShowPage from './pages/tvShowPage';
+
 
 
 
@@ -37,6 +39,7 @@ const App = () => {
         <SiteHeader />
           <MoviesContextProvider>
             <Routes>
+              <Route path="/tv/popular" element={<TvShowPage/>} />
               <Route path="/person/:id" element={<ActorDetailsPage/>} />
               <Route path="/person/popular" element={<ActorsPage/>} />
               <Route path="/movies/:id/similar" element={<SimilarMoviesPage />} />
