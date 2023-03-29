@@ -52,6 +52,7 @@ const ActorsPage = (props) => {
        <ActorFilterUI
         onFilterValuesChange={changeFilterValues}
         nameFilter={filterValues[0].value}
+        actors={actors}
       /> 
     </>
   );

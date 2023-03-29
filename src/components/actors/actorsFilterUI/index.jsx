@@ -7,10 +7,10 @@ import Drawer from "@mui/material/Drawer";
 //   return movie.title.toLowerCase().search(value.toLowerCase()) !== -1;
 // };
 
-// export const genreFilter = function (movie, value) {
-//   const genreId = Number(value);
-//   return genreId > 0 ? movie.genre_ids.includes(genreId) : true;
-// };
+export const genderFilter = function (actor, value) {
+  const genderId = Number(value);
+  return genderId > 0 ? actor.gender.includes(genderId) : true;
+};
 
 // export const voteFilter = function (movie, value) {
 //  return value > 0 ? movie.vote_average>= value : true;
@@ -32,7 +32,7 @@ const styles = {
   },
 };
 
-const ActorsFilterUI = ({ onFilterValuesChange, nameFilter}) => {
+const ActorsFilterUI = ({ onFilterValuesChange, nameFilter, actors}) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
@@ -53,8 +53,9 @@ const ActorsFilterUI = ({ onFilterValuesChange, nameFilter}) => {
         <FilterCard
           onUserInput={onFilterValuesChange}
         //   titleFilter={titleFilter}
-        //   genreFilter={genreFilter}
+          genderFilter={genderFilter}
           nameFilter={nameFilter}
+          actors={actors}
         />
       </Drawer>
     </>

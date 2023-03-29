@@ -18,7 +18,7 @@ const styles = {
     flexGrow: 1,
   },
   appbar: {
-    // background: 'none',
+     background: 'orange',
   },
   // offset: theme.mixins.toolbar,
 };
@@ -33,16 +33,16 @@ const SiteHeader = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
   const menuOptions = [
-    { label: "Home", path: "/" },
-    { label: "Favorites", path: "/movies/favourites" },
-    { label: "Upcoming Movies", path: "/movies/upcoming" },
-    { label: "Movies Playlist", path: "/movies/playlist" },
-    { label: "Popular Movies", path: "/movies/popular" },
-    { label: "Now Playing", path: "/movies/playing" },
-    { label: "Famous People", path: "/person/popular" },
-    { label: "Actors", path: "/person/popular" }
-  ];
-
+      { label: "Home", path: "/" },
+      { label: "Favorites", path: "/movies/favourites" },
+      { label: "Upcoming Movies", path: "/movies/upcoming" },
+      { label: "Movies Playlist", path: "/movies/playlist" },
+      { label: "Popular Movies", path: "/movies/popular" },
+      { label: "Now Playing", path: "/movies/playing" },
+      { label: "Famous People", path: "/person/popular" },
+      { label: "Actors", path: "/person/popular" }
+    ]
+  
   const handleMenuSelect = (pageURL) => {
     navigate(pageURL);
   };
@@ -73,7 +73,7 @@ const SiteHeader = () => {
               >
                 <MenuIcon />
               </IconButton>
-              <Menu label="Movies"
+              <Menu
                 id="menu-appbar"
                 anchorEl={anchorEl}
                 anchorOrigin={{
@@ -89,36 +89,33 @@ const SiteHeader = () => {
                 onClose={() => setAnchorEl(null)}
               >
                 {menuOptions.map((opt) => (
-                  StyledButton(<MenuItem
-                  key={opt.label}
+                  <MenuItem
+                    key={opt.label}
                     onClick={() => handleMenuSelect(opt.path)}
                   >
                     {opt.label}
-                  </MenuItem>)
+                  </MenuItem>
                 ))}
               </Menu>
             </>
           ) : (
             <>
               {menuOptions.map((opt) => (
-                StyledButton(
                 <Button
                   key={opt.label}
                   color="inherit"
                   onClick={() => handleMenuSelect(opt.path)}
                 >
                   {opt.label}
-                </Button>)
+                </Button>
               ))}
             </>
           )}
         </Toolbar>
       </AppBar>
       <Offset />
-
-      {/* <div className={classes.offset} /> */}
     </>
   );
-};
+}
 
 export default SiteHeader;

@@ -21,6 +21,8 @@ const styles = {
 
 export default function FilterActorsCard(props) {
 
+  const actors = props.actors;
+
   const handleUserImput = (e, type, value) => {
     e.preventDefault();
     props.onUserInput(type, value); 
@@ -28,6 +30,10 @@ export default function FilterActorsCard(props) {
 
   const handleTextChange = (e, props) => {
     handleUserImput(e, "name", e.target.value);
+  };
+
+  const handleGenderChange = (e) => {
+    handleUserImput(e, "gender", e.target.value);
   };
 
   return (
@@ -43,12 +49,30 @@ export default function FilterActorsCard(props) {
           id="filled-search"
           label="Search field"
           type="search"
-          value={props.titleFilter}
+          value={props.nameFilter}
           variant="filled"
           onChange={handleTextChange}
         />
+        <FormControl sx={styles.formControl}>
+          <InputLabel id="genre-label">Gender</InputLabel>
+          <Select
+            labelId="genre-label"
+            id="genre-select"
+            value={props.genderFilter}
+            onChange={handleGenderChange}
+          >
+            {actors.map((gender) => {
+              return (
+                <MenuItem key={gender.id} value={gender.id}>
+                  {genre.name}
+                </MenuItem>
+              );
+            })}
+          </Select>
+        </FormControl>
       </CardContent>
     </Card>
+    
     <Card sx={styles.root} variant="outlined">
         <CardContent>
           <Typography variant="h5" component="h1">
