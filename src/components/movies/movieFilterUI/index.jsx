@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import FilterCard from "../filterMoviesCard";
+import FilterCard from "../../movies/filterMoviesCard";
 import Fab from "@mui/material/Fab";
 import Drawer from "@mui/material/Drawer";
 
@@ -14,6 +14,10 @@ export const genreFilter = function (movie, value) {
 
 export const voteFilter = function (movie, value) {
  return value > 0 ? movie.vote_average>= value : true;
+};
+
+export const nameFilter = function (movie, value) {
+  return actor.name.toLowerCase().search(value.toLowerCase()) !== -1;
 };
 
 const styles = {

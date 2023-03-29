@@ -15,6 +15,10 @@ import UpcomingMoviesPage from './pages/upcomingMoviesPage';
 import MostPopularMoviesPage from './pages/mostPopularMoviesPage';
 import MoviesNowPlayingPage from './pages/moviesNowPlayingPage';
 import SimilarMoviesPage from './pages/similarMoviesPage';
+import ActorsPage from './pages/actorsPage';
+import ActorDetailsPage from './pages/actorDetailsPage';
+
+
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -33,6 +37,8 @@ const App = () => {
         <SiteHeader />
           <MoviesContextProvider>
             <Routes>
+              <Route path="/person/:id" element={<ActorDetailsPage/>} />
+              <Route path="/person/popular" element={<ActorsPage/>} />
               <Route path="/movies/:id/similar" element={<SimilarMoviesPage />} />
               <Route path="/movies/playing" element={<MoviesNowPlayingPage />} />
               <Route path="/movies/popular" element={<MostPopularMoviesPage />} />

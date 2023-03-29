@@ -11,10 +11,9 @@ import PlaylistIcon from "@mui/icons-material/PlaylistAdd";
 import CalendarIcon from "@mui/icons-material/CalendarTodayTwoTone";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import Grid from "@mui/material/Grid";
-import img from '../../images/film-poster-placeholder.png'
+import img from '../../../images/film-poster-placeholder.png'
 import { Link } from "react-router-dom";
-import Avatar from "@mui/material/Avatar";
-import { MoviesContext } from "../../contexts/moviesContext";
+import BadgeIcon from '@mui/icons-material/Badge';
 
 const styles = {
   card: { maxWidth: 345 },
@@ -24,50 +23,23 @@ const styles = {
   },
 };
 
-export default function MovieCard({ movie, action }) {
-  const { favourites, addToFavourites } = useContext(MoviesContext);
-  const { playlist, addToPlaylist } = useContext(MoviesContext);
-
-
-  if (favourites.find((id) => id === movie.id)) {
-    movie.favourite = true;
-  } else {
-    movie.favourite = false
-  }
-
-  if (playlist.find((id) => id === movie.id)) {
-    movie.playlist = true;
-  } else {
-    movie.playlist = false
-  }
+export default function ActorCard({ actor, action }) {
 
   return (
       <Card sx={styles.card}>
         <CardHeader
         sx={styles.header}
-        avatar={
-          movie.favourite ? (
-            <Avatar sx={styles.avatar}>
-              <FavoriteIcon />
-            </Avatar>
-          ) : null |
-          movie.playlist ? (
-            <Avatar sx={styles.avatar}>
-              <PlaylistIcon />
-            </Avatar>
-          ) : null
-        }
         title={
           <Typography variant="h5" component="p">
-            {movie.title}{" "}
+            {actor.name}{" "}
           </Typography>
         }
       />
       <CardMedia
         sx={styles.media}
         image={
-          movie.poster_path
-            ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+            actor.profile_path
+            ? `https://image.tmdb.org/t/p/w500/${actor.profile_path}`
             : img
         }
       />
@@ -75,24 +47,23 @@ export default function MovieCard({ movie, action }) {
         <Grid container>
           <Grid item xs={6}>
             <Typography variant="h6" component="p">
-              <CalendarIcon fontSize="small" />
-              {movie.release_date}
+              <BadgeIcon fontSize="small" />
+              {actor.name}
             </Typography>
           </Grid>
           <Grid item xs={6}>
             <Typography variant="h6" component="p">
               <StarRateIcon fontSize="small" />
-              {"  "} {movie.vote_average}{" "}
+              {"  "} {actor.popularity}{" "}
             </Typography>
           </Grid>
         </Grid>
       </CardContent>
       <CardActions disableSpacing>
-          {action(movie)}
-        <Link to={`/movies/${movie.id}`}>
+          <Link to={`/person/${actor.id}`}>
           <Button variant="outlined" size="medium" color="primary">
-            More Info ...
-          </Button>
+           More Info ...
+        </Button>
         </Link>
       </CardActions>
     </Card>
