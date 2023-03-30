@@ -35,9 +35,9 @@ export default function MovieCard({ movie, action }) {
  
   
   const handleClick = (pageURL) => {
-    
+  
     navigate(pageURL);
-    };
+  };
   
   const { favourites, addToFavourites } = useContext(MoviesContext);
   const { playlist, addToPlaylist } = useContext(MoviesContext);

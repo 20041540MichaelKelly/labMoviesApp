@@ -5,6 +5,7 @@ import Spinner from "../components/spinner";
 import { getMovies } from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
 import AddToFavouritesIcon from '../components/cardIcons/addToFavourites';
+import { useParams } from "react-router-dom";
 
 import MovieFilterUI, {
   titleFilter,
@@ -30,8 +31,9 @@ const voteFiltering = {
 };
 
 const HomePage = (props) => {
+  const { page } = useParams();
 
-  const { data, error, isLoading, isError } = useQuery("discover", getMovies);
+  const { data, error, isLoading, isError } = useQuery(["discover", { page: page }], getMovies);
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],
     [titleFiltering, genreFiltering]

@@ -2,6 +2,7 @@ import React from "react";
 import Header from "../headerMovieList";
 import Grid from "@mui/material/Grid";
 import MovieList from "../movieList";
+import Pagination from "../../pagination";
 
 const styles = {
   root: { 
@@ -17,8 +18,10 @@ function MovieListPageTemplate({ movies, title, action }) {
       </Grid>
       <Grid item container spacing={5}>
         <MovieList action={action} movies={movies} />
+        <Pagination/>
       </Grid>
     </Grid>
   );
+
 }
 export default MovieListPageTemplate;
