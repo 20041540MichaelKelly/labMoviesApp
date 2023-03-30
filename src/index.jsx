@@ -19,9 +19,6 @@ import ActorsPage from './pages/actorsPage';
 import ActorDetailsPage from './pages/actorDetailsPage';
 import TvShowPage from './pages/tvShowPage';
 
-
-
-
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {

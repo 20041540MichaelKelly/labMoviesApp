@@ -1,4 +1,4 @@
-import React, { useContext  } from "react";
+import React, { useContext, useEffect  } from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -15,9 +15,15 @@ import img from '../../../images/film-poster-placeholder.png'
 import { Link } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import { MoviesContext } from "../../../contexts/moviesContext";
+import { useNavigate } from "react-router-dom";
 
 const styles = {
-  card: { maxWidth: 345 },
+  card : {
+    "&:hover": {
+      backgroundColor: "#FFD580",
+      cursor: "pointer"
+    },
+},
   media: { height: 500 },
   avatar: {
     backgroundColor: "rgb(255, 0, 0)",
@@ -25,9 +31,16 @@ const styles = {
 };
 
 export default function MovieCard({ movie, action }) {
+  const navigate = useNavigate();
+ 
+  
+  const handleClick = (pageURL) => {
+    
+    navigate(pageURL);
+    };
+  
   const { favourites, addToFavourites } = useContext(MoviesContext);
   const { playlist, addToPlaylist } = useContext(MoviesContext);
-
 
   if (favourites.find((id) => id === movie.id)) {
     movie.favourite = true;
@@ -42,7 +55,8 @@ export default function MovieCard({ movie, action }) {
   }
 
   return (
-      <Card sx={styles.card}>
+    // <Link to={`/movies/${movie.id}`}>
+      <Card sx={styles.card} onClick={() => {handleClick(`/movies/${movie.id}`)}}>
         <CardHeader
         sx={styles.header}
         avatar={
@@ -89,12 +103,8 @@ export default function MovieCard({ movie, action }) {
       </CardContent>
       <CardActions disableSpacing>
           {action(movie)}
-        <Link to={`/movies/${movie.id}`}>
-          <Button variant="outlined" size="medium" color="primary">
-            More Info ...
-          </Button>
-        </Link>
       </CardActions>
     </Card>
+    
   );
 }

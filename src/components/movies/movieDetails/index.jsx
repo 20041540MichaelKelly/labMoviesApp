@@ -91,10 +91,7 @@ const MovieDetails = ( {movie}) => {
         </li>
         {casts.map((c) => (
           <li key={c.name}>
-              {/* <Chip label={c.name} onClick={handleClick(`/person/${c.id}`)} /> */}
-             <Link to={`/person/${c.id}`}>
-                <Chip label={c.name} />
-            </Link> 
+              <Chip label={c.name} onClick={() => {handleClick(`/person/${c.id}`)}} />
           </li>
         ))}
       </Paper>

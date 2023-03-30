@@ -47,6 +47,7 @@ const TemplateMoviePage = ({ movie, children }) => {
                   key={image.file_path}
                   sx={styles.gridListTile}
                   cols={1}
+                  row={1}
                 >
                   <img
                     src={`https://image.tmdb.org/t/p/w500/${image.file_path}`}
