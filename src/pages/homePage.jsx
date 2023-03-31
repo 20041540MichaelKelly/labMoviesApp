@@ -6,6 +6,7 @@ import { getMovies } from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
 import AddToFavouritesIcon from '../components/cardIcons/addToFavourites';
 import { useParams } from "react-router-dom";
+import Pagination from "../components/pagination";
 
 import MovieFilterUI, {
   titleFilter,
@@ -68,6 +69,7 @@ const HomePage = (props) => {
          return <AddToFavouritesIcon movie={movie} />
        }}
      />
+     <Pagination pg={ page }/>
       <MovieFilterUI
         onFilterValuesChange={changeFilterValues}
         titleFilter={filterValues[0].value}
