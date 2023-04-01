@@ -17,8 +17,9 @@ import MoviesNowPlayingPage from './pages/moviesNowPlayingPage';
 import SimilarMoviesPage from './pages/similarMoviesPage';
 import ActorsPage from './pages/actorsPage';
 import ActorDetailsPage from './pages/actorDetailsPage';
-
-
+import TvShowPage from './pages/tvShowPage';
+import LoginPage from './pages/loginPage';
+import SignUp from './pages/signupPage';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -37,6 +38,9 @@ const App = () => {
         <SiteHeader />
           <MoviesContextProvider>
             <Routes>
+              <Route path="/signup" element={<SignUp/>} />
+              <Route path="/login" element={<LoginPage/>} />
+              <Route path="/tv/popular" element={<TvShowPage/>} />
               <Route path="/person/:id" element={<ActorDetailsPage/>} />
               <Route path="/person/popular" element={<ActorsPage/>} />
               <Route path="/movies/:id/similar" element={<SimilarMoviesPage />} />
@@ -48,8 +52,11 @@ const App = () => {
               <Route path="/movies/favourites" element={<FavouriteMoviesPage />} />
               <Route path="/movies/upcoming" element={<UpcomingMoviesPage />} />
               <Route path="/movies/:id" element={<MoviePage />} />
+              <Route path="/movies/page/:page" element={<HomePage />} />
               <Route path="/" element={<HomePage />} />
               <Route path="*" element={<Navigate to="/" />} />
+              <Route path="#" element={<Navigate to="Account" />} />
+
             </Routes>
           </MoviesContextProvider>
       </BrowserRouter>

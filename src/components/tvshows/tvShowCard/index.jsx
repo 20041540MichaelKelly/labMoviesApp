@@ -1,4 +1,4 @@
-import React, { useContext, useEffect  } from "react";
+import React, { useContext  } from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -14,58 +14,44 @@ import Grid from "@mui/material/Grid";
 import img from '../../../images/film-poster-placeholder.png'
 import { Link } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
-import { MoviesContext } from "../../../contexts/moviesContext";
-import { useNavigate } from "react-router-dom";
+// import { MoviesContext } from "../../../contexts/moviesContext";
 
 const styles = {
-  card : {
-    "&:hover": {
-      backgroundColor: "#FFD580",
-      cursor: "pointer"
-    },
-},
+  card: { maxWidth: 345 },
   media: { height: 500 },
   avatar: {
     backgroundColor: "rgb(255, 0, 0)",
   },
 };
 
-export default function MovieCard({ movie, action }) {
-  const navigate = useNavigate();
- 
-  
-  const handleClick = (pageURL) => {
-  
-    navigate(pageURL);
-  };
-  
-  const { favourites, addToFavourites } = useContext(MoviesContext);
-  const { playlist, addToPlaylist } = useContext(MoviesContext);
+export default function TvShowCard({ tvShow, action }) {
+//   const { favourites, addToFavourites } = useContext(MoviesContext);
+//   const { playlist, addToPlaylist } = useContext(MoviesContext);
 
-  if (favourites.find((id) => id === movie.id)) {
-    movie.favourite = true;
-  } else {
-    movie.favourite = false
-  }
 
-  if (playlist.find((id) => id === movie.id)) {
-    movie.playlist = true;
-  } else {
-    movie.playlist = false
-  }
+//   if (favourites.find((id) => id === tvShow.id)) {
+//     tvShow.favourite = true;
+//   } else {
+//     tvShow.favourite = false
+//   }
+
+//   if (playlist.find((id) => id === tvShow.id)) {
+//     tvShow.playlist = true;
+//   } else {
+//     tvShow.playlist = false
+//   }
 
   return (
-    // <Link to={`/movies/${movie.id}`}>
-      <Card sx={styles.card} onClick={() => {handleClick(`/movies/${movie.id}`)}}>
+      <Card sx={styles.card}>
         <CardHeader
         sx={styles.header}
         avatar={
-          movie.favourite ? (
+          tvShow.favourite ? (
             <Avatar sx={styles.avatar}>
               <FavoriteIcon />
             </Avatar>
           ) : null |
-          movie.playlist ? (
+          tvShow.playlist ? (
             <Avatar sx={styles.avatar}>
               <PlaylistIcon />
             </Avatar>
@@ -73,15 +59,15 @@ export default function MovieCard({ movie, action }) {
         }
         title={
           <Typography variant="h5" component="p">
-            {movie.title}{" "}
+            {tvShow.name}{" "}
           </Typography>
         }
       />
       <CardMedia
         sx={styles.media}
         image={
-          movie.poster_path
-            ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+          tvShow.poster_path
+            ? `https://image.tmdb.org/t/p/w500/${tvShow.poster_path}`
             : img
         }
       />
@@ -90,21 +76,25 @@ export default function MovieCard({ movie, action }) {
           <Grid item xs={6}>
             <Typography variant="h6" component="p">
               <CalendarIcon fontSize="small" />
-              {movie.release_date}
+              {tvShow.first_air_date}
             </Typography>
           </Grid>
           <Grid item xs={6}>
             <Typography variant="h6" component="p">
               <StarRateIcon fontSize="small" />
-              {"  "} {movie.vote_average}{" "}
+              {"  "} {tvShow.vote_count}{" "}
             </Typography>
           </Grid>
         </Grid>
       </CardContent>
       <CardActions disableSpacing>
-          {action(movie)}
+          {/* {action(tvShow)} */}
+        <Link to={`/tv/${tvShow.id}`}>
+          <Button variant="outlined" size="medium" color="primary">
+            More Info ...
+          </Button>
+        </Link>
       </CardActions>
     </Card>
-    
   );
 }

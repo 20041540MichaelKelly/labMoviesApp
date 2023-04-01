@@ -47,7 +47,7 @@ const MoviesContextProvider = (props) => {
    * Implementation of Reviews
    */
 
-  const addReview = (movie, review) => {   // NEW
+  const addReview = (movie, review) => {   
     setMyReviews( {...myReviews, [movie.id]: review } )
   };
 

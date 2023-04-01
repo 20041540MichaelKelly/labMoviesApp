@@ -1,7 +1,7 @@
 import React from "react";
-import Header from "../headerMovieList";
+import Header from "../../tvShows/headerTvShowList";
 import Grid from "@mui/material/Grid";
-import MovieList from "../movieList";
+import TvShowList from "../tvShowList";
 
 const styles = {
   root: { 
@@ -9,17 +9,16 @@ const styles = {
   }
 };
 
-function MovieListPageTemplate({ movies, title, action }) {
+function TvShowListPageTemplate({ tvShows, title, action }) {
   return (
     <Grid container sx={styles.root}>
       <Grid item xs={12}>
         <Header title={title} />
       </Grid>
       <Grid item container spacing={5}>
-        <MovieList action={action} movies={movies} />
+        <TvShowList action={action} tvShows={tvShows} />
       </Grid>
     </Grid>
   );
-
 }
-export default MovieListPageTemplate;
+export default TvShowListPageTemplate;
