@@ -11,10 +11,10 @@ import PlaylistIcon from "@mui/icons-material/PlaylistAdd";
 import CalendarIcon from "@mui/icons-material/CalendarTodayTwoTone";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import Grid from "@mui/material/Grid";
-import img from '../../images/film-poster-placeholder.png'
+import img from '../../../images/film-poster-placeholder.png'
 import { Link } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
-import { MoviesContext } from "../../contexts/moviesContext";
+// import { MoviesContext } from "../../../contexts/moviesContext";
 
 const styles = {
   card: { maxWidth: 345 },
@@ -24,34 +24,34 @@ const styles = {
   },
 };
 
-export default function MovieCard({ movie, action }) {
-  const { favourites, addToFavourites } = useContext(MoviesContext);
-  const { playlist, addToPlaylist } = useContext(MoviesContext);
+export default function TvShowCard({ tvShow, action }) {
+//   const { favourites, addToFavourites } = useContext(MoviesContext);
+//   const { playlist, addToPlaylist } = useContext(MoviesContext);
 
 
-  if (favourites.find((id) => id === movie.id)) {
-    movie.favourite = true;
-  } else {
-    movie.favourite = false
-  }
+//   if (favourites.find((id) => id === tvShow.id)) {
+//     tvShow.favourite = true;
+//   } else {
+//     tvShow.favourite = false
+//   }
 
-  if (playlist.find((id) => id === movie.id)) {
-    movie.playlist = true;
-  } else {
-    movie.playlist = false
-  }
+//   if (playlist.find((id) => id === tvShow.id)) {
+//     tvShow.playlist = true;
+//   } else {
+//     tvShow.playlist = false
+//   }
 
   return (
       <Card sx={styles.card}>
         <CardHeader
         sx={styles.header}
         avatar={
-          movie.favourite ? (
+          tvShow.favourite ? (
             <Avatar sx={styles.avatar}>
               <FavoriteIcon />
             </Avatar>
           ) : null |
-          movie.playlist ? (
+          tvShow.playlist ? (
             <Avatar sx={styles.avatar}>
               <PlaylistIcon />
             </Avatar>
@@ -59,15 +59,15 @@ export default function MovieCard({ movie, action }) {
         }
         title={
           <Typography variant="h5" component="p">
-            {movie.title}{" "}
+            {tvShow.name}{" "}
           </Typography>
         }
       />
       <CardMedia
         sx={styles.media}
         image={
-          movie.poster_path
-            ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+          tvShow.poster_path
+            ? `https://image.tmdb.org/t/p/w500/${tvShow.poster_path}`
             : img
         }
       />
@@ -76,20 +76,20 @@ export default function MovieCard({ movie, action }) {
           <Grid item xs={6}>
             <Typography variant="h6" component="p">
               <CalendarIcon fontSize="small" />
-              {movie.release_date}
+              {tvShow.first_air_date}
             </Typography>
           </Grid>
           <Grid item xs={6}>
             <Typography variant="h6" component="p">
               <StarRateIcon fontSize="small" />
-              {"  "} {movie.vote_average}{" "}
+              {"  "} {tvShow.vote_count}{" "}
             </Typography>
           </Grid>
         </Grid>
       </CardContent>
       <CardActions disableSpacing>
-          {action(movie)}
-        <Link to={`/movies/${movie.id}`}>
+          {/* {action(tvShow)} */}
+        <Link to={`/tv/${tvShow.id}`}>
           <Button variant="outlined" size="medium" color="primary">
             More Info ...
           </Button>

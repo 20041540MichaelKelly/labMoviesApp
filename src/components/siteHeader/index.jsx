@@ -11,13 +11,14 @@ import Menu from "@mui/material/Menu";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { supabase } from "../../supabaseClient";
 
 const styles = {
   title: {
     flexGrow: 1,
   },
   appbar: {
-    // background: 'none',
+     background: 'orange',
   },
   // offset: theme.mixins.toolbar,
 };
@@ -32,14 +33,17 @@ const SiteHeader = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
   const menuOptions = [
-    { label: "Home", path: "/" },
-    { label: "Favorites", path: "/movies/favourites" },
-    { label: "Upcoming Movies", path: "/movies/upcoming" },
-    { label: "Movies Playlist", path: "/movies/playlist" },
-    { label: "Popular Movies", path: "/movies/popular" },
-    { label: "Now Playing", path: "/movies/playing" }
-  ];
-
+      { label: "Home", path: "/" },
+      { label: "Favorites", path: "/movies/favourites" },
+      { label: "Upcoming Movies", path: "/movies/upcoming" },
+      { label: "Movies Playlist", path: "/movies/playlist" },
+      { label: "Popular Movies", path: "/movies/popular" },
+      { label: "Now Playing", path: "/movies/playing" },
+      { label: "Famous People", path: "/person/popular" },
+      { label: "Actors", path: "/person/popular" },
+      { label: "TV Shows", path: "/tv/popular" }
+    ]
+  
   const handleMenuSelect = (pageURL) => {
     navigate(pageURL);
   };
@@ -106,15 +110,17 @@ const SiteHeader = () => {
                   {opt.label}
                 </Button>
               ))}
+              <Button
+              key="Sign Out" 
+              onClick={() => supabase.auth.signOut()} >
+                Sign Out</Button>
             </>
           )}
         </Toolbar>
       </AppBar>
       <Offset />
-
-      {/* <div className={classes.offset} /> */}
     </>
   );
-};
+}
 
 export default SiteHeader;

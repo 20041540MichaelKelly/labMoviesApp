@@ -3,9 +3,9 @@ import MovieHeader from "../headerMovie";
 import Grid from "@mui/material/Grid";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-import { getMovieImages } from "../../api/tmdb-api";
+import { getMovieImages } from "../../../api/tmdb-api";
 import { useQuery } from "react-query";
-import Spinner from '../spinner'
+import Spinner from '../../spinner'
 
 const styles = {
   gridListRoot: {
@@ -41,12 +41,13 @@ const TemplateMoviePage = ({ movie, children }) => {
       <Grid container spacing={5} style={{ padding: "15px" }}>
         <Grid item xs={3}>
           <div sx={styles.gridListRoot}>
-            <ImageList cols={1}>
+            <ImageList cols={3}>
               {images.map((image) => (
                 <ImageListItem
                   key={image.file_path}
                   sx={styles.gridListTile}
                   cols={1}
+                  row={1}
                 >
                   <img
                     src={`https://image.tmdb.org/t/p/w500/${image.file_path}`}
