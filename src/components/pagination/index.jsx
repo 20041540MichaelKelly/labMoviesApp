@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import PaginationItem from '@mui/material/PaginationItem';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { useEffect } from 'react';
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : 'orange',
@@ -26,6 +27,12 @@ function BasicPagination({pg}) {
     
       navigate(`/movies/page/${value}`)
     };
+
+    // useEffect(() => {
+    //     getPage();
+    //   }, []);
+
+      
 
     var pageNum = pg ? pg : page;
     
@@ -49,11 +56,6 @@ function BasicPagination({pg}) {
     <Grid item xs={2}>  
     </Grid>
    </Grid>
-
-
-
-
-
   );
 }
 
