@@ -1,5 +1,5 @@
 import React from "react";
-import PageTemplate from "../components/tvShows/templateTvShowListPage";
+import TvShowListPage from "../components/tvshows/templateTvShowListPage";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import { getTvShows } from "../api/tmdb-api";
@@ -29,7 +29,7 @@ import AddToFavouritesIcon from '../components/cardIcons/addToFavourites'
 //   condition: voteFilter,
 // };
 
- const HomePage = (props) => {
+ const TvShowPage = (props) => {
   const { data, error, isLoading, isError } = useQuery("tvShows", getTvShows);
 //   const { filterValues, setFilterValues, filterFunction } = useFiltering(
 //     [],
@@ -58,20 +58,16 @@ import AddToFavouritesIcon from '../components/cardIcons/addToFavourites'
 
   return (
     <>
-     <PageTemplate
+     <TvShowListPage
        title="Discover TV Shows"
        tvShows={tvShows}
     //    action={(tvShow) => {
     //      return <AddToFavouritesIcon movie={movie} />
     //    }}
      />
-      {/* <MovieFilterUI
-        onFilterValuesChange={changeFilterValues}
-        titleFilter={filterValues[0].value}
-        genreFilter={filterValues[1].value}
-      /> */}
+      
     </>
   );
 };
 
-export default HomePage;
+export default TvShowPage;

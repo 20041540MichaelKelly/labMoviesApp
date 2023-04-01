@@ -35,24 +35,10 @@ export default function SignUp() {
         }
       )
 
-   
-
-
-    
-  
-
-
-    // let { data: validEmails, error } = await supabase
-    // .from('authentication')
-    // .select('email')
-    // .eq('email', email);
-
-    console.log(errorMessage);
-
     if (error) {
         alert(error.message)
     } else {
-        <SuccessAlert />  
+        return <SuccessAlert />;
     }
    setLoading(false)
 }
@@ -129,7 +115,6 @@ export default function SignUp() {
           >
             Sign In
           </Button>
-          
         </Box>
       </Box>
     </Container>
