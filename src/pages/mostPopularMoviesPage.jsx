@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useQuery } from "react-query";
 import PageTemplate from '../components/movies/templateMovieListPage'
 import { getPopularMovies } from "../api/tmdb-api";
