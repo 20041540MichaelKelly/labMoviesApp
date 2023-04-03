@@ -16,7 +16,7 @@ import Alert from '@mui/material/Alert';
 
 
 export default function Auth() {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [email, setEmail] = useState('')
   const errorMessage = "";
 
@@ -31,23 +31,10 @@ export default function Auth() {
     password: formData.get("password"),
   })
 
-
-    // let { data: validEmails, error } = await supabase
-    // .from('authentication')
-    // .select('email')
-    // .eq('email', email);
-
-    console.log(errorMessage);
-
-    //loading(true)
-    //const { error } = await supabase.auth.signInWithOtp({ email })
-
-
     if (error) {
         alert(error.message)
-    } else {
-      alert('Check your email for the login link!')
-    }
+    } 
+
    setLoading(false)
 }
 
