@@ -1,4 +1,6 @@
 import truncate from "lodash/truncate";
+import { useState, useEffect } from 'react'
+import { supabase } from './supabaseClient'
 
 export function excerpt(string) {
   return truncate(string, {    
@@ -6,3 +8,4 @@ export function excerpt(string) {
     separator: /,?\.* +/, // separate by spaces, including preceding commas and periods
   });
 }
+
