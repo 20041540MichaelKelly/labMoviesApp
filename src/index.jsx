@@ -39,7 +39,6 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-      <SiteHeader />
           <MoviesContextProvider>
             <Routes>
               <Route path="/signup" element={<SignUp/>} />
@@ -55,6 +54,8 @@ const App = () => {
                 <Route path="/reviews/:id" element={<MovieReviewPage />} />
                 <Route path="/movies/favourites" element={<FavouriteMoviesPage />} />
                 <Route path="/movies/upcoming" element={<UpcomingMoviesPage />} />
+                <Route path="/movies/popular" element={<MostPopularMoviesPage />} />
+                <Route path="/" element={<HomePage />} />
                 <Route path="/movies/:id" element={<MoviePage />} />
                 <Route path="/movies/page/:page" element={<HomePage />} />
                 <Route path="*" element={<Navigate to="/" />} />
