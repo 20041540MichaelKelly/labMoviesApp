@@ -40,7 +40,8 @@ const SiteHeader = () => {
       { label: "Popular Movies", path: "/movies/popular" },
       { label: "Now Playing", path: "/movies/playing" },
       { label: "Actors", path: "/person/popular" },
-      { label: "TV Shows", path: "/tv/popular" }
+      { label: "TV Shows", path: "/tv/popular" },
+      { label: "Fantasy Movie", path: "/movies/fantasy" },
     ]
   
   const handleMenuSelect = (pageURL) => {
