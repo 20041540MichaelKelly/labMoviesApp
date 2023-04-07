@@ -63,9 +63,12 @@ const SimilarMoviesPage = (props) => {
     <PageTemplate
       title='Similar Movies'
       movies={displayedMovies}
-      action={(similar) => {
-        return <AddToPlaylistIcon movie={similar} />
+      actionFav={(similar) => {
+        return <AddToFavouritesIcon movie={similar} />
       }}
+      action={(similar) => {
+       return <AddToPlaylistIcon movie={similar} />
+     }}
     />
     <Pagination pg={ page }/>
     <MovieFilterUI

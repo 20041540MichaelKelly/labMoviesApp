@@ -16,6 +16,7 @@ import { Link } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import { MoviesContext } from "../../../contexts/moviesContext";
 import { useNavigate } from "react-router-dom";
+import { AvatarGroup } from "@mui/material";
 
 const styles = {
   card : {
@@ -30,12 +31,10 @@ const styles = {
   },
 };
 
-export default function MovieCard({ movie, action }) {
+export default function MovieCard({ movie, action, actionFav }) {
   const navigate = useNavigate();
  
-  
   const handleClick = (pageURL) => {
-  
     navigate(pageURL);
   };
   
@@ -55,19 +54,30 @@ export default function MovieCard({ movie, action }) {
   }
 
   return (
-    // <Link to={`/movies/${movie.id}`}>
-      <Card sx={styles.card} onClick={() => {handleClick(`/movies/${movie.id}`)}}>
-        <CardHeader
-        sx={styles.header}
+      <Card sx={styles.card}>
+        <CardHeader sx={styles.header}
         avatar={
-          movie.favourite ? (
+          movie.favourite & movie.playlist ? (
+            <AvatarGroup>
+            <Avatar sx={styles.avatar}>
+              <PlaylistIcon />
+            </Avatar>
             <Avatar sx={styles.avatar}>
               <FavoriteIcon />
             </Avatar>
+            </AvatarGroup>
           ) : null |
           movie.playlist ? (
+      
             <Avatar sx={styles.avatar}>
               <PlaylistIcon />
+            </Avatar>
+            
+          ): null | 
+          movie.favourite ? (
+            
+            <Avatar sx={styles.avatar}>
+              <FavoriteIcon />
             </Avatar>
           ) : null
         }
@@ -85,7 +95,7 @@ export default function MovieCard({ movie, action }) {
             : img
         }
       />
-      <CardContent>
+      <CardContent onClick={() => {handleClick(`/movies/${movie.id}`)}}>
         <Grid container>
           <Grid item xs={6}>
             <Typography variant="h6" component="p">
@@ -103,6 +113,7 @@ export default function MovieCard({ movie, action }) {
       </CardContent>
       <CardActions disableSpacing>
           {action(movie)}
+          {actionFav(movie)}
       </CardActions>
     </Card>
     

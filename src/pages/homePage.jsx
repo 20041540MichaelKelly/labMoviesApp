@@ -5,6 +5,7 @@ import Spinner from "../components/spinner";
 import { getMovies } from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
 import AddToFavouritesIcon from '../components/cardIcons/addToFavourites';
+import AddToPlaylistIcon from '../components/cardIcons/addToPlaylist';
 import { useParams } from "react-router-dom";
 import Pagination from "../components/pagination";
 
@@ -67,6 +68,9 @@ const HomePage = (props) => {
        title="Discover Movies"
        movies={displayedMovies}
        action={(movie) => {
+        return <AddToPlaylistIcon movie={movie} />
+      }}
+       actionFav={(movie) => {
          return <AddToFavouritesIcon movie={movie} />
        }}
      />

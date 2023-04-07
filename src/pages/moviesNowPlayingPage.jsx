@@ -12,6 +12,7 @@ import MovieFilterUI, {
   titleFilter,
   genreFilter,
 } from "../components/movies/movieFilterUI";
+import AddToFavouritesIcon from "../components/cardIcons/addToFavourites";
 
 const titleFiltering = {
   name: "title",
@@ -54,14 +55,19 @@ const MoviesNowPlayingPage = (props) => {
   const movies = data ? data.results : [];
   const displayedMovies = filterFunction(movies);
 
+  const urlValue = "/movies/playing/page/";
+
   return (
     <>
     <PageTemplate
       title='Upcoming Movies'
       movies={displayedMovies}
-      action={(movie) => {
-        return <AddToPlaylistIcon movie={movie} />
+      actionFav={(movie) => {
+        return <AddToFavouritesIcon movie={movie} />
       }}
+      action={(movie) => {
+       return <AddToPlaylistIcon movie={movie} />
+     }}
     />
     <Pagination urlValue = { urlValue } pg={ page }/>
     <MovieFilterUI

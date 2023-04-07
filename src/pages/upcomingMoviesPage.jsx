@@ -7,6 +7,7 @@ import Spinner from "../components/spinner";
 import useFiltering from "../hooks/useFiltering";
 import { useParams } from "react-router-dom";
 import Pagination from "../components/pagination";
+import AddToFavouritesIcon from '../components/cardIcons/addToFavourites';
 
 import MovieFilterUI, {
   titleFilter,
@@ -63,6 +64,9 @@ const UpcomingMoviesPage = (props) => {
       movies={displayedMovies}
       action={(movie) => {
         return <AddToPlaylistIcon movie={movie} />
+      }}
+      actionFav={(movie) => {
+        return <AddToFavouritesIcon movie={movie} />
       }}
     />
     <Pagination urlValue = { urlValue } pg={ page }/>

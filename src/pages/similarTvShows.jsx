@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import PageTemplate from '../components/tvshows/templateTvShowListPage'
 import { getSimilarTvShows } from "../api/tmdb-api";
 import AddToPlaylistIcon from '../components/cardIcons/addToPlaylist';
+import AddToFavouritesIcon from '../components/cardIcons/addToFavourites';
 import Spinner from "../components/spinner";
 import useFiltering from "../hooks/useFiltering";
 import Pagination from "../components/pagination";
@@ -63,9 +64,12 @@ const SimilarTvShowsPage = (props) => {
     <PageTemplate
       title='Similar TV Shows'
       tvShows={tvShows}
-    //   action={(similar) => {
-    //     return <AddToPlaylistIcon movie={similar} />
-    //   }}
+      actionFav={(tvShow) => {
+        return <AddToFavouritesIcon movie={tvShow} />
+      }}
+      action={(tvShow) => {
+       return <AddToPlaylistIcon movie={tvShow} />
+     }}
     />
       <Pagination pg={ page }/>
 

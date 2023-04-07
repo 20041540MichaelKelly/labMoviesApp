@@ -5,9 +5,9 @@ import Spinner from "../components/spinner";
 import { getTvShows } from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
 import AddToFavouritesIcon from '../components/cardIcons/addToFavourites';
+import AddToPlaylistIcon from '../components/cardIcons/addToPlaylist';
 import { useParams } from "react-router-dom";
 import Pagination from "../components/pagination";
-
 
 // import MovieFilterUI, {
 //   titleFilter,
@@ -66,9 +66,12 @@ import Pagination from "../components/pagination";
      <TvShowListPage
        title="Discover TV Shows"
        tvShows={tvShows}
-    //    action={(tvShow) => {
-    //      return <AddToFavouritesIcon movie={movie} />
-    //    }}
+       actionFav={(tvShow) => {
+         return <AddToFavouritesIcon movie={tvShow} />
+       }}
+       action={(tvShow) => {
+        return <AddToPlaylistIcon movie={tvShow} />
+      }}
      />
       <Pagination urlValue = { urlValue } pg={ page } />
     </>
