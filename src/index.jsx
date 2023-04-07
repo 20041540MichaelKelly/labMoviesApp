@@ -47,10 +47,10 @@ const App = () => {
                 <Route path="/tv/:id/similar" element={<SimilarTvShowsPage />} />
                 <Route path="/tv/:id" element={<TvShowDetails/>} />
                 <Route path="/tv/popular" element={<TvShowPage/>} />
-                
+                <Route path="/tv/popular/page/:page" element={<TvShowPage/>} />
                 <Route path="/person/:id" element={<ActorDetailsPage/>} />
                 <Route path="/person/popular" element={<ActorsPage/>} />
-
+                <Route path="/person/popular/page/:page" element={<ActorsPage/>} />
                 <Route path="/movies/fantasy" element={<FantasyMoviePage />} />
                 <Route path="/movies/:id/similar" element={<SimilarMoviesPage />} />
                 <Route path="/movies/playing" element={<MoviesNowPlayingPage />} />
@@ -59,7 +59,9 @@ const App = () => {
                 <Route path="/reviews/:id" element={<MovieReviewPage />} />
                 <Route path="/movies/favourites" element={<FavouriteMoviesPage />} />
                 <Route path="/movies/upcoming" element={<UpcomingMoviesPage />} />
+                <Route path="/movies/upcoming/page/:page" element={<UpcomingMoviesPage />} />
                 <Route path="/movies/popular" element={<MostPopularMoviesPage />} />
+                <Route path="/movies/popular/page/:page" element={<MostPopularMoviesPage />} />
                 <Route path="/" element={<HomePage />} />
                 <Route path="/movies/:id" element={<MoviePage />} />
                 <Route path="/movies/page/:page" element={<HomePage />} />

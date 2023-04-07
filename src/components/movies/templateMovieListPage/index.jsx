@@ -2,6 +2,10 @@ import React from "react";
 import Header from "../headerMovieList";
 import Grid from "@mui/material/Grid";
 import MovieList from "../movieList";
+import { ImageList } from "@mui/material";
+import {ImageListItem} from "@mui/material";
+import Paper from "@material-ui/core/Paper";
+import makeStyles from "@material-ui/core/styles/makeStyles";
 
 const styles = {
   root: { 
@@ -9,9 +13,19 @@ const styles = {
   }
 };
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    gridAutoFlow: "column",
+    gridTemplateColumns: "repeat(auto-fill,minmax(160px,1fr)) !important",
+    gridAutoColumns: "minmax(160px, 1fr)"
+  }
+}));
+
 function MovieListPageTemplate({ movies, title, action }) {
+  const classes = useStyles();
+
   return (
-    <Grid container sx={styles.root}>
+    <Grid container elevation={8} sx={classes.root}>
       <Grid item xs={12}>
         <Header title={title} />
       </Grid>

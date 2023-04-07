@@ -4,22 +4,20 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Slider from "@mui/material/Slider";
-import { v4 as uuidv4 } from 'uuid';
 import Alert from '@mui/material/Alert';
 import FormGroup from '@mui/material/FormGroup';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import SuccessAlert from "../../alerts/successAlert";
 
 export default function TemplateFantasyMoviePage() {
   const [loading, setLoading] = useState(false)
-  const [email, setEmail] = useState('')
   const errorMessage = "";
   const genres = ["comedy","horror","action","drama","fantasy","Romance","thriller"]
 
@@ -39,13 +37,12 @@ export default function TemplateFantasyMoviePage() {
                       }
                   )
 
-                        console.log(errorMessage);
 
     if (error) {
       return <h1>{error.message}</h1>;
 
     } else {
-        <SuccessAlert />    
+       return <Spinner />   ;
     }
    setLoading(false)
 
@@ -107,13 +104,12 @@ export default function TemplateFantasyMoviePage() {
             />
             </Grid>
             <Grid item xs={12}>
-            <Typography component="h5" fontWeight= 'bold' >Run Time</Typography>
+            <Typography component="h5" fontWeight= 'bold' >Run Time (mins)</Typography>
             <Slider
                 id="time"
                 name="time"
                 aria-label="Always visible"
                 defaultValue={75}
-                // getAriaValueText={valuetext}
                 step={5}
                 max={240}
                 fullwidth

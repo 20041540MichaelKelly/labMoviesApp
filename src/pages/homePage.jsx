@@ -59,6 +59,7 @@ const HomePage = (props) => {
 
   const movies = data ? data.results : [];
   const displayedMovies = filterFunction(movies);
+  const urlValue = "movies/page/"
 
   return (
     <>
@@ -69,7 +70,7 @@ const HomePage = (props) => {
          return <AddToFavouritesIcon movie={movie} />
        }}
      />
-     <Pagination pg={ page }/>
+     <Pagination urlValue = {urlValue} pg={ page }/>
       <MovieFilterUI
         onFilterValuesChange={changeFilterValues}
         titleFilter={filterValues[0].value}

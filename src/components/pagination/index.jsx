@@ -18,21 +18,15 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
   }));
 
-function BasicPagination({pg}) {
+function BasicPagination({ urlValue, pg }) {
     const navigate = useNavigate();
     const [page, setPage] = React.useState(1);
 
     const handleChange = (event, value) => {
       setPage(event.target.value)
     
-      navigate(`/movies/page/${value}`)
+      navigate(`${urlValue}${value}`)
     };
-
-    // useEffect(() => {
-    //     getPage();
-    //   }, []);
-
-      
 
     var pageNum = pg ? pg : page;
     
