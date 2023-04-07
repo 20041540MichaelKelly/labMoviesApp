@@ -66,14 +66,11 @@ export default function MovieCard({ movie, action, actionFav }) {
             </AvatarGroup>
           ) : null |
           movie.playlist ? (
-      
             <Avatar sx={styles.avatar}>
               <PlaylistIcon />
             </Avatar>
-            
           ): null | 
           movie.favourite ? (
-            
             <Avatar sx={styles.avatar}>
               <FavoriteIcon />
             </Avatar>

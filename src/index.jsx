@@ -10,6 +10,7 @@ import MoviePlaylistPage from "./pages/moviePlaylistPage";
 import MovieReviewPage from "./pages/movieReviewPage";
 import SiteHeader from './components/siteHeader';
 import MoviesContextProvider from "./contexts/moviesContext";
+import ActorsContextProvider from "./contexts/actorsContext";
 import AddMovieReviewPage from './pages/addMovieReviewPage';
 import UpcomingMoviesPage from './pages/upcomingMoviesPage';
 import MostPopularMoviesPage from './pages/mostPopularMoviesPage';
@@ -40,6 +41,7 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
           <MoviesContextProvider>
+          <ActorsContextProvider>
             <Routes>
               <Route path="/signup" element={<SignUp/>} />
               <Route path="/login" element={<Login/>} />
@@ -70,6 +72,7 @@ const App = () => {
                 <Route path="#" element={<Navigate to="/" />} />
               </Route>
             </Routes>
+            </ActorsContextProvider>
           </MoviesContextProvider>
       </BrowserRouter>
     <ReactQueryDevtools initialIsOpen={false} />

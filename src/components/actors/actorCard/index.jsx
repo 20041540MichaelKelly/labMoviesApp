@@ -11,9 +11,11 @@ import PlaylistIcon from "@mui/icons-material/PlaylistAdd";
 import CalendarIcon from "@mui/icons-material/CalendarTodayTwoTone";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import Grid from "@mui/material/Grid";
-import img from '../../../images/film-poster-placeholder.png'
-import { Link } from "react-router-dom";
+import img from '../../../images/film-poster-placeholder.png';
+import Avatar from "@mui/material/Avatar";
 import BadgeIcon from '@mui/icons-material/Badge';
+import { ActorsContext } from "../../../contexts/actorsContext";
+import AddReactionIcon from '@mui/icons-material/AddReaction';
 
 const styles = {
   card: { maxWidth: 345 },
@@ -24,11 +26,25 @@ const styles = {
 };
 
 export default function ActorCard({ actor, action }) {
+  const { favouriteActors, addToFavouriteActors } = useContext(ActorsContext);
+
+  if (favouriteActors.find((id) => id === actor.id)) {
+    actor.favourite= true;
+  } else {
+    actor.favourite = false
+  }
 
   return (
       <Card sx={styles.card}>
         <CardHeader
         sx={styles.header}
+        avatar={
+          actor.favourite ? (
+            <Avatar sx={styles.avatar}>
+              <AddReactionIcon />
+            </Avatar>
+          ) : null
+        }
         title={
           <Typography variant="h5" component="p">
             {actor.name}{" "}
@@ -60,11 +76,7 @@ export default function ActorCard({ actor, action }) {
         </Grid>
       </CardContent>
       <CardActions disableSpacing>
-          <Link to={`/person/${actor.id}`}>
-          <Button variant="outlined" size="medium" color="primary">
-           More Info ...
-        </Button>
-        </Link>
+          {action ? action(actor) : null} 
       </CardActions>
     </Card>
   );
