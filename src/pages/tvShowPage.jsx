@@ -4,8 +4,8 @@ import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import { getTvShows } from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
-import AddToFavouritesIcon from '../components/cardIcons/addToFavourites';
-import AddToPlaylistIcon from '../components/cardIcons/addToPlaylist';
+import AddToFavouritesIcon from '../components/cardIcons/addToFavouriteTvShows';
+import AddToPlaylistIcon from '../components/cardIcons/addToTvShowPlaylist';
 import { useParams } from "react-router-dom";
 import Pagination from "../components/pagination";
 
@@ -67,10 +67,10 @@ import Pagination from "../components/pagination";
        title="Discover TV Shows"
        tvShows={tvShows}
        actionFav={(tvShow) => {
-         return <AddToFavouritesIcon movie={tvShow} />
+         return <AddToFavouritesIcon tvShow={tvShow} />
        }}
        action={(tvShow) => {
-        return <AddToPlaylistIcon movie={tvShow} />
+        return <AddToPlaylistIcon tvShow={tvShow} />
       }}
      />
       <Pagination urlValue = { urlValue } pg={ page } />

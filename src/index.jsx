@@ -26,6 +26,9 @@ import Login from "./components/loginTemplate";
 import TvShowDetails from "./pages/tvShowDetails";
 import SimilarTvShowsPage from "./pages/similarTvShows";
 import FantasyMoviePage from "./pages/fantasyMoviePage";
+import TvShowContextProvider from "./contexts/tvShowContext";
+import FavouriteTvShowPage from "./pages/favouriteTvShowPage";
+import TvShowPlaylistPage from "./pages/tvShowPlaylistPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -43,10 +46,13 @@ const App = () => {
       <BrowserRouter>
           <MoviesContextProvider>
           <ActorsContextProvider>
+          <TvShowContextProvider>  
             <Routes>
               <Route path="/signup" element={<SignUp/>} />
               <Route path="/login" element={<Login/>} />
               <Route element={<PrivateRoute/>}>
+                <Route path="/tv/favourites" element={<FavouriteTvShowPage />} />
+                <Route path="/tv/playlist" element={<TvShowPlaylistPage />} />
                 <Route path="/tv/:id/similar" element={<SimilarTvShowsPage />} />
                 <Route path="/tv/:id" element={<TvShowDetails/>} />
                 <Route path="/tv/popular" element={<TvShowPage/>} />
@@ -74,6 +80,7 @@ const App = () => {
                 <Route path="#" element={<Navigate to="/" />} />
               </Route>
             </Routes>
+            </TvShowContextProvider>
             </ActorsContextProvider>
           </MoviesContextProvider>
       </BrowserRouter>

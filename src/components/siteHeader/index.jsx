@@ -43,6 +43,10 @@ const SiteHeader = () => {
       { label: "TV Shows", path: "/tv/popular" },
       { label: "Fantasy Movie", path: "/movies/fantasy" },
       { label: "Favourite Actors", path: "/person/favourites" },
+      { label: "TV Show Playlist", path: "/tv/playlist" },
+      { label: "TV Show Favourites", path: "/tv/favourites" },
+
+
     ]
   
   const handleMenuSelect = (pageURL) => {
