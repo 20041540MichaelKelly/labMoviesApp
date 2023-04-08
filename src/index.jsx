@@ -16,6 +16,7 @@ import UpcomingMoviesPage from './pages/upcomingMoviesPage';
 import MostPopularMoviesPage from './pages/mostPopularMoviesPage';
 import MoviesNowPlayingPage from './pages/moviesNowPlayingPage';
 import SimilarMoviesPage from './pages/similarMoviesPage';
+import FavouriteActorsPage from "./pages/favouriteActorsPage"; 
 import ActorsPage from './pages/actorsPage';
 import ActorDetailsPage from './pages/actorDetailsPage';
 import TvShowPage from './pages/tvShowPage';
@@ -50,6 +51,7 @@ const App = () => {
                 <Route path="/tv/:id" element={<TvShowDetails/>} />
                 <Route path="/tv/popular" element={<TvShowPage/>} />
                 <Route path="/tv/popular/page/:page" element={<TvShowPage/>} />
+                <Route path="/person/favourites" element={<FavouriteActorsPage/>} />
                 <Route path="/person/:id" element={<ActorDetailsPage/>} />
                 <Route path="/person/popular" element={<ActorsPage/>} />
                 <Route path="/person/popular/page/:page" element={<ActorsPage/>} />
