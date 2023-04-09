@@ -18,7 +18,12 @@ import Avatar from "@mui/material/Avatar";
  import { AvatarGroup } from "@mui/material";
 
 const styles = {
-  card: { maxWidth: 345 },
+  card : {
+    "&:hover": {
+      backgroundColor: "#FFD580",
+      cursor: "pointer"
+    }
+  },
   media: { height: 500 },
   avatar: {
     backgroundColor: "rgb(255, 0, 0)",

@@ -11,46 +11,40 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useEffect } from 'react';
 
 const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : 'orange',
-    ...theme.typography.body2,
+  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#62d71f',
+  ...theme.typography.body2,
     padding: theme.spacing(1),
     textAlign: 'center',
     color: theme.palette.text.secondary,
   }));
 
-function BasicPagination({ urlValue, pg }) {
-    const navigate = useNavigate();
-    const [page, setPage] = React.useState(1);
+export default function BasicPagination({ urlValue, pg }) {
+    var pageNum = pg ? pg : 1;
 
-    const handleChange = (event, value) => {
-      setPage(event.target.value)
-    
-      navigate(`${urlValue}${value}`)
+    const navigate = useNavigate();
+    const [page, setPage] = React.useState(Number(pageNum));
+
+    const handleChangePage = (event, newPage) => {
+      setPage(newPage);
+      navigate(`${urlValue}${newPage}`)
     };
 
-    var pageNum = pg ? pg : page;
     
   return (
-    <Grid container spacing={3}>
-        <Grid item xs={2}>
-        </Grid>
-    <Grid item xs={8}>
+    <Grid container spacing={2} sx={{py:2}}>
+      <Grid item xs={12} md={12}>
         <Item>
             <Typography>Page: {pageNum}</Typography>
-            <Pagination count={50} boundaryCount={10} page={pageNum} color="secondary" onChange={handleChange} 
-            renderItem={(item) => (
+            <Pagination count={35} boundaryCount={50} page={page} color="secondary" onChange={handleChangePage} 
+             renderItem={(item) => (
                 <PaginationItem
                   slots={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
                   {...item}
-                  onChange={handleChange}
-                />
-              )}/>
+                  onChange={handleChangePage}
+                  />
+               )}/> 
         </Item>
-    </Grid>
-    <Grid item xs={2}>  
-    </Grid>
+        </Grid>
    </Grid>
   );
 }
-
-export default BasicPagination;

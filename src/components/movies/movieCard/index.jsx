@@ -15,6 +15,8 @@ import Avatar from "@mui/material/Avatar";
 import { MoviesContext } from "../../../contexts/moviesContext";
 import { useNavigate } from "react-router-dom";
 import { AvatarGroup } from "@mui/material";
+import Box from '@mui/material/Box';
+
 
 const styles = {
   card : {
@@ -53,6 +55,7 @@ export default function MovieCard({ movie, action, actionFav }) {
 
   return (
       <Card sx={styles.card}>
+        <Box onClick={() => {handleClick(`/movies/${movie.id}`)}}>
         <CardHeader sx={styles.header}
         avatar={
           movie.favourite & movie.playlist ? (
@@ -90,7 +93,7 @@ export default function MovieCard({ movie, action, actionFav }) {
             : img
         }
       />
-      <CardContent onClick={() => {handleClick(`/movies/${movie.id}`)}}>
+      <CardContent>
         <Grid container>
           <Grid item xs={6}>
             <Typography variant="h6" component="p">
@@ -106,6 +109,7 @@ export default function MovieCard({ movie, action, actionFav }) {
           </Grid>
         </Grid>
       </CardContent>
+      </Box>
       <CardActions disableSpacing>
           {action ? action(movie) : null} 
           {actionFav ? actionFav(movie) : null}

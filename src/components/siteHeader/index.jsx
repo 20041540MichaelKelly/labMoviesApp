@@ -18,10 +18,20 @@ const styles = {
     flexGrow: 1,
   },
   appbar: {
-     background: 'orange',
+     background: '#62d71f',
   },
   // offset: theme.mixins.toolbar,
 };
+
+const StyledToolbar = styled(Toolbar)(({ theme }) => ({
+  alignItems: 'flex-start',
+  paddingTop: theme.spacing(1),
+  paddingBottom: theme.spacing(2),
+  // Override media queries injected by theme.mixins.toolbar
+  '@media all': {
+    minHeight: 128,
+  },
+}));
 
 const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
 
@@ -59,7 +69,7 @@ const SiteHeader = () => {
 
   return (
     <>
-      <AppBar sx={styles.appbar} position="fixed" elevation={0} color="primary">
+      <AppBar sx={styles.appbar} position="fixed" elevation={8} color="primary">
         <Toolbar>
           <Typography variant="h4" sx={styles.title}>
             TMDB Client
