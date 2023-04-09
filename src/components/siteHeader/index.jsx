@@ -148,7 +148,7 @@ const SiteHeader = () => {
                 aria-haspopup="true"
                 onClick={handleMenu}
                 color="contrast"
-                sx={{ mr: 2 }}
+                sx={{ mr: 2, color: "white" }}
               >
                 <PortraitIcon /> Actors
               </IconButton>
@@ -180,7 +180,7 @@ const SiteHeader = () => {
                 aria-haspopup="true"
                 aria-expanded={openMovie ? 'true' : undefined}
                 onClick={handleMovieClick}
-                sx={{ mr: 2 }}
+                sx={{ mr: 2, color: "white" }}
               >
                 <MovieIcon /> Movies
               </IconButton>
@@ -209,7 +209,8 @@ const SiteHeader = () => {
                 aria-haspopup="true"
                 aria-expanded={openTv ? 'true' : undefined}
                 onClick={handleTvClick}
-                sx={{ mr: 2 }}
+                sx={{ mr: 2, color: "white" }}
+                color="white"
               >
                 <LiveTvIcon /> TV
               </IconButton>
@@ -233,11 +234,13 @@ const SiteHeader = () => {
               </Menu>
               <IconButton
                 key="Home"
+                sx={{ mr: 2, color: "white"}}
                 onClick={() => navigate("/")} >
                 <HomeIcon /> Home
                </IconButton>
               <IconButton
                 key="Sign Out"
+                sx={{color:"white"}}
                 onClick={() => supabase.auth.signOut()} >
                 <LogoutIcon />Sign Out</IconButton>
             </>
