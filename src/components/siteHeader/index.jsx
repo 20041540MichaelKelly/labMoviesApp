@@ -12,53 +12,61 @@ import { useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { supabase } from "../../supabaseClient";
+import MovieIcon from '@mui/icons-material/Movie';
+import PortraitIcon from '@mui/icons-material/Portrait';
+import LiveTvIcon from '@mui/icons-material/LiveTv';
+import HomeIcon from '@mui/icons-material/Home';
+import LogoutIcon from '@mui/icons-material/Logout';
+
+
 
 const styles = {
   title: {
-    flexGrow: 1,
+    flexGrow: 5,
   },
   appbar: {
-     background: '#62d71f',
+    background: '#62d71f',
   },
   // offset: theme.mixins.toolbar,
 };
-
-const StyledToolbar = styled(Toolbar)(({ theme }) => ({
-  alignItems: 'flex-start',
-  paddingTop: theme.spacing(1),
-  paddingBottom: theme.spacing(2),
-  // Override media queries injected by theme.mixins.toolbar
-  '@media all': {
-    minHeight: 128,
-  },
-}));
 
 const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
 
 const SiteHeader = () => {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
+  const [tvAnchorEl, setTvAnchorEl] = useState(null);
+  const [movieAnchorEl, setMovieAnchorEl] = useState(null);
+
   const open = Boolean(anchorEl);
+  const openMovie = Boolean(movieAnchorEl);
+  const openTv = Boolean(tvAnchorEl);
+
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
-  const menuOptions = [
-      { label: "Home", path: "/" },
-      { label: "Favorites", path: "/movies/favourites" },
-      { label: "Upcoming Movies", path: "/movies/upcoming" },
-      { label: "Movies Playlist", path: "/movies/playlist" },
-      { label: "Popular Movies", path: "/movies/popular" },
-      { label: "Now Playing", path: "/movies/playing" },
-      { label: "Actors", path: "/person/popular" },
-      { label: "TV Shows", path: "/tv/popular" },
-      { label: "Fantasy Movie", path: "/movies/fantasy" },
-      { label: "Favourite Actors", path: "/person/favourites" },
-      { label: "TV Show Playlist", path: "/tv/playlist" },
-      { label: "TV Show Favourites", path: "/tv/favourites" },
+  const movieMenuOptions = [
+    { label: "Favorites", path: "/movies/favourites" },
+    { label: "Upcoming Movies", path: "/movies/upcoming" },
+    { label: "Movies Playlist", path: "/movies/playlist" },
+    { label: "Popular Movies", path: "/movies/popular" },
+    { label: "Now Playing", path: "/movies/playing" },
+    { label: "Fantasy Movie", path: "/movies/fantasy" }
+  ]
 
+  const actorMenuOptions = [
+    { label: "Favourite Actors", path: "/person/favourites" },
+    { label: "Actors", path: "/person/popular" }
+  ]
 
-    ]
-  
+  const tvMenuOptions = [
+    { label: "TV Shows", path: "/tv/popular" },
+    { label: "TV Show Playlist", path: "/tv/playlist" },
+    { label: "TV Show Favourites", path: "/tv/favourites" }
+  ]
+
+  const allMenuOptions = [...movieMenuOptions, ...actorMenuOptions, ...tvMenuOptions];
+
   const handleMenuSelect = (pageURL) => {
     navigate(pageURL);
   };
@@ -67,9 +75,34 @@ const SiteHeader = () => {
     setAnchorEl(event.currentTarget);
   };
 
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMovieClick = (event) => {
+    setMovieAnchorEl(event.currentTarget);
+  };
+
+  const handleTvClick = (event) => {
+    setTvAnchorEl(event.currentTarget);
+  };
+
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleMovieClose = () => {
+    setMovieAnchorEl(null);
+  };
+
+  const handleTvClose = () => {
+    setTvAnchorEl(null);
+  };
+
   return (
     <>
-      <AppBar sx={styles.appbar} position="fixed" elevation={8} color="primary">
+      <AppBar sx={styles.appbar} position="fixed" elevation={4} color="primary">
         <Toolbar>
           <Typography variant="h4" sx={styles.title}>
             TMDB Client
@@ -80,31 +113,25 @@ const SiteHeader = () => {
           {isMobile ? (
             <>
               <IconButton
+                id="basic-button"
                 aria-label="menu"
-                aria-controls="menu-appbar"
+                aria-controls={open ? 'basic-menu' : undefined}
                 aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-                size="large"
+                aria-expanded={open ? 'true' : undefined}
+                onClick={handleClick}
               >
                 <MenuIcon />
               </IconButton>
               <Menu
-                id="menu-appbar"
+                id="basic-menu"
                 anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
                 open={open}
-                onClose={() => setAnchorEl(null)}
+                onClose={handleClose}
+                MenuListProps={{
+                  'aria-labelledby': 'basic-button',
+                }}
               >
-                {menuOptions.map((opt) => (
+                {allMenuOptions.map((opt) => (
                   <MenuItem
                     key={opt.label}
                     onClick={() => handleMenuSelect(opt.path)}
@@ -116,19 +143,103 @@ const SiteHeader = () => {
             </>
           ) : (
             <>
-              {menuOptions.map((opt) => (
-                <Button
-                  key={opt.label}
-                  color="inherit"
-                  onClick={() => handleMenuSelect(opt.path)}
-                >
-                  {opt.label}
-                </Button>
-              ))}
-              <Button
-              key="Sign Out" 
-              onClick={() => supabase.auth.signOut()} >
-                Sign Out</Button>
+              <IconButton
+                aria-owns={open ? 'actor-menu' : null}
+                aria-haspopup="true"
+                onClick={handleMenu}
+                color="contrast"
+                sx={{ mr: 2 }}
+              >
+                <PortraitIcon /> Actors
+              </IconButton>
+
+              <Menu
+                id="actor-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                  'aria-labelledby': 'actor-button',
+                }}
+              >
+                {actorMenuOptions.map((opt) => (
+                  <MenuItem
+                    key={opt.label}
+                    color="inherit"
+                    onClick={() => handleMenuSelect(opt.path)}
+                  >
+                    {opt.label}
+                  </MenuItem>
+                ))}
+              </Menu>
+
+              <IconButton
+                id="movie-button"
+                aria-label="menu"
+                aria-controls={openMovie ? 'movie-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={openMovie ? 'true' : undefined}
+                onClick={handleMovieClick}
+                sx={{ mr: 2 }}
+              >
+                <MovieIcon /> Movies
+              </IconButton>
+              <Menu
+                id="movie-menu"
+                anchorEl={movieAnchorEl}
+                open={openMovie}
+                onClose={handleMovieClose}
+                MenuListProps={{
+                  'aria-labelledby': 'movie-button',
+                }}
+              >
+                {movieMenuOptions.map((opt) => (
+                  <MenuItem
+                    key={opt.label}
+                    onClick={() => handleMenuSelect(opt.path)}
+                  >
+                    {opt.label}
+                  </MenuItem>
+                ))}
+              </Menu>
+              <IconButton
+                id="tv-button"
+                aria-label="menu"
+                aria-controls={openTv ? 'tv-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={openTv ? 'true' : undefined}
+                onClick={handleTvClick}
+                sx={{ mr: 2 }}
+              >
+                <LiveTvIcon /> TV
+              </IconButton>
+              <Menu
+                id="tv-menu"
+                anchorEl={tvAnchorEl}
+                open={openTv}
+                onClose={handleTvClose}
+                MenuListProps={{
+                  'aria-labelledby': 'tv-button',
+                }}
+              >
+                {tvMenuOptions.map((opt) => (
+                  <MenuItem
+                    key={opt.label}
+                    onClick={() => handleMenuSelect(opt.path)}
+                  >
+                    {opt.label}
+                  </MenuItem>
+                ))}
+              </Menu>
+              <IconButton
+                key="Home"
+                onClick={() => navigate("/")} >
+                <HomeIcon /> Home
+               </IconButton>
+              <IconButton
+                key="Sign Out"
+                onClick={() => supabase.auth.signOut()} >
+                <LogoutIcon />Sign Out</IconButton>
             </>
           )}
         </Toolbar>
