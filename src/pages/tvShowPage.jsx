@@ -9,36 +9,50 @@ import AddToPlaylistIcon from '../components/cardIcons/addToTvShowPlaylist';
 import { useParams } from "react-router-dom";
 import Pagination from "../components/pagination";
 
-// import MovieFilterUI, {
-//   titleFilter,
-//   genreFilter,
-//   voteFilter,
-// } from "../components/movies/movieFilterUI";
+import TvShowFilterUI, {
+  titleFilter,
+  genreFilter,
+  voteFilter,
+  languageFilter,
+  productionCountryFilter
+} from "../components/tvshows/tvShowFilterUI";
 
-// const titleFiltering = {
-//   name: "title",
-//   value: "",
-//   condition: titleFilter,
-// };
-// const genreFiltering = {
-//   name: "genre",
-//   value: "0",
-//   condition: genreFilter,
-// };
+const titleFiltering = {
+  name: "title",
+  value: "",
+  condition: titleFilter,
+};
+const genreFiltering = {
+  name: "genre",
+  value: "0",
+  condition: genreFilter,
+};
 
-// const voteFiltering = {
-//   name: "vote",
-//   value: "0",
-//   condition: voteFilter,
-// };
+const voteFiltering = {
+  name: "vote",
+  value: "0",
+  condition: voteFilter,
+};
+
+const languageFiltering = {
+  name: "language",
+  value: "",
+  condition: languageFilter,
+};
+
+const productionCountryFiltering = {
+  name: "productionCountry",
+  value: "",
+  condition: productionCountryFilter,
+};
 
  const TvShowPage = (props) => {
   const { page } = useParams();
   const { data, error, isLoading, isError } = useQuery(["tvShows", { page: page }], getTvShows);
-//   const { filterValues, setFilterValues, filterFunction } = useFiltering(
-//     [],
-//     [titleFiltering, genreFiltering]
-//   );
+  const { filterValues, setFilterValues, filterFunction } = useFiltering(
+    [],
+    [titleFiltering, genreFiltering, voteFiltering, languageFiltering, productionCountryFiltering]
+  );
 
   if (isLoading) {
     return <Spinner />;
@@ -48,24 +62,31 @@ import Pagination from "../components/pagination";
     return <h1>{error.message}</h1>;
   }
 
-//   const changeFilterValues = (type, value) => {
-//     const changedFilter = { name: type, value: value };
-//     const updatedFilterSet =
-//       type === "title"
-//         ? [changedFilter, filterValues[1]]
-//         : [filterValues[0], changedFilter];
-//     setFilterValues(updatedFilterSet);
-//   };
+  const changeFilterValues = (type, value) => {
+    const changedFilter = { name: type, value: value };
+    const updatedFilterSet =
+      type === "title" ?
+        [changedFilter, filterValues[1], filterValues[2], filterValues[3], filterValues[4]] : null |
+          type === "genre" ?
+          [filterValues[0], changedFilter, filterValues[2], filterValues[3], filterValues[4]] : null |
+            type === "vote" ?
+            [filterValues[0], filterValues[1], changedFilter, filterValues[3], filterValues[4]] : null |
+              type === "language" ?
+              [filterValues[0], filterValues[1], filterValues[2], changedFilter, filterValues[4]] : null |
+              type === "productionCountry" ?
+              [filterValues[0], filterValues[1], filterValues[2], filterValues[3],changedFilter] : null
+    setFilterValues(updatedFilterSet);
+  };
 
   const tvShows = data ? data.results : [];
-  const urlValue = "/tv/popular/page/"
-  //const displayedMovies = filterFunction(movies);
+  const urlValue = "/tv/popular/page/";
+  const displayedTvShows = filterFunction(tvShows);
 
   return (
     <>
      <TvShowListPage
        title="Discover TV Shows"
-       tvShows={tvShows}
+       tvShows={displayedTvShows}
        actionFav={(tvShow) => {
          return <AddToFavouritesIcon tvShow={tvShow} />
        }}
@@ -74,6 +95,14 @@ import Pagination from "../components/pagination";
       }}
      />
       <Pagination urlValue = { urlValue } pg={ page } />
+      <TvShowFilterUI
+        onFilterValuesChange={changeFilterValues}
+        titleFilter={filterValues[0].value}
+        genreFilter={filterValues[1].value}
+        voteFilter={filterValues[2].value}
+        languageFilter={filterValues[3].value}
+        productionCountryFilter={filterValues[4].value}
+      />
     </>
   );
 };

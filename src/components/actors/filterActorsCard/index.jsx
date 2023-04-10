@@ -33,7 +33,7 @@ export default function FilterActorsCard(props) {
 
   const handleUserImput = (e, type, value) => {
     e.preventDefault();
-    props.onUserInput(type, value); 
+    props.onUserInput(type, value);
   };
 
   const handleTextChange = (e, props) => {
@@ -45,48 +45,49 @@ export default function FilterActorsCard(props) {
   };
 
   const genders = [{
-      "id":1, "gender": "Female"},
-      {"id":2, "gender": "Male"}]
+    "id": 1, "gender": "Female"
+  },
+  { "id": 2, "gender": "Male" }]
 
   return (
     <>
-    <Card sx={styles.root} variant="outlined">
-      <CardContent>
-        <Typography variant="h5" component="h1">
-          <FilterAltIcon fontSize="large" />
-          Filter the Actors.
-        </Typography>
-        <TextField
-          sx={styles.formControl}
-          id="filled-search"
-          label="Search field"
-          type="search"
-          value={props.nameFilter}
-          variant="filled"
-          onChange={handleTextChange}
-        />
-        <FormControl sx={styles.formControl}>
-          <InputLabel id="genre-label">Gender</InputLabel>
-          <Select
-            labelId="genre-label"
-            displayEmpty
-            id="genre-select"
-            value={props.genderFilter}
-            onChange={handleGenderChange}
-          >
-            {genders.map((gender) => {
-              return (
-                <MenuItem key={gender.id} value={gender.id}>
-                  {gender.gender}
-                </MenuItem>
-              );
-            })}
-          </Select>
-        </FormControl>
-      </CardContent>
-    </Card>
-    
-    <Card sx={styles.root} variant="outlined">
+      <Card sx={styles.root} variant="outlined">
+        <CardContent>
+          <Typography variant="h5" component="h1">
+            <FilterAltIcon fontSize="large" />
+            Filter the Actors.
+          </Typography>
+          <TextField
+            sx={styles.formControl}
+            id="filled-search"
+            label="Search field"
+            type="search"
+            value={props.nameFilter}
+            variant="filled"
+            onChange={handleTextChange}
+          />
+          <FormControl sx={styles.formControl}>
+            <InputLabel id="genre-label">Gender</InputLabel>
+            <Select
+              labelId="genre-label"
+              displayEmpty
+              id="genre-select"
+              value={props.genderFilter}
+              onChange={handleGenderChange}
+            >
+              {genders.map((gender) => {
+                return (
+                  <MenuItem key={gender.id} value={gender.id}>
+                    {gender.gender}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
+        </CardContent>
+      </Card>
+
+      <Card sx={styles.root} variant="outlined">
         <CardContent>
           <Typography variant="h5" component="h1">
             <SortIcon fontSize="large" />
@@ -94,6 +95,6 @@ export default function FilterActorsCard(props) {
           </Typography>
         </CardContent>
       </Card>
-      </>
+    </>
   );
 }

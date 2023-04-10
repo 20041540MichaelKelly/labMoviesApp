@@ -46,7 +46,7 @@ const App = () => {
       <BrowserRouter>
           <MoviesContextProvider>
           <ActorsContextProvider>
-          <TvShowContextProvider>  
+          <TvShowContextProvider> 
             <Routes>
               <Route path="/signup" element={<SignUp/>} />
               <Route path="/login" element={<Login/>} />

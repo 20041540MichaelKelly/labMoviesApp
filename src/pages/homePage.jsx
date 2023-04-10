@@ -72,7 +72,7 @@ const HomePage = (props) => {
 
   const movies = data ? data.results : [];
   const displayedMovies = filterFunction(movies);
-  const urlValue = "movies/page/"
+  const urlValue = "movies/page/";
 
   return (
     <>

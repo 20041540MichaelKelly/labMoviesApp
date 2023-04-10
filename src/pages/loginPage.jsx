@@ -9,12 +9,19 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import ErrorAlert from "../components/alerts/errorAlert";
+import SuccessAlert from "../components/alerts/successAlert";
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 export default function Auth() {
   const [loading, setLoading] = useState(true)
   const [email, setEmail] = useState('')
-  const errorMessage = "";
-
+  const [errorMsg, setErrorMsg] = useState('')
+  const [successMsg, setSucceessMsg] = useState(false)
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -26,15 +33,20 @@ export default function Auth() {
     password: formData.get("password"),
   })
 
-    if (error) {
-        alert(error.message)
-    } 
+    if(error) {
+      setErrorMsg(error.message)
+    }else{
+      setSucceessMsg(true)
+    }
 
    setLoading(false)
 }
 
   return (
     <Container component="main" maxWidth="xs">
+        { errorMsg ? <ErrorAlert message={errorMsg} /> : <></>}
+        { successMsg ? <SuccessAlert /> : <></> }
+
       <Box
         sx={{  
           marginTop: 8,
@@ -94,5 +106,6 @@ export default function Auth() {
         </Box>
       </Box>
     </Container>
+
   );
 };
