@@ -1,10 +1,18 @@
-import React from "react";  
+import React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import SortIcon from '@mui/icons-material/Sort';
+import { getGenres } from "../../../api/tmdb-api";
+import { useQuery } from "react-query";
+import Spinner from '../../spinner';
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import Rating from '@mui/material/Rating';
 
 const styles = {
   root: {
@@ -36,6 +44,10 @@ export default function FilterActorsCard(props) {
     handleUserImput(e, "gender", e.target.value);
   };
 
+  const genders = [{
+      "id":1, "gender": "Female"},
+      {"id":2, "gender": "Male"}]
+
   return (
     <>
     <Card sx={styles.root} variant="outlined">
@@ -57,14 +69,15 @@ export default function FilterActorsCard(props) {
           <InputLabel id="genre-label">Gender</InputLabel>
           <Select
             labelId="genre-label"
+            displayEmpty
             id="genre-select"
             value={props.genderFilter}
             onChange={handleGenderChange}
           >
-            {actors.map((gender) => {
+            {genders.map((gender) => {
               return (
                 <MenuItem key={gender.id} value={gender.id}>
-                  {genre.name}
+                  {gender.gender}
                 </MenuItem>
               );
             })}
