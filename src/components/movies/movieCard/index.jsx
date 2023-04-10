@@ -16,15 +16,11 @@ import { MoviesContext } from "../../../contexts/moviesContext";
 import { useNavigate } from "react-router-dom";
 import { AvatarGroup } from "@mui/material";
 import Box from '@mui/material/Box';
+import ReusableStyles from "../../../reusableStyles";
 
 
 const styles = {
-  card : {
-    "&:hover": {
-      backgroundColor: "#FFD580",
-      cursor: "pointer"
-    },
-},
+ 
   media: { height: 500 },
   avatar: {
     backgroundColor: "rgb(255, 0, 0)",
@@ -54,7 +50,7 @@ export default function MovieCard({ movie, action, actionFav }) {
   }
 
   return (
-      <Card sx={styles.card}>
+      <Card sx={ReusableStyles.cardHover}>
         <Box onClick={() => {handleClick(`/movies/${movie.id}`)}}>
         <CardHeader sx={styles.header}
         avatar={

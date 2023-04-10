@@ -16,6 +16,7 @@ import Avatar from "@mui/material/Avatar";
 import BadgeIcon from '@mui/icons-material/Badge';
 import { ActorsContext } from "../../../contexts/actorsContext";
 import AddReactionIcon from '@mui/icons-material/AddReaction';
+import ReusableStyles from "../../../reusableStyles";
 
 const styles = {
   card: { maxWidth: 345 },
@@ -35,7 +36,7 @@ export default function ActorCard({ actor, action }) {
   }
 
   return (
-      <Card sx={styles.card}>
+      <Card sx={ReusableStyles.cardHover}>
         <CardHeader
         sx={styles.header}
         avatar={

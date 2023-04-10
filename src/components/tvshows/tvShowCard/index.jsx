@@ -16,14 +16,10 @@ import { Link } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
  import { TvShowContext } from "../../../contexts/tvShowContext";
  import { AvatarGroup } from "@mui/material";
+import ReusableStyles from "../../../reusableStyles";
+ 
 
 const styles = {
-  card : {
-    "&:hover": {
-      backgroundColor: "#FFD580",
-      cursor: "pointer"
-    }
-  },
   media: { height: 500 },
   avatar: {
     backgroundColor: "rgb(255, 0, 0)",
@@ -48,7 +44,7 @@ export default function TvShowCard({ tvShow, actionFav, action }) {
   }
 
   return (
-      <Card sx={styles.card}>
+      <Card sx={ReusableStyles.cardHover}>
         <CardHeader
         sx={styles.header}
         avatar={

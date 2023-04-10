@@ -34,7 +34,7 @@ export default function BasicPagination({ urlValue, pg }) {
       <Grid item xs={12} md={12}>
         <Item>
             <Typography>Page: {pageNum}</Typography>
-            <Pagination count={35} boundaryCount={5} page={page} color="secondary" onChange={handleChangePage} 
+            <Pagination count={35} boundaryCount={35} page={page} color="secondary" onChange={handleChangePage} 
              renderItem={(item) => (
                 <PaginationItem
                   slots={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
