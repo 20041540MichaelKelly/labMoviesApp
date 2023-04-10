@@ -22,7 +22,12 @@ const styles =  {
       "& > * ": {
         width: "100%",
       },
-    },
+    },cardHover : {
+      "&:hover": {
+        backgroundColor: "#DAF7A6",
+        cursor: "pointer"
+      },
+    }
   };
   export default styles
   

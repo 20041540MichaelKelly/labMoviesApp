@@ -70,7 +70,7 @@ const FavouriteMoviesPage = () => {
       <PageTemplate
         title="Favourite Movies"
         movies={displayMovies}
-        action={(movie) => {
+        actionFav={(movie) => {
           return (
             <>
               <RemoveFromFavourites movie={movie} />
@@ -78,6 +78,7 @@ const FavouriteMoviesPage = () => {
             </>
           );
         }}
+        action={null}
       />
       <MovieFilterUI
         onFilterValuesChange={changeFilterValues}

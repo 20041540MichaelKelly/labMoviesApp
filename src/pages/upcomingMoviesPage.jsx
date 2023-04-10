@@ -5,6 +5,9 @@ import { getUpcomingMovies } from "../api/tmdb-api";
 import AddToPlaylistIcon from '../components/cardIcons/addToPlaylist';
 import Spinner from "../components/spinner";
 import useFiltering from "../hooks/useFiltering";
+import { useParams } from "react-router-dom";
+import Pagination from "../components/pagination";
+import AddToFavouritesIcon from '../components/cardIcons/addToFavourites';
 
 import MovieFilterUI, {
   titleFilter,
@@ -23,7 +26,9 @@ const genreFiltering = {
 };
 
 const UpcomingMoviesPage = (props) => {
-  const { data, error, isLoading, isError } = useQuery("discover", getUpcomingMovies);
+  const { page } = useParams();
+
+  const { data, error, isLoading, isError } = useQuery(["upcoming", { page: page }],getUpcomingMovies);
 
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],
@@ -50,6 +55,8 @@ const UpcomingMoviesPage = (props) => {
   const movies = data ? data.results : [];
   const displayedMovies = filterFunction(movies);
 
+  const urlValue = "/movies/upcoming/page/"
+
   return (
     <>
     <PageTemplate
@@ -58,7 +65,11 @@ const UpcomingMoviesPage = (props) => {
       action={(movie) => {
         return <AddToPlaylistIcon movie={movie} />
       }}
+      actionFav={(movie) => {
+        return <AddToFavouritesIcon movie={movie} />
+      }}
     />
+    <Pagination urlValue = { urlValue } pg={ page }/>
     <MovieFilterUI
         onFilterValuesChange={changeFilterValues}
         titleFilter={filterValues[0].value}

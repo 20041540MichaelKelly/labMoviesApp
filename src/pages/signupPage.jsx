@@ -82,7 +82,6 @@ export default function SignUp() {
                 autoFocus
             />
             </Grid>
-            </Grid>
           <TextField
             margin="normal"
             required
@@ -103,10 +102,6 @@ export default function SignUp() {
             id="password"
             autoComplete="current-password"
           />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
           <Button
             type="submit"
             fullWidth
@@ -115,6 +110,7 @@ export default function SignUp() {
           >
             Sign In
           </Button>
+          </Grid>
         </Box>
       </Box>
     </Container>

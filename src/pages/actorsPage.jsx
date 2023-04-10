@@ -4,6 +4,9 @@ import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import { getActors } from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
+import { useParams } from "react-router-dom";
+import Pagination from "../components/pagination";
+import AddToFavouriteActorsIcon from '../components/cardIcons/addToFavouriteActors';
 
 import ActorFilterUI, {
   nameFilter
@@ -17,7 +20,9 @@ const nameFiltering = {
 
 
 const ActorsPage = (props) => {
-  const { data, error, isLoading, isError } = useQuery("actors", getActors);
+  const { page } = useParams();
+
+  const { data, error, isLoading, isError } = useQuery(["actors", { page: page }], getActors);
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],
     [nameFiltering]
@@ -42,13 +47,18 @@ const ActorsPage = (props) => {
 
   const actors = data ? data.results : [];
   const displayedActors = filterFunction(actors);
+  const urlValue = "/person/popular/page/"
 
   return (
     <>
      <PageTemplate
        title="Famous People"
        actors={displayedActors}
+       action={(actor) => {
+        return <AddToFavouriteActorsIcon actor={actor} />
+      }}
      />
+      <Pagination urlValue = { urlValue } pg={ page }/>
        <ActorFilterUI
         onFilterValuesChange={changeFilterValues}
         nameFilter={filterValues[0].value}

@@ -62,9 +62,6 @@ const MovieDetails = ( {movie}) => {
   }
 
   const casts = data.cast
-
-  console.log(casts)
-
   return (
     <>
       <Typography variant="h5" component="h3">

@@ -4,7 +4,10 @@ import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import { getTvShows } from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
-import AddToFavouritesIcon from '../components/cardIcons/addToFavourites'
+import AddToFavouritesIcon from '../components/cardIcons/addToFavouriteTvShows';
+import AddToPlaylistIcon from '../components/cardIcons/addToTvShowPlaylist';
+import { useParams } from "react-router-dom";
+import Pagination from "../components/pagination";
 
 // import MovieFilterUI, {
 //   titleFilter,
@@ -30,7 +33,8 @@ import AddToFavouritesIcon from '../components/cardIcons/addToFavourites'
 // };
 
  const TvShowPage = (props) => {
-  const { data, error, isLoading, isError } = useQuery("tvShows", getTvShows);
+  const { page } = useParams();
+  const { data, error, isLoading, isError } = useQuery(["tvShows", { page: page }], getTvShows);
 //   const { filterValues, setFilterValues, filterFunction } = useFiltering(
 //     [],
 //     [titleFiltering, genreFiltering]
@@ -54,6 +58,7 @@ import AddToFavouritesIcon from '../components/cardIcons/addToFavourites'
 //   };
 
   const tvShows = data ? data.results : [];
+  const urlValue = "/tv/popular/page/"
   //const displayedMovies = filterFunction(movies);
 
   return (
@@ -61,11 +66,14 @@ import AddToFavouritesIcon from '../components/cardIcons/addToFavourites'
      <TvShowListPage
        title="Discover TV Shows"
        tvShows={tvShows}
-    //    action={(tvShow) => {
-    //      return <AddToFavouritesIcon movie={movie} />
-    //    }}
+       actionFav={(tvShow) => {
+         return <AddToFavouritesIcon tvShow={tvShow} />
+       }}
+       action={(tvShow) => {
+        return <AddToPlaylistIcon tvShow={tvShow} />
+      }}
      />
-      
+      <Pagination urlValue = { urlValue } pg={ page } />
     </>
   );
 };

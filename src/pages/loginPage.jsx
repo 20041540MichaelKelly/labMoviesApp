@@ -1,42 +1,3 @@
-// import { useState, useEffect } from 'react'
-// import { supabase } from '../supabaseClient'
-// import Auth from '../components/loginTemplate'
-// import Account from '../components/accountSetup'
-// import Home from './homePage'
-// import SignUp from './signupPage'
-// import { useNavigate, Navigate } from "react-router-dom";
-// import MostPopularMoviesPage from './mostPopularMoviesPage'
-// import SiteHeader from '../components/siteHeader'
-
-// function login() {
-//   const [session, setSession] = useState(null)
-//   const [user, setUser] = useState(null)
-
-
-//   useEffect(() => {
-//     supabase.auth.getSession().then(({ data: { session } }) => {
-//       setSession(session)
-//     })
-
-//     supabase.auth.onAuthStateChange((_event, session) => {
-//       setSession(session)
-//     })
-
-//     supabase.auth.getUser(({ data: { user } }) => {
-//       setUser(user)
-//     })
-
-//   }, []) 
-
-//   return(
-//     <div className="container" style={{ padding: '50px 0 100px 0' }}>
-//       {!session ? <Auth /> : <Home /> }
-//     </div>
-//   ) 
-// }
-
-// export default login;
-
 import { useState } from 'react';
 import { supabase } from '../supabaseClient';
 import Button from "@mui/material/Button";
@@ -48,9 +9,6 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-
-
-
 
 export default function Auth() {
   const [loading, setLoading] = useState(true)

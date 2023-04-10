@@ -4,7 +4,6 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import CardHeader from "@mui/material/CardHeader";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import PlaylistIcon from "@mui/icons-material/PlaylistAdd";
@@ -12,30 +11,26 @@ import CalendarIcon from "@mui/icons-material/CalendarTodayTwoTone";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import Grid from "@mui/material/Grid";
 import img from '../../../images/film-poster-placeholder.png'
-import { Link } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import { MoviesContext } from "../../../contexts/moviesContext";
 import { useNavigate } from "react-router-dom";
+import { AvatarGroup } from "@mui/material";
+import Box from '@mui/material/Box';
+import ReusableStyles from "../../../reusableStyles";
+
 
 const styles = {
-  card : {
-    "&:hover": {
-      backgroundColor: "#FFD580",
-      cursor: "pointer"
-    },
-},
+ 
   media: { height: 500 },
   avatar: {
     backgroundColor: "rgb(255, 0, 0)",
   },
 };
 
-export default function MovieCard({ movie, action }) {
+export default function MovieCard({ movie, action, actionFav }) {
   const navigate = useNavigate();
  
-  
   const handleClick = (pageURL) => {
-  
     navigate(pageURL);
   };
   
@@ -55,19 +50,28 @@ export default function MovieCard({ movie, action }) {
   }
 
   return (
-    // <Link to={`/movies/${movie.id}`}>
-      <Card sx={styles.card} onClick={() => {handleClick(`/movies/${movie.id}`)}}>
-        <CardHeader
-        sx={styles.header}
+      <Card sx={ReusableStyles.cardHover}>
+        <Box onClick={() => {handleClick(`/movies/${movie.id}`)}}>
+        <CardHeader sx={styles.header}
         avatar={
-          movie.favourite ? (
+          movie.favourite & movie.playlist ? (
+            <AvatarGroup>
+            <Avatar sx={styles.avatar}>
+              <PlaylistIcon />
+            </Avatar>
             <Avatar sx={styles.avatar}>
               <FavoriteIcon />
             </Avatar>
+            </AvatarGroup>
           ) : null |
           movie.playlist ? (
             <Avatar sx={styles.avatar}>
               <PlaylistIcon />
+            </Avatar>
+          ): null | 
+          movie.favourite ? (
+            <Avatar sx={styles.avatar}>
+              <FavoriteIcon />
             </Avatar>
           ) : null
         }
@@ -101,8 +105,10 @@ export default function MovieCard({ movie, action }) {
           </Grid>
         </Grid>
       </CardContent>
+      </Box>
       <CardActions disableSpacing>
-          {action(movie)}
+          {action ? action(movie) : null} 
+          {actionFav ? actionFav(movie) : null}
       </CardActions>
     </Card>
     

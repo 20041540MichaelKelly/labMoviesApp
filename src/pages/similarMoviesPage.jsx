@@ -6,6 +6,7 @@ import { getSimilarMovies } from "../api/tmdb-api";
 import AddToPlaylistIcon from '../components/cardIcons/addToPlaylist';
 import Spinner from "../components/spinner";
 import useFiltering from "../hooks/useFiltering";
+import Pagination from "../components/pagination";
 
 import MovieFilterUI, {
   titleFilter,
@@ -25,9 +26,10 @@ const genreFiltering = {
 
 const SimilarMoviesPage = (props) => {
   const { id } = useParams();
+  const { page } = useParams();
 
   const { data: similar, error, isLoading, isError } = useQuery(
-    ["similar", { id: id }],
+    ["similar", { id: id , page: page }],
     getSimilarMovies
   );
 
@@ -61,10 +63,14 @@ const SimilarMoviesPage = (props) => {
     <PageTemplate
       title='Similar Movies'
       movies={displayedMovies}
-      action={(similar) => {
-        return <AddToPlaylistIcon movie={similar} />
+      actionFav={(similar) => {
+        return <AddToFavouritesIcon movie={similar} />
       }}
+      action={(similar) => {
+       return <AddToPlaylistIcon movie={similar} />
+     }}
     />
+    <Pagination pg={ page }/>
     <MovieFilterUI
         onFilterValuesChange={changeFilterValues}
         titleFilter={filterValues[0].value}

@@ -11,49 +11,61 @@ import PlaylistIcon from "@mui/icons-material/PlaylistAdd";
 import CalendarIcon from "@mui/icons-material/CalendarTodayTwoTone";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import Grid from "@mui/material/Grid";
-import img from '../../../images/film-poster-placeholder.png'
+import img from '../../../images/film-poster-placeholder.png';
 import { Link } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
-// import { MoviesContext } from "../../../contexts/moviesContext";
+ import { TvShowContext } from "../../../contexts/tvShowContext";
+ import { AvatarGroup } from "@mui/material";
+import ReusableStyles from "../../../reusableStyles";
+ 
 
 const styles = {
-  card: { maxWidth: 345 },
   media: { height: 500 },
   avatar: {
     backgroundColor: "rgb(255, 0, 0)",
   },
 };
 
-export default function TvShowCard({ tvShow, action }) {
-//   const { favourites, addToFavourites } = useContext(MoviesContext);
-//   const { playlist, addToPlaylist } = useContext(MoviesContext);
+export default function TvShowCard({ tvShow, actionFav, action }) {
+  const { favouriteTvShows, addToFavourites} = useContext(TvShowContext);
+  const { tvShowPlaylist, addToPlaylist } = useContext(TvShowContext);
 
 
-//   if (favourites.find((id) => id === tvShow.id)) {
-//     tvShow.favourite = true;
-//   } else {
-//     tvShow.favourite = false
-//   }
+  if (favouriteTvShows.find((id) => id === tvShow.id)) {
+    tvShow.favourite = true;
+  } else {
+    tvShow.favourite = false
+  }
 
-//   if (playlist.find((id) => id === tvShow.id)) {
-//     tvShow.playlist = true;
-//   } else {
-//     tvShow.playlist = false
-//   }
+  if (tvShowPlaylist.find((id) => id === tvShow.id)) {
+    tvShow.playlist = true;
+  } else {
+    tvShow.playlist = false
+  }
 
   return (
-      <Card sx={styles.card}>
+      <Card sx={ReusableStyles.cardHover}>
         <CardHeader
         sx={styles.header}
         avatar={
-          tvShow.favourite ? (
+          tvShow.favourite & tvShow.playlist ? (
+            <AvatarGroup>
+            <Avatar sx={styles.avatar}>
+              <PlaylistIcon />
+            </Avatar>
             <Avatar sx={styles.avatar}>
               <FavoriteIcon />
             </Avatar>
+            </AvatarGroup>
           ) : null |
           tvShow.playlist ? (
             <Avatar sx={styles.avatar}>
               <PlaylistIcon />
+            </Avatar>
+          ): null | 
+          tvShow.favourite ? (
+            <Avatar sx={styles.avatar}>
+              <FavoriteIcon />
             </Avatar>
           ) : null
         }
@@ -88,12 +100,8 @@ export default function TvShowCard({ tvShow, action }) {
         </Grid>
       </CardContent>
       <CardActions disableSpacing>
-          {/* {action(tvShow)} */}
-        <Link to={`/tv/${tvShow.id}`}>
-          <Button variant="outlined" size="medium" color="primary">
-            More Info ...
-          </Button>
-        </Link>
+          {action ? action(tvShow) : null} 
+          {actionFav ? actionFav(tvShow) : null}
       </CardActions>
     </Card>
   );
