@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import PageTemplate from "../components/movies/templateMovieListPage";
+import PageTemplate from "../components/homePageSetup/homePageTemplate";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import { getMovies } from "../api/tmdb-api";
@@ -86,7 +86,6 @@ const HomePage = (props) => {
           return <AddToFavouritesIcon movie={movie} />
         }}
       />
-      <Pagination urlValue={urlValue} pg={page} />
       <MovieFilterUI
         onFilterValuesChange={changeFilterValues}
         titleFilter={filterValues[0].value}
