@@ -7,6 +7,7 @@ import AddToPlaylistIcon from '../components/cardIcons/addToPlaylist';
 import Spinner from "../components/spinner";
 import useFiltering from "../hooks/useFiltering";
 import Pagination from "../components/pagination";
+import AddToFavouritesIcon from "../components/cardIcons/addToFavourites";
 
 import MovieFilterUI, {
   titleFilter,

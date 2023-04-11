@@ -5,8 +5,12 @@ import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 
-export default function ErrorAlert({ message}) {
+export default function ErrorAlert({ message }) {
   const [open, setOpen] = useState(true);
+
+  const handleClose = async (event) => {
+    setOpen(false)
+  }
 
   return (
     <div sx={{ width: '100%' }} spacing={2}>
@@ -17,9 +21,8 @@ export default function ErrorAlert({ message}) {
               aria-label="close"
               color="inherit"
               size="small"
-              onClick={() => {
-                setOpen(false);
-              }}
+              onClick={handleClose}
+              
             >
               <CloseIcon fontSize="inherit" />
             </IconButton>

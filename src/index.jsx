@@ -29,6 +29,7 @@ import FantasyMoviePage from "./pages/fantasyMoviePage";
 import TvShowContextProvider from "./contexts/tvShowContext";
 import FavouriteTvShowPage from "./pages/favouriteTvShowPage";
 import TvShowPlaylistPage from "./pages/tvShowPlaylistPage";
+import UpdateUser from "./components/userAccount/updateUser";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -51,6 +52,7 @@ const App = () => {
               <Route path="/signup" element={<SignUp/>} />
               <Route path="/login" element={<Login/>} />
               <Route element={<PrivateRoute/>}>
+                <Route path="/update" element={<UpdateUser/>} />  
                 <Route path="/tv/favourites" element={<FavouriteTvShowPage />} />
                 <Route path="/tv/playlist" element={<TvShowPlaylistPage />} />
                 <Route path="/tv/:id/similar" element={<SimilarTvShowsPage />} />

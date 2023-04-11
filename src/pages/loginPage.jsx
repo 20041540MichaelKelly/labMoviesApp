@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { supabase } from '../supabaseClient';
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -11,11 +11,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import ErrorAlert from "../components/alerts/errorAlert";
 import SuccessAlert from "../components/alerts/successAlert";
-import Snackbar from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert';
-import AlertTitle from '@mui/material/AlertTitle';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
+import ForgotEmailModal from "../components/userAccount/forgotEmailModal"
 
 export default function Auth() {
   const [loading, setLoading] = useState(true)
@@ -23,32 +19,60 @@ export default function Auth() {
   const [errorMsg, setErrorMsg] = useState('')
   const [successMsg, setSucceessMsg] = useState(false)
 
+  const [showMessage, setShowMessage] = useState(false);
+useEffect(()=>{
+   if(errorMsg){
+      setShowMessage(true);
+   }
+},[errorMsg])
+
+{showMessage ? <ErrorAlert message={errorMsg} />: ""}
+
   const handleSubmit = async (event) => {
     event.preventDefault()
 
-   const formData = new FormData(event.currentTarget);
-  
-  const { data: validEmails, error, isError, isLoading } = await supabase.auth.signInWithPassword({
-    email: formData.get("email"),
-    password: formData.get("password"),
-  })
+    const formData = new FormData(event.currentTarget);
 
-    if(error) {
+    const { data: validEmails, error, isError, isLoading } = await supabase.auth.signInWithPassword({
+      email: formData.get("email"),
+      password: formData.get("password"),
+    })
+
+    if (error) {
       setErrorMsg(error.message)
-    }else{
+      return(errorMsg ? <ErrorAlert message={errorMsg} /> : <></>)
+
+    } else {
       setSucceessMsg(true)
     }
 
-   setLoading(false)
-}
+    setLoading(false)
+
+  }
+
+
+  const handleForgotPassword = async(event)=> {
+    event.preventDefault();
+    return(<ForgotEmailModal/>)
+
+    // const { data: validEmails, error, isError, isLoading } = await supabase.auth.resetPasswordForEmail(email, {
+    //   redirectTo: 'https://lab-movies-4l3vfheg6-20041540michaelkelly.vercel.app/update',
+    // })
+    // error ? setErrorMsg(error.message) : setSucceessMsg(true) 
+
+    
+  }
+
+  // if(errorMsg) {
+  //   return(<ErrorAlert message={errorMsg} /> )
+  //  } 
+  
 
   return (
     <Container component="main" maxWidth="xs">
-        { errorMsg ? <ErrorAlert message={errorMsg} /> : <></>}
-        { successMsg ? <SuccessAlert /> : <></> }
-
+      {showMessage ? <ErrorAlert message={errorMsg} /> : <></>}
       <Box
-        sx={{  
+        sx={{
           marginTop: 8,
           display: "flex",
           flexDirection: "column",
@@ -93,12 +117,12 @@ export default function Auth() {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
+              <Link variant="body2" onClick={handleForgotPassword}>
+                {"Forgot password?"}
               </Link>
             </Grid>
             <Grid item>
-              <Link href= "/signup" variant="body2">
+              <Link href="/signup" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>

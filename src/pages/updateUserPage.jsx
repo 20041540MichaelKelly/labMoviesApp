@@ -1,16 +1,6 @@
 import { useState } from 'react';
 import { supabase } from '../supabaseClient';
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import Alert from '@mui/material/Alert';
-import SignUpForm from '../components/userAccount/signUpForm';
+import UpdateUser from '../components/userAccount/updateUser';
 
 export default function SignUp() {
   const [loading, setLoading] = useState(false)
@@ -45,8 +35,6 @@ export default function SignUp() {
 }
 
   return (
-    <Container component="main" maxWidth="xs">
-      <SignUpForm />
-    </Container>
+    <UpdateUser />
   );
 };

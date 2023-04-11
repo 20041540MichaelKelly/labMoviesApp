@@ -13,8 +13,7 @@ import TvShowFilterUI, {
   titleFilter,
   genreFilter,
   voteFilter,
-  languageFilter,
-  productionCountryFilter
+  languageFilter
 } from "../components/tvshows/tvShowFilterUI";
 
 const titleFiltering = {
@@ -40,18 +39,12 @@ const languageFiltering = {
   condition: languageFilter,
 };
 
-const productionCountryFiltering = {
-  name: "productionCountry",
-  value: "",
-  condition: productionCountryFilter,
-};
-
  const TvShowPage = (props) => {
   const { page } = useParams();
   const { data, error, isLoading, isError } = useQuery(["tvShows", { page: page }], getTvShows);
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],
-    [titleFiltering, genreFiltering, voteFiltering, languageFiltering, productionCountryFiltering]
+    [titleFiltering, genreFiltering, voteFiltering, languageFiltering]
   );
 
   if (isLoading) {
@@ -73,8 +66,6 @@ const productionCountryFiltering = {
             [filterValues[0], filterValues[1], changedFilter, filterValues[3], filterValues[4]] : null |
               type === "language" ?
               [filterValues[0], filterValues[1], filterValues[2], changedFilter, filterValues[4]] : null |
-              type === "productionCountry" ?
-              [filterValues[0], filterValues[1], filterValues[2], filterValues[3],changedFilter] : null
     setFilterValues(updatedFilterSet);
   };
 
@@ -101,7 +92,6 @@ const productionCountryFiltering = {
         genreFilter={filterValues[1].value}
         voteFilter={filterValues[2].value}
         languageFilter={filterValues[3].value}
-        productionCountryFilter={filterValues[4].value}
       />
     </>
   );

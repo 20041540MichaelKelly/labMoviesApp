@@ -4,7 +4,7 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import CardHeader from "@mui/material/CardHeader";
-import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import PlaylistIcon from "@mui/icons-material/PlaylistAdd";
@@ -17,6 +17,7 @@ import BadgeIcon from '@mui/icons-material/Badge';
 import { ActorsContext } from "../../../contexts/actorsContext";
 import AddReactionIcon from '@mui/icons-material/AddReaction';
 import ReusableStyles from "../../../reusableStyles";
+import { useNavigate } from "react-router-dom";
 
 const styles = {
   card: { maxWidth: 345 },
@@ -28,6 +29,11 @@ const styles = {
 
 export default function ActorCard({ actor, action }) {
   const { favouriteActors, addToFavouriteActors } = useContext(ActorsContext);
+  const navigate = useNavigate();
+
+  const handleClick = (pageURL) => {
+    navigate(pageURL);
+  };
 
   if (favouriteActors.find((id) => id === actor.id)) {
     actor.favourite= true;
@@ -37,6 +43,7 @@ export default function ActorCard({ actor, action }) {
 
   return (
       <Card sx={ReusableStyles.cardHover}>
+        <Box onClick={() => {handleClick(`/person/${actor.id}`)}}>
         <CardHeader
         sx={styles.header}
         avatar={
@@ -79,6 +86,7 @@ export default function ActorCard({ actor, action }) {
       <CardActions disableSpacing>
           {action ? action(actor) : null} 
       </CardActions>
-    </Card>
+      </ Box>
+    </Card> 
   );
 }

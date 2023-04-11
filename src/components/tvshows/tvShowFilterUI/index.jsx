@@ -21,14 +21,6 @@ export const languageFilter = function (tvShow, value) {
   return tvShow.original_language.toLowerCase().search(value.toLowerCase()) !== -1;
 };
 
-export const productionCountryFilter = function (tvShow, value) {
-    var diffCoutries = "";
-    tvShow.origin_country.forEach(element => {
-        diffCoutries = element
-    });
-
-    return diffCoutries.toLowerCase().search(value.toLowerCase()) !== -1 
-  };
 
 const TvShowFilterUI = ({ onFilterValuesChange, titleFilter, genreFilter, voteFilter, languageFilter, productionCountryFilter}) => {
 const [drawerOpen, setDrawerOpen] = useState(false);
@@ -54,7 +46,6 @@ const [drawerOpen, setDrawerOpen] = useState(false);
           genreFilter={genreFilter}
           voteFilter={voteFilter}
           languageFilter={languageFilter}
-          productionCountryFilter={productionCountryFilter}
         />
       </Drawer>
     </>

@@ -62,10 +62,6 @@ export default function FilterTvShowCard(props) {
         handleUserImput(e, "language", e.target.value);
     };
 
-    const handleProductionCountryChange = (e) => {
-        handleUserImput(e, "productionCountries", e.target.value);
-    };
-
     const handleVoteChange = (e, props) => {
         handleUserImput(e, "vote", e.target.value);
         setVote(e.target.value);
