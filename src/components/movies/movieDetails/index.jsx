@@ -15,7 +15,6 @@ import Spinner from '../../spinner';
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import CardActions from "@mui/material/CardActions";
-import Stack from '@mui/material/Stack';
 import { useNavigate } from "react-router-dom";
 
 const styles = {
@@ -37,8 +36,6 @@ const styles = {
     right: 2,
   },
 };
-
-//TODO: Could the below paper component be minimised out into it's own componenet
 
 const MovieDetails = ( {movie}) => {
   const [drawerOpen, setDrawerOpen] = useState(false); // New
@@ -109,6 +106,9 @@ const MovieDetails = ( {movie}) => {
             Similar Movies ...
           </Button>
         </Link>
+          <Button onClick={()=>{handleClick(`/reviews/form/${movie.id}`)}} variant="outlined" size="medium" color="primary">
+            Create Review ...
+          </Button>
         </CardActions>
       </Paper>
       <Fab    

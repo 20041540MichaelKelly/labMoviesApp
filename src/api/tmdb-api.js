@@ -84,6 +84,17 @@ export const getMovies = ({ queryKey }) => {
       });
   };
 
+  export const postMovieReviews = ({data}) => {
+    return fetch(
+      `https://api.themoviedb.org/3/movie/${id}/reviews?api_key=${import.meta.env.VITE_TMDB_KEY}`
+        , {
+          method: 'POST',
+      
+      body: JSON.stringify({data})
+    }).then(res => res.json())
+      .then(res => console.log(res));
+  };
+
   export const getUpcomingMovies = ({queryKey}) => {
     const [, pagePart] = queryKey;
     const { page } = pagePart;
@@ -193,6 +204,14 @@ export const getMovies = ({ queryKey }) => {
     const { id } = idPart;
     return fetch(
       `https://api.themoviedb.org/3/person/${id}?api_key=${import.meta.env.VITE_TMDB_KEY}`
+    ).then(res => res.json());
+  };
+
+  export const getActorCredits = ({ queryKey }) => {
+    const [, idPart] = queryKey;
+    const { id } = idPart;
+    return fetch(
+      `https://api.themoviedb.org/3/person/${id}/movie_credits?api_key=${import.meta.env.VITE_TMDB_KEY}`
     ).then(res => res.json());
   };
 
