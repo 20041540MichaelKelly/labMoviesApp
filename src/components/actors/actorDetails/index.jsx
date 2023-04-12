@@ -9,7 +9,7 @@ import ImageListItem from "@mui/material/ImageListItem";
 import img from '../../../images/film-poster-placeholder.png';
 import Image from "mui-image";
 import { useNavigate } from "react-router-dom";
-
+import ReusableStyles from "../../../reusableStyles";
 
 const ActorDetails = ({ actor }) => {
   const navigate = useNavigate();
@@ -54,7 +54,7 @@ const ActorDetails = ({ actor }) => {
       <ImageList sx={{ height: 700, my:2, mx:2}}
         variant="woven" cols={3} gap={8}>
         {credits.map((item) => (
-          <ImageListItem key={item.poster_path} cols={item.cols || 1} rows={item.rows || 1}>
+          <ImageListItem sx={ReusableStyles.cardHover} key={item.poster_path} cols={item.cols || 1} rows={item.rows || 1}>
             <Image
               {...srcset(item.poster_path
                 ? `https://image.tmdb.org/t/p/w500/${item.poster_path}`

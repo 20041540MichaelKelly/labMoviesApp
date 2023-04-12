@@ -11,8 +11,39 @@ import ratings from "./ratingCategories";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import { supabase } from "../../supabaseClient";
+import { makeStyles } from "@material-ui/core/styles";
+
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    marginTop: theme.spacing(2),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  form: {
+    width: "100%",
+    "& > * ": {
+      marginTop: theme.spacing(2),
+    },
+  },
+  textField: {
+    width: "40ch",
+  },
+  submit: {
+    marginRight: theme.spacing(2),
+  },
+  snack: {
+     width: "50%",
+     "& > * ": {
+       width: "100%",
+     },
+   },
+}));
 
 const ReviewForm = ({ movie }) => {
+  const classes = useStyles();
+
   // const defaultValues = {
   //   author: "",
   //   review: "",
@@ -39,28 +70,29 @@ const ReviewForm = ({ movie }) => {
     navigate(`/movies/${movie.id}`);
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
 
     const formData = new FormData(event.currentTarget);
 
-    const {  error } = await supabase.from("reviews")
-            .insert(
-                      {   
-                        movieId: movie.id, 
-                        rating: formData.get("rating"),
-                        review: formData.get("review"),
-                        author: formData.get("author"),
-                      }
-                  )
+    const { error } = supabase.from("reviews")
+      .insert(
+        {
+          movieId: movie.id,
+          rating: formData.get("rating"),
+          content: formData.get("content"),
+          author: formData.get("author"),
+        }
+      )
 
-                  if (error) {
-                    return <h1>{error.message}</h1>;
-              
-                  } else {
-                    setOpen(true);
-                  }
-                  
-                }
+    if (error) {
+      return <h1>{error.message}</h1>;
+    } else {
+      setOpen(true);
+    }
+
+    
+
+  }
 
   return (
     <Box component="div" sx={styles.root}>
@@ -83,51 +115,51 @@ const ReviewForm = ({ movie }) => {
           </Typography>
         </Alert>
       </Snackbar>
-      <Box component="form" onSubmit={handleSubmit} noValidate>
-      
-            <TextField
-              sx={{ width: "40ch" }}
-              variant="outlined"
-              margin="normal"
-              required
-              id="author"
-              name="author"
-              label="Author's name"
-              autoFocus
-            />
-       
-            <TextField
-            name="review"
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              label="Review text"
-              id="review"
-              multiline
-              minRows={10}
-            />
-          
-        
+      <Box component="form" onSubmit={handleSubmit} validate="true">
 
-        
-            <TextField
-              name="rating"
-              id="rating"
-              select
-              variant="outlined"
-              label="Rating Select"
-              value={rating}
-              onChange={handleRatingChange}
-              helperText="Don't forget your rating"
-            >
-              {ratings.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-        
+        <TextField
+          sx={{ width: "40ch" }}
+          variant="outlined"
+          margin="normal"
+          required
+          id="author"
+          name="author"
+          label="Author's name"
+          autoFocus
+        />
+
+        <TextField
+          name="content"
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          label="Review text"
+          id="review"
+          multiline
+          minRows={10}
+        />
+
+
+
+
+        <TextField
+          name="rating"
+          id="rating"
+          select
+          variant="outlined"
+          label="Rating Select"
+          value={rating}
+          onChange={handleRatingChange}
+          helperText="Don't forget your rating"
+        >
+          {ratings.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+
 
         <Box sx={styles.buttons}>
           <Button

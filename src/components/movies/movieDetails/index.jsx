@@ -16,6 +16,12 @@ import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import CardActions from "@mui/material/CardActions";
 import { useNavigate } from "react-router-dom";
+import ImageList from "@mui/material/ImageList";
+import ImageListItem from "@mui/material/ImageListItem";
+import img from '../../../images/film-poster-placeholder.png';
+import Image from "mui-image";
+import Card from "@mui/material/Card";
+import ReusableStyles from "../../../reusableStyles";
 
 const styles = {
   chipSet: {
@@ -53,15 +59,26 @@ const MovieDetails = ( {movie}) => {
   if (isLoading) {
     return <Spinner />;
   }
-
+  
   if (isError) {
-    return <h1>{error.message}</h1>;
+    return <ErrorAlert message={error.message} />
   }
 
-  const casts = data.cast
+  const credits = data ? data.cast : [];
+
+  function srcset(image, size, rows = 1, cols = 1) {
+    return {
+      src: `${image}?w=${size * cols}&h=${size * rows}&fit=crop&auto=format`,
+      srcSet: `${image}?w=${size * cols}&h=${size * rows
+        }&fit=crop&auto=format&dpr=2 2x`,
+    };
+  }
+  
   return (
     <>
-      <Typography variant="h5" component="h3">
+        <Card sx={{ boxShadow: 3, my:2, mx:2 }}>
+
+      <Typography variant="h5" component="h3" sx={{fontWeight: 'bold'}}>
         Overview
       </Typography>
 
@@ -79,16 +96,6 @@ const MovieDetails = ( {movie}) => {
           </li>
         ))}
       </Paper>
-      <Paper component="ul" sx={styles.chipSet} >
-        <li>
-          <Chip label="Cast" sx={styles.chipLabel} color="primary" />
-        </li>
-        {casts.map((c) => (
-          <li key={c.name}>
-              <Chip label={c.name} onClick={() => {handleClick(`/person/${c.id}`)}} />
-          </li>
-        ))}
-      </Paper>
       <Paper component="ul" sx={styles.chipSet}>
         <Chip icon={<AccessTimeIcon />} label={`${movie.runtime} min.`} />
         <Chip
@@ -97,7 +104,7 @@ const MovieDetails = ( {movie}) => {
         />
         <Chip
           icon={<StarRate />}
-          label={`${movie.vote_average} (${movie.vote_count}`}
+          label={`${movie.vote_average} (${movie.vote_count})`}
         />
         <Chip label={`Released: ${movie.release_date}`} />
         <CardActions disableSpacing>
@@ -110,7 +117,36 @@ const MovieDetails = ( {movie}) => {
             Create Review ...
           </Button>
         </CardActions>
-      </Paper>
+        </Paper>
+
+      <Typography variant="h5" component="h3" sx={{fontWeight: 'bold'}}>
+        Status
+      </Typography>
+
+      <Typography variant="h6" component="p" >
+        {movie.status}
+      </Typography>
+      </Card>
+      <Card sx={{ my:2, mx:2}}>
+    <Typography variant="h5" component="h3" sx={{fontWeight: 'bold'}}>
+        Cast
+      </Typography>
+    <ImageList sx={{ height: 700, my:2, mx:2}}
+      variant="woven" cols={3} gap={8}>
+      {credits.map((item) => (
+        <ImageListItem sx={ReusableStyles.cardHover} key={item.profile_path} cols={item.cols || 1} rows={item.rows || 1}>
+          <Image
+            {...srcset(item.profile_path
+              ? `https://image.tmdb.org/t/p/w500/${item.profile_path}`
+              : img, 121, item.rows, item.cols)}
+            alt={item.title}
+            loading="lazy"
+            onClick={() => { handleClick(`/person/${item.id}`) }}
+          />
+        </ImageListItem>
+      ))}
+      </ImageList>
+      </Card>
       <Fab    
         color="secondary"
         variant="extended"

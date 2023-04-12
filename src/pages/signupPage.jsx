@@ -3,6 +3,7 @@ import { supabase } from '../supabaseClient';
 import Container from "@mui/material/Container";
 import Alert from '@mui/material/Alert';
 import SignUpForm from '../components/userAccount/signUpForm';
+import SuccessAlert from '../components/alerts/successAlert'
 
 export default function SignUp() {
   const [loading, setLoading] = useState(false)
@@ -39,6 +40,7 @@ export default function SignUp() {
   return (
     <Container component="main" maxWidth="xs">
       <SignUpForm />
+    
     </Container>
   );
 };

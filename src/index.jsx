@@ -8,7 +8,7 @@ import MoviePage from "./pages/movieDetailsPage";
 import FavouriteMoviesPage from "./pages/favouriteMoviesPage";
 import MoviePlaylistPage from "./pages/moviePlaylistPage";
 import MovieReviewPage from "./pages/movieReviewPage";
-import SiteHeader from './components/siteHeader';
+import ShowSiteHeader from './components/showSiteHeader';
 import MoviesContextProvider from "./contexts/moviesContext";
 import ActorsContextProvider from "./contexts/actorsContext";
 import AddMovieReviewPage from './pages/addMovieReviewPage';
@@ -51,7 +51,7 @@ const App = () => {
               <Routes>
                 <Route path="/signup" element={<SignUp />} />
                 <Route path="/login" element={<Login />} />
-                <Route element={<PrivateRoute />}>
+                 <Route element={<PrivateRoute />  }>
                   <Route path="/update" element={<UpdateUser />} />
                   <Route path="/tv/favourites" element={<FavouriteTvShowPage />} />
                   <Route path="/tv/playlist" element={<TvShowPlaylistPage />} />
@@ -80,7 +80,7 @@ const App = () => {
                   <Route path="/movies/page/:page" element={<HomePage />} />
                   <Route path="*" element={<Navigate to="/" />} />
                   <Route path="#" element={<Navigate to="/" />} />
-                </Route>
+                </Route> 
               </Routes>
             </TvShowContextProvider>
           </ActorsContextProvider>
