@@ -30,6 +30,8 @@ import TvShowContextProvider from "./contexts/tvShowContext";
 import FavouriteTvShowPage from "./pages/favouriteTvShowPage";
 import TvShowPlaylistPage from "./pages/tvShowPlaylistPage";
 import UpdateUser from "./components/userAccount/updateUser";
+import DisplayFantasyMoviePage from "./pages/displayFantasyMoviePage";
+import FantasyMovieDetailsPage from "./pages/fantasyMovieDetailsPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -63,7 +65,10 @@ const App = () => {
                   <Route path="/person/:id" element={<ActorDetailsPage />} />
                   <Route path="/person/popular" element={<ActorsPage />} />
                   <Route path="/person/popular/page/:page" element={<ActorsPage />} />
-                  <Route path="/movies/fantasy" element={<FantasyMoviePage />} />
+                  <Route path="/movies/fantasy/:id" element={<FantasyMovieDetailsPage />} />
+
+                  <Route path="/movies/fantasy" element={<DisplayFantasyMoviePage />} />
+                  <Route path="/movies/createfantasy" element={<FantasyMoviePage />} />
                   <Route path="/movies/:id/similar" element={<SimilarMoviesPage />} />
                   <Route path="/movies/playing" element={<MoviesNowPlayingPage />} />
                   <Route path="/movies/playing/page/:page" element={<MoviesNowPlayingPage />} />

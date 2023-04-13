@@ -40,7 +40,7 @@ export default function SignUp() {
 
     const formData = new FormData(event.currentTarget);
 
-    const { data: validateEmail, errorEmail } = await supabase
+    const { data: validateEmail} = await supabase
       .from('profiles')
       .select()
       .eq('email', formData.get("email"))
@@ -55,9 +55,6 @@ export default function SignUp() {
   }
 
   const handleSubmit = async (formData) => {
-  //  event.preventDefault()
-
-    //const formData = new FormData(event.currentTarget);
 
     const { data, error } = await supabase.auth.signUp(
       {
