@@ -4,8 +4,6 @@ __Name:__ [Michael Kelly 20041540]
 
 ## Overview.
 
-[A bullet-point list of the features developed for the React SPA app (new/modified ones only for the Movies app),]
-
 + Feature Login.
 + Feature Signup. 
 + Feature Protected Routes.
@@ -39,10 +37,6 @@ __Name:__ [Michael Kelly 20041540]
 + Feature Used a bucket for the image in supabase and triggers to update profiles account when user creates an account.
 
 ## Feature Design.
-
-[ For each feature listed in the overview, show a screenshot(s) of its UI layout (use appropriate magnification for accessibility). Include captions with the images.]
-
-e.g. 
 
 ### Login feature.
 
@@ -179,8 +173,6 @@ The stories that I created for the assignmenet where:
 
 ### Authentication.
 
-[ List all the routes in your app and highlight those that are protected/private (require authentication).]
-
 + /login - Login page for the user to login with email and password,
 + /signup - Allow the user to create an account,
 + / (Protected) - List of 20  movies from the Discover endpoint,
@@ -217,15 +209,14 @@ The stories that I created for the assignmenet where:
 I am using Supabase for Authentication and to store fantasy movies and reviews that the user enters. Auth table cannot be quiered in the sense to check if an email exists already so to bypass this I created a trigger that would allow me to update a table called profiles wih the data that the user used to sign up. The profiles table is then queried for the email that has been entered. If successful the user will get an email asking to approve authencation. Once a user is signed in. The user can access all aspects of the app but if the user is not signed in then they will only hve login nd signup available to them as the rest are protected routes, that check to ensure that there is a valid session.
 
 ### Supabase (if relevant)
-[ Include a screenshot(s) from your Supabase account that verifies its use for this app. ]
-I am using Supabase for Authentication and to store fantasy movies and reviews that the user enters. The tables that are being used are (Auth, profiles (which is  updated by a trigger when entry added to Auth) Fantasy movies and reviews). I am also using a bucket to store the image that is uploaded for the fantasy movie and then the name is being stored in the fantasy movie table and the image is displayed back to the use by calling the supabase.getPublicUrl(image). below are screenshots of the tables.
+I am using Supabase for Authentication and to store fantasy movies and reviews that the user enters. The tables that are being used are (Auth, profiles (which is  updated by a trigger when entry added to Auth) Fantasy movies and reviews). I am also using a bucket to store the image that is uploaded for the fantasy movie and then the name is being stored in the fantasy movie table and the image is displayed back to the use by calling the supabase.getPublicUrl(image). 
 
 
 
 ## Deployment (if relevant).
-
+Website Deployed: https://lab-movies-2fd81sh4q-20041540michaelkelly.vercel.app/
 Credientials that are authorised:
-email: johndoe@gmail.com ; Password: secret123
+email: johndoe@gmail.com  Password: secret123
 
 
 ## Persistence (if relevant).
