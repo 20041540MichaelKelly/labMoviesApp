@@ -51,7 +51,7 @@ const handleErrorClose = async (event) => {
 
     const formData = new FormData(event.currentTarget);
 
-    const { data: validEmails, error, isError, isLoading } = await supabase.auth.signInWithPassword({
+    const { error} = await supabase.auth.signInWithPassword({
       email: formData.get("email"),
       password: formData.get("password"),
     })
@@ -64,27 +64,7 @@ const handleErrorClose = async (event) => {
       navigate(<HomePage />)
     }
 
-    setLoading(false)
-
   }
-
-
-  const handleForgotPassword = async(event)=> {
-    event.preventDefault();
-    return(<ForgotEmailModal/>)
-
-    // const { data: validEmails, error, isError, isLoading } = await supabase.auth.resetPasswordForEmail(email, {
-    //   redirectTo: 'https://lab-movies-4l3vfheg6-20041540michaelkelly.vercel.app/update',
-    // })
-    // error ? setErrorMsg(error.message) : setSucceessMsg(true) 
-
-    
-  }
-
-  // if(errorMsg) {
-  //   return(<ErrorAlert message={errorMsg} /> )
-  //  } 
-  
 
   return (
     <Container component="main" maxWidth="xs">
@@ -168,10 +148,6 @@ const handleErrorClose = async (event) => {
             id="password"
             autoComplete="current-password"
           />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
           <Button
             type="submit"
             fullWidth
@@ -180,18 +156,11 @@ const handleErrorClose = async (event) => {
           >
             Sign In
           </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link variant="body2" onClick={handleForgotPassword}>
-                {"Forgot password?"}
-              </Link>
-            </Grid>
             <Grid item>
               <Link href="/signup" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
-          </Grid>
         </Box>
       </Box>
     </Container>
