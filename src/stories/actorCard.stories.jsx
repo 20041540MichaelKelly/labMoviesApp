@@ -28,10 +28,10 @@ export const Basic = () => {
 Basic.storyName = "Default";
 
 export const Exceptional = () => {
-  const sampleNoPoster = { ...SampleActor, poster_path: undefined };
+  const sampleNoPoster = { ...SampleActor, profile_path: undefined };
   return (
     <ActorCard
-      tvShow={sampleNoPoster}
+      actor={sampleNoPoster}
       action={(actor) => <AddToFavouritesIcon actor={actor} />}
       taging={(actor) => null}
     />
