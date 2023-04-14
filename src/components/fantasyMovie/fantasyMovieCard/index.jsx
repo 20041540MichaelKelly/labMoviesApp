@@ -10,10 +10,7 @@ import CalendarIcon from "@mui/icons-material/CalendarTodayTwoTone";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import Grid from "@mui/material/Grid";
 import img from '../../../images/film-poster-placeholder.png'
-import Avatar from "@mui/material/Avatar";
-import { MoviesContext } from "../../../contexts/moviesContext";
 import { useNavigate } from "react-router-dom";
-import { AvatarGroup } from "@mui/material";
 import Box from '@mui/material/Box';
 import ReusableStyles from "../../../reusableStyles";
 import { supabase } from "../../../supabaseClient";
@@ -33,11 +30,9 @@ export default function FantasyMovieCard({ movie }) {
         navigate(pageURL);
     };
 
-    const pathToImage = movie.image
-     const imageUrl = pathToImage ? movie.image.split('\\').pop() : ""; //double dash becuse it thinks it an escape if not
+     const imageUrl = movie.image ? movie.image.split('\\').pop() : ""; //double dash becuse it thinks it an escape if not
 
     const { data: image_url } = supabase.storage.from("images").getPublicUrl(imageUrl);
-    console.log(image_url.publicUrl)
 
     return (
         <Card sx={ReusableStyles.cardHover}>

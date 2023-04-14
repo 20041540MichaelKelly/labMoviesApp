@@ -104,11 +104,11 @@ export default function TvShowCard({ tvShow, actionFav, action }) {
           </Grid>
         </Grid>
       </CardContent>
+      </Box>
       <CardActions disableSpacing>
           {action ? action(tvShow) : null} 
           {actionFav ? actionFav(tvShow) : null}
       </CardActions>
-      </Box>
     </Card>
   );
 }

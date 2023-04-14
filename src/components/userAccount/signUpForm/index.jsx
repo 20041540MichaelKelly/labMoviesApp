@@ -10,14 +10,11 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Alert from '@mui/material/Alert';
-import SuccessAlert from '../../../components/alerts/successAlert';
-import ErrorAlert from '../../../components/alerts/errorAlert';
 import Snackbar from "@mui/material/Snackbar";
 import styles from '../../reviewForm/styles';
 import { IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { useNavigate } from "react-router-dom";
-import { GoTrueAdminApi } from '@supabase/supabase-js';
 
 export default function SignUp() {
   const [loading, setLoading] = useState(false)

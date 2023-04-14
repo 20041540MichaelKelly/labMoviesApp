@@ -17,6 +17,8 @@ const MovieHeader = (props) => {
      fave = localStorage.favourites
   }
 
+  const tagline = movie.tagline ? movie.tagline : '';
+
   return (
     <Paper component="div" sx={ReusableStyles.headerRoot}>
       <IconButton aria-label="go back">
@@ -35,7 +37,7 @@ const MovieHeader = (props) => {
           <HomeIcon color="primary"  fontSize="='large"/>
         </a>
         <br />
-        <span>{`${movie.tagline}`} </span>
+        <span>{tagline} </span>
       </Typography>
       <IconButton aria-label="go forward">
         <ArrowForwardIcon color="primary" fontSize="large" />

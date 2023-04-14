@@ -122,25 +122,6 @@ export default function FilterTvShowCard(props) {
                         </Select>
                     </FormControl>
                     <FormControl sx={styles.formControl}>
-                        <InputLabel sx={{ mt: 12 }} id="production-countries-label">Production Countries</InputLabel>
-                        <Select
-                            labelId="production-countries-label"
-                            id="production_countries-select"
-                            variant="filled"
-                            value={props.productionCountryFilter}
-                            onChange={handleProductionCountryChange}
-                            sx={{ mt: 4 }}
-                        >
-                            {listOfIso1CountryCodes.map((country) => {
-                                return (
-                                    <MenuItem key={country} value={country}>
-                                        {country}
-                                    </MenuItem>
-                                );
-                            })}
-                        </Select>
-                    </FormControl>
-                    <FormControl sx={styles.formControl}>
                         <Typography sx={{ pt: 2 }} component="legend">Vote</Typography>
                         <Rating
                             name="simple-controlled"

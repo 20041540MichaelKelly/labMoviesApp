@@ -17,22 +17,38 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import SuccessAlert from "../../alerts/successAlert";
 import UploadIcon from '@mui/icons-material/Upload';
 import Spinner from '../../spinner';
+import Snackbar from "@mui/material/Snackbar";
+import styles from '../../reviewForm/styles';
+import { IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import { useNavigate } from "react-router-dom";
 
 export default function TemplateFantasyMoviePage() {
-  const [loading, setLoading] = useState(false)
   const [date, setDate] = useState(new Date())
   const [imageUrl, setImageUrl] = useState("")
+  const [errorMessage, setErrorMessage] = useState("")
+  const [errorHappened, setErrorHappened] = useState(false)
+  const [open,setOpen] = useState(false)
+  const navigate = useNavigate();
 
-  const errorMessage = "";
   const genres = ["comedy", "horror", "action", "drama", "fantasy", "Romance", "thriller"]
+
+  const handleSnackClose = async (event) => {
+    setOpen(false);
+    navigate("/movies/fantasy");
+  }
+
+  const handleErrorClose = async (event) => {
+    setErrorHappened(false);
+  }
+
 
   const handleImageUpload = async (event) => {
     event.preventDefault()
 
     setImageUrl(event.target.value);
     const avatarFile = event.target.files[0]
-    const imageUrlSanitised = imageUrl ? imageUrl.split('\\').pop() : ""; //double dash becuse it thinks it an escape if not
-    const { error: uploadError } =  supabase
+    const { error: uploadError } = supabase
       .storage
       .from('images')
       .upload(avatarFile.name, avatarFile, {
@@ -43,21 +59,7 @@ export default function TemplateFantasyMoviePage() {
     if (uploadError) {
       throw uploadError;
     }
-
   }
-
-  // const handleImageUpload = async (event) => {
-  //   setImageUrl(event.target.value);
-  //   const file = event.target.files[0]
-  //   const imageUrlSanitised = imageUrl ? imageUrl.split('\\').pop() : ""; //double dash becuse it thinks it an escape if not
-  //   let { error: uploadError } = await supabase.storage
-  //     .from("avatars")
-  //     .upload(imageUrlSanitised, file);
-
-  //   if (uploadError) {
-  //     throw uploadError;
-  //   }
-  // }
 
   const handleDateChange = async (event) => {
     setDate(event.target.value);
@@ -69,7 +71,7 @@ export default function TemplateFantasyMoviePage() {
 
     const formData = new FormData(event.currentTarget);
 
-    const { error } = await supabase.from("fantasy_movies")
+    const { error, loading } = await supabase.from("fantasy_movies")
       .insert(
         {
           title: formData.get("title"),
@@ -84,10 +86,10 @@ export default function TemplateFantasyMoviePage() {
 
 
     if (error) {
-      return <h1>{error.message}</h1>;
-
+      setErrorMessage(error.message)
+      setErrorHappened(true)
     } else {
-      return <Spinner />;
+      setOpen(true)
     }
   }
 
@@ -101,6 +103,53 @@ export default function TemplateFantasyMoviePage() {
           alignItems: "center",
         }}
       >
+        <Snackbar
+          sx={styles.snack}
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          open={errorHappened}
+          onClose={handleErrorClose}
+        >
+          <Alert severity="error"
+            open={errorHappened}
+            onClose={handleErrorClose}
+            action={
+              <IconButton
+                aria-label="close"
+                color="inherit"
+                size="small"
+                onClick={handleErrorClose}
+              >
+                <CloseIcon fontSize="inherit" />
+              </IconButton>
+            }
+            sx={{ mb: 2 }}>
+            {errorMessage}</Alert>
+        </Snackbar>
+        <Snackbar
+          sx={styles.snack}
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          open={open}
+          onClose={handleSnackClose}
+        >
+          <Alert severity="success"
+            open={open}
+            onClose={handleSnackClose}
+            action={
+              <IconButton
+                aria-label="close"
+                color="inherit"
+                size="small"
+                onClick={handleSnackClose}
+              >
+                <CloseIcon fontSize="inherit" />
+              </IconButton>
+            }
+            sx={{ mb: 2 }}>
+            <Typography variant="h4">
+              Fantasy Movie: create successfully 
+            </Typography>
+          </Alert>
+        </Snackbar>
         <Typography component="h1" variant="h5">
           Fantasy Movie
         </Typography>
@@ -116,6 +165,7 @@ export default function TemplateFantasyMoviePage() {
                 name="title"
                 autoComplete="title"
                 autoFocus
+                validate="true"
               />
             </ Grid>
             <Grid item xs={12}>
@@ -128,6 +178,7 @@ export default function TemplateFantasyMoviePage() {
                 multiline
                 margin="normal"
                 minRows={10}
+                validate="true"
               />
             </Grid>
             <Grid item xs={12}>
@@ -160,7 +211,6 @@ export default function TemplateFantasyMoviePage() {
               </LocalizationProvider>
             </Grid>
             <Grid item xs={12}>
-
               <input
                 accept="image/*"
                 id="raised-button-file"
@@ -183,6 +233,7 @@ export default function TemplateFantasyMoviePage() {
                       name="genres"
                       control={<Checkbox id={g} value={g} color="primary" />}
                       label={g}
+                      defaultValue={g[0]}
                     />
                   ))}
                 </FormGroup>

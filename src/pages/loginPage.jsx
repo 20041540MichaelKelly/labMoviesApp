@@ -12,12 +12,21 @@ import Container from "@mui/material/Container";
 import ErrorAlert from "../components/alerts/errorAlert";
 import SuccessAlert from "../components/alerts/successAlert";
 import ForgotEmailModal from "../components/userAccount/forgotEmailModal"
+import HomePage from './homePage';
+import { useNavigate } from "react-router-dom";
+import Alert from '@mui/material/Alert';
+import Snackbar from "@mui/material/Snackbar";
+import styles from '../components/reviewForm';
+import { IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
 export default function Auth() {
   const [loading, setLoading] = useState(true)
-  const [email, setEmail] = useState('')
   const [errorMsg, setErrorMsg] = useState('')
-  const [successMsg, setSucceessMsg] = useState(false)
+  const [errorMessage, setErrorMessage] = useState("")
+  const [errorHappened, setErrorHappened] = useState(false)
+  const [open,setOpen] = useState(false)
+  const navigate = useNavigate();
 
   const [showMessage, setShowMessage] = useState(false);
 useEffect(()=>{
@@ -27,6 +36,15 @@ useEffect(()=>{
 },[errorMsg])
 
 {showMessage ? <ErrorAlert message={errorMsg} />: ""}
+
+const handleSnackClose = async (event) => {
+  setOpen(false);
+  navigate("/");
+}
+
+const handleErrorClose = async (event) => {
+  setErrorHappened(false);
+}
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -39,11 +57,11 @@ useEffect(()=>{
     })
 
     if (error) {
-      setErrorMsg(error.message)
-      return(errorMsg ? <ErrorAlert message={errorMsg} /> : <></>)
+      setErrorMessage(error.message)
+      setErrorHappened(true)
 
     } else {
-      setSucceessMsg(true)
+      navigate(<HomePage />)
     }
 
     setLoading(false)
@@ -79,6 +97,53 @@ useEffect(()=>{
           alignItems: "center",
         }}
       >
+        <Snackbar
+        sx={styles.snack}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        open={errorHappened}
+        onClose={handleErrorClose}
+      >
+        <Alert severity="error"
+          open={errorHappened}
+          onClose={handleErrorClose}
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={handleErrorClose}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+          sx={{ mb: 2 }}>
+          {errorMessage}</Alert>
+      </Snackbar>
+      <Snackbar
+        sx={styles.snack}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        open={open}
+        onClose={handleSnackClose}
+      >
+        <Alert severity="success"
+          open={open}
+          onClose={handleSnackClose}
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={handleSnackClose}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+          sx={{ mb: 2 }}>
+          <Typography variant="h4">
+            Thank you for signing up
+          </Typography>
+        </Alert>
+      </Snackbar>
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>

@@ -14,7 +14,7 @@ const FantasyMovieDetailsPage = () => {
 
 
     const fetchFantasyMovies = async () => {
-        const { data, error, isLoading } = await supabase
+        const { data, error, isLoading } =  await supabase
             .from('fantasy_movies')
             .select()
             .eq('id', id)
@@ -26,16 +26,17 @@ const FantasyMovieDetailsPage = () => {
         if (error) {
             setErrorHappened(true);
             setErrorMessage(error.message)
+            throw error
         } else {
-            setFantasy(data)
+            setFantasy(data[0])
         }
     }
 
 
     useEffect(() => {
-        async () => {
-        await fetchFantasyMovies()
-}}, []);
+        
+        fetchFantasyMovies()
+}, []);
   
 
   return (
@@ -47,7 +48,7 @@ const FantasyMovieDetailsPage = () => {
           </PageTemplate>
         </>
       ) : (
-        <p>Waiting for movie details</p>
+        <p>Waiting for fantasy movie details</p>
       )}
     </>
   );
