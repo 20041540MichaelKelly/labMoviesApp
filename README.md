@@ -169,11 +169,13 @@ e.g.
 
 ## Storybook.
 
-[ Include a screenshot(s) from the Storybook UI and highlight the stories for new components developed.]
+The stories that I created for the assignmenet where:
++ ActorCard
++ ActorHeader
++ TVShowPageHeader
++ TvShowCard
 
-e.g.
-
-![][image5]
+![][storybook1]
 
 ### Authentication.
 
@@ -222,14 +224,11 @@ I am using Supabase for Authentication and to store fantasy movies and reviews t
 
 ## Deployment (if relevant).
 
-[ Specify the URL of your deployed app and include a screenshot(s) from your deployment platform (e.g. Vercal) account that verifies its use for this app. Have a preregistered user for your app and specify their credentials.
+Credientials that are authorised:
+email: johndoe@gmail.com ; Password: secret123
 
-Username: test1 ; Password: pass1
-]
 
 ## Persistence (if relevant).
-
-[ If you are persisting data to the Supabase backend, e.g. favourite movies, fantasy movie, include screenshots with appropriate captions to verify this aspect. ]
 
 >Auth table
 ![][supabase_auth]
@@ -248,14 +247,12 @@ Username: test1 ; Password: pass1
 
 ## Additional Information.
 
-[ Briefly explain any other aspects of your app's design or implementation that is non-standard and worthy of mention.]
-
 + The implementation of triggers was all new to me and I had to research into how to perform this when updating one table, populate another with the same data.
 + I researched into all aspects of MUI, datePicker, star rating, ImageList, Grids, Cards.
 + Supabase and Vercel.
 + Learning how to utilise the tmdb api for heavy linking of pages
 + Pagination - I researched this and implemented
-
++ Snack and Alert to keep users updated on status of action on supabase
 
 [login]: ./screenshots/login.png
 [signup]: ./screenshots/signup.png
@@ -292,7 +289,4 @@ Username: test1 ; Password: pass1
 [supabase_images]: ./screenshots/supabase_images_bucket.png
 [supabase_fantasy]: ./screenshots/supabase_fantasy_movies_table.png
 [supabase_profiles]: ./screenshots/supabase_profiles_table.png
-
-
-
-
+[storybook1]: ./screenshots/storybook1.png

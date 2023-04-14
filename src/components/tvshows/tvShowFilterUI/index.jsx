@@ -17,11 +17,6 @@ export const tvVoteFilter = function (tvShow, value) {
  return value > 0 ? tvShow.vote_average>= value : true;
 };
 
-export const tvLanguageFilter = function (tvShow, value) {
-  return tvShow.original_language.toLowerCase().search(value.toLowerCase()) !== -1;
-};
-
-
 const TvShowFilterUI = ({ onFilterValuesChange, tvTitleFilter, tvGenreFilter, tvVoteFilter, tvLanguageFilter}) => {
 const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -45,7 +40,6 @@ const [drawerOpen, setDrawerOpen] = useState(false);
           tvTitleFilter={tvTitleFilter}
           tvGenreFilter={tvGenreFilter}
           tvVoteFilter={tvVoteFilter}
-          tvLanguageFilter={tvLanguageFilter}
         />
       </Drawer>
     </>

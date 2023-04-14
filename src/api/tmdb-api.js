@@ -264,7 +264,7 @@ export const getMovies = ({ queryKey }) => {
     const { page } = pagePart;
     page ? page : 1;
     return fetch(
-      `https://api.themoviedb.org/3/tv/popular?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=${page}`
+      `https://api.themoviedb.org/3/discover/tv?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=${page}`
     ).then((response) => {
       if (!response.ok) {
         throw new Error(response.json().message);
