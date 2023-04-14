@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const WriteReviewIcon = ({ movie }) => {
   return (
     <Link
-      to={'/reviews/form'}
+      to={`/reviews/form/${movie.id}`}
       state={{
           movieId: movie.id,
         }}

@@ -9,7 +9,8 @@ import Pagination from "../components/pagination";
 import AddToFavouriteActorsIcon from '../components/cardIcons/addToFavouriteActors';
 
 import ActorFilterUI, {
-  nameFilter
+  nameFilter,
+  genderFilter
 } from "../components/actors/actorsFilterUI";
 
 const nameFiltering = {
@@ -18,6 +19,11 @@ const nameFiltering = {
   condition: nameFilter,
 };
 
+const genderFiltering = {
+  name: "gender",
+  value: "",
+  condition: genderFilter,
+};
 
 const ActorsPage = (props) => {
   const { page } = useParams();
@@ -25,7 +31,7 @@ const ActorsPage = (props) => {
   const { data, error, isLoading, isError } = useQuery(["actors", { page: page }], getActors);
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],
-    [nameFiltering]
+    [nameFiltering, genderFiltering]
   );
 
   if (isLoading) {
@@ -62,6 +68,7 @@ const ActorsPage = (props) => {
        <ActorFilterUI
         onFilterValuesChange={changeFilterValues}
         nameFilter={filterValues[0].value}
+        genderFilter={filterValues[1].value}
         actors={actors}
       /> 
     </>

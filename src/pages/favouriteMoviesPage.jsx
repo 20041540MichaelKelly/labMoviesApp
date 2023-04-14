@@ -54,8 +54,6 @@ const FavouriteMoviesPage = () => {
     ? filterFunction(allFavourites)
     : [];
 
-  const toDo = () => true;
-
   const changeFilterValues = (type, value) => {
     const changedFilter = { name: type, value: value };
     const updatedFilterSet =

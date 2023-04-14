@@ -111,6 +111,5 @@ export default function MovieCard({ movie, action, actionFav }) {
           {actionFav ? actionFav(movie) : null}
       </CardActions>
     </Card>
-    
   );
 }

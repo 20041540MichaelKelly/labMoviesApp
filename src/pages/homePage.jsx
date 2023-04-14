@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import PageTemplate from "../components/movies/templateMovieListPage";
+import PageTemplate from "../components/homePageSetup/homePageTemplate";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import { getMovies } from "../api/tmdb-api";
@@ -7,7 +7,6 @@ import useFiltering from "../hooks/useFiltering";
 import AddToFavouritesIcon from '../components/cardIcons/addToFavourites';
 import AddToPlaylistIcon from '../components/cardIcons/addToPlaylist';
 import { useParams } from "react-router-dom";
-import Pagination from "../components/pagination";
 
 import MovieFilterUI, {
   titleFilter,
@@ -72,7 +71,7 @@ const HomePage = (props) => {
 
   const movies = data ? data.results : [];
   const displayedMovies = filterFunction(movies);
-  const urlValue = "movies/page/"
+  const urlValue = "movies/page/";
 
   return (
     <>
@@ -86,7 +85,6 @@ const HomePage = (props) => {
           return <AddToFavouritesIcon movie={movie} />
         }}
       />
-      <Pagination urlValue={urlValue} pg={page} />
       <MovieFilterUI
         onFilterValuesChange={changeFilterValues}
         titleFilter={filterValues[0].value}

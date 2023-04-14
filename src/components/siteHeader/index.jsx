@@ -30,6 +30,8 @@ const styles = {
   // offset: theme.mixins.toolbar,
 };
 
+
+
 const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
 
 const SiteHeader = () => {
@@ -51,7 +53,9 @@ const SiteHeader = () => {
     { label: "Movies Playlist", path: "/movies/playlist" },
     { label: "Popular Movies", path: "/movies/popular" },
     { label: "Now Playing", path: "/movies/playing" },
-    { label: "Fantasy Movie", path: "/movies/fantasy" }
+    { label: "Create a Fantasy Movie", path: "/movies/createfantasy" },
+    { label: "Fantasy Movies", path: "/movies/fantasy" }
+
   ]
 
   const actorMenuOptions = [

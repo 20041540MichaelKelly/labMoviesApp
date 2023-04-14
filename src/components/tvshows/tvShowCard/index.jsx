@@ -4,7 +4,6 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import CardHeader from "@mui/material/CardHeader";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import PlaylistIcon from "@mui/icons-material/PlaylistAdd";
@@ -12,12 +11,13 @@ import CalendarIcon from "@mui/icons-material/CalendarTodayTwoTone";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import Grid from "@mui/material/Grid";
 import img from '../../../images/film-poster-placeholder.png';
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
  import { TvShowContext } from "../../../contexts/tvShowContext";
  import { AvatarGroup } from "@mui/material";
 import ReusableStyles from "../../../reusableStyles";
- 
+import Box from "@mui/material/Box";
+
 
 const styles = {
   media: { height: 500 },
@@ -29,7 +29,11 @@ const styles = {
 export default function TvShowCard({ tvShow, actionFav, action }) {
   const { favouriteTvShows, addToFavourites} = useContext(TvShowContext);
   const { tvShowPlaylist, addToPlaylist } = useContext(TvShowContext);
+  const navigate = useNavigate();
 
+  const handleClick = (pageURL) => {
+    navigate(pageURL);
+  };
 
   if (favouriteTvShows.find((id) => id === tvShow.id)) {
     tvShow.favourite = true;
@@ -45,6 +49,7 @@ export default function TvShowCard({ tvShow, actionFav, action }) {
 
   return (
       <Card sx={ReusableStyles.cardHover}>
+      <Box onClick={() => {handleClick(`/tv/${tvShow.id}`)}}>
         <CardHeader
         sx={styles.header}
         avatar={
@@ -99,6 +104,7 @@ export default function TvShowCard({ tvShow, actionFav, action }) {
           </Grid>
         </Grid>
       </CardContent>
+      </Box>
       <CardActions disableSpacing>
           {action ? action(tvShow) : null} 
           {actionFav ? actionFav(tvShow) : null}
