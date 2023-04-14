@@ -12,6 +12,9 @@ import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import { supabase } from "../../supabaseClient";
 import { makeStyles } from "@material-ui/core/styles";
+import { IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -66,55 +69,89 @@ const ReviewForm = ({ movie }) => {
 
   const handleSnackClose = (event) => {
     setOpen(false);
+    //navigate("/movies/${movie.id}");
     navigate(`/movies/${movie.id}`);
   };
 
-  const handleSubmit = (event) => {
+ const addRatings = async (formData)=> {
+  const { error} =  await supabase.from("reviews")
+  .insert(
+    {
+      movieId: movie.id,
+      rating: formData.get("rating"),
+      content: formData.get("content"),
+      author: formData.get("author"),
+    }
+  ) 
+ 
+if (error) {
+  throw error
+} else {
+  setOpen(true);
+}
+  
+ }
+
+  const handleSubmit =  async(event) => {
+    event.preventDefault()
 
     const formData = new FormData(event.currentTarget);
-
-    const { error } = supabase.from("reviews")
-      .insert(
-        {
-          movieId: movie.id,
-          rating: formData.get("rating"),
-          content: formData.get("content"),
-          author: formData.get("author"),
-        }
-      )
-
-    if (error) {
-      return <h1>{error.message}</h1>;
-    } else {
-      setOpen(true);
-    }
-
-    
-
+    const { error} =  await supabase.from("reviews")
+    .insert(
+      {
+        movieId: movie.id,
+        rating: formData.get("rating"),
+        content: formData.get("content"),
+        author: formData.get("author"),
+      }
+    ) 
+   
+  if (error) {
+    throw error
+  } else {
+    setOpen(true);
   }
+      }
 
   return (
-    <Box component="div" sx={styles.root}>
-      <Typography component="h2" variant="h3">
-        Write a review
-      </Typography>
+    <Box
+      sx={{
+        marginTop: 8,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",        
+      }}
+    >
       <Snackbar
         sx={styles.snack}
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
         open={open}
         onClose={handleSnackClose}
       >
-        <Alert
-          severity="success"
-          variant="filled"
+      <Alert severity="success"
+          open={open}
           onClose={handleSnackClose}
-        >
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={handleSnackClose}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+          sx={{ mb: 2 }}>
           <Typography variant="h4">
-            Thank you for submitting a review
+            Thank you for signing up
           </Typography>
         </Alert>
       </Snackbar>
       <Box component="form" onSubmit={handleSubmit} validate="true">
+      <Typography component="h2" variant="h3">
+        Write a review
+      </Typography>
+      
 
         <TextField
           sx={{ width: "40ch" }}

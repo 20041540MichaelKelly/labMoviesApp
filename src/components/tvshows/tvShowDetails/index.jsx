@@ -109,7 +109,7 @@ return (
         <CardActions disableSpacing>
         <Link to={`/tv/${tvShow.id}/similar`}>
           <Button variant="outlined" size="medium" color="primary">
-            Similar Movies ...
+            Similar TV Shows ...
           </Button>
         </Link>
           <Button onClick={()=>{handleClick(`/reviews/form/${tvShow.id}`)}} variant="outlined" size="medium" color="primary">

@@ -4,25 +4,20 @@ import Fab from "@mui/material/Fab";
 import Drawer from "@mui/material/Drawer";
 import ReusableStyles from "../../../reusableStyles";
 
-export const titleFilter = function (tvShow, value) {
+export const tvTitleFilter = function (tvShow, value) {
   return tvShow.name.toLowerCase().search(value.toLowerCase()) !== -1;
 };
 
-export const genreFilter = function (tvShow, value) {
+export const tvGenreFilter = function (tvShow, value) {
   const genreId = Number(value);
   return genreId > 0 ? tvShow.genre_ids.includes(genreId) : true;
 };
 
-export const voteFilter = function (tvShow, value) {
+export const tvVoteFilter = function (tvShow, value) {
  return value > 0 ? tvShow.vote_average>= value : true;
 };
 
-export const languageFilter = function (tvShow, value) {
-  return tvShow.original_language.toLowerCase().search(value.toLowerCase()) !== -1;
-};
-
-
-const TvShowFilterUI = ({ onFilterValuesChange, titleFilter, genreFilter, voteFilter, languageFilter, productionCountryFilter}) => {
+const TvShowFilterUI = ({ onFilterValuesChange, tvTitleFilter, tvGenreFilter, tvVoteFilter, tvLanguageFilter}) => {
 const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
@@ -42,10 +37,9 @@ const [drawerOpen, setDrawerOpen] = useState(false);
       >
         <FilterCard
           onUserInput={onFilterValuesChange}
-          titleFilter={titleFilter}
-          genreFilter={genreFilter}
-          voteFilter={voteFilter}
-          languageFilter={languageFilter}
+          tvTitleFilter={tvTitleFilter}
+          tvGenreFilter={tvGenreFilter}
+          tvVoteFilter={tvVoteFilter}
         />
       </Drawer>
     </>

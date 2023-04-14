@@ -2,16 +2,12 @@ import { useEffect, useState } from 'react';
 import { supabase } from '../supabaseClient';
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import ErrorAlert from "../components/alerts/errorAlert";
-import SuccessAlert from "../components/alerts/successAlert";
-import ForgotEmailModal from "../components/userAccount/forgotEmailModal"
 import HomePage from './homePage';
 import { useNavigate } from "react-router-dom";
 import Alert from '@mui/material/Alert';

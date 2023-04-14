@@ -99,6 +99,8 @@ export default function FilterMoviesCard(props) {
                 );
               })}
             </Select>
+            </FormControl>           
+            <FormControl sx={styles.formControl}>
             <InputLabel sx={{ mt: 12 }} id="language-label">Language</InputLabel>
             <Select
               labelId="language-label"
@@ -130,7 +132,7 @@ export default function FilterMoviesCard(props) {
         <CardContent>
           <Typography variant="h5" component="h1">
             <SortIcon fontSize="large" />
-            Sort the movies.
+            Sort the TV Shows.
           </Typography>
         </CardContent>
       </Card>

@@ -19,10 +19,14 @@ const FantasyTemplate = ({ movie, children }) => {
   return (
     <>
       <MovieHeader movie={movie} />
-
+      
       <Grid container spacing={5} style={{ padding: "15px" }}>
+      <Grid item xs={2}>
+        </Grid>
         <Grid item xs={8}>
           {children}
+        </Grid>
+        <Grid item xs={2}>
         </Grid>
       </Grid>
     </>
