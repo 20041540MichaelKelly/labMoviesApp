@@ -8,7 +8,6 @@ import MoviePage from "./pages/movieDetailsPage";
 import FavouriteMoviesPage from "./pages/favouriteMoviesPage";
 import MoviePlaylistPage from "./pages/moviePlaylistPage";
 import MovieReviewPage from "./pages/movieReviewPage";
-import ShowSiteHeader from './components/showSiteHeader';
 import MoviesContextProvider from "./contexts/moviesContext";
 import ActorsContextProvider from "./contexts/actorsContext";
 import AddMovieReviewPage from './pages/addMovieReviewPage';

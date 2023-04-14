@@ -1,5 +1,5 @@
 import React from "react";
-import MovieHeader from "../components/headerMovie";
+import MovieHeader from "../components/movies/headerMovie";
 import SampleMovie from "./sampleData";
 import { MemoryRouter } from "react-router";
 import { action } from "@storybook/addon-actions";

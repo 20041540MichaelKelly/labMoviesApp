@@ -82,10 +82,10 @@ export default function ActorCard({ actor, action }) {
             </Grid>
           </Grid>
         </CardContent>
+        </ Box>
         <CardActions disableSpacing>
           {action ? action(actor) : null}
         </CardActions>
-      </ Box>
     </Card>
   );
 }

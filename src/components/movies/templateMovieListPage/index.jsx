@@ -2,9 +2,6 @@ import React from "react";
 import Header from "../headerMovieList";
 import Grid from "@mui/material/Grid";
 import MovieList from "../movieList";
-import { ImageList } from "@mui/material";
-import {ImageListItem} from "@mui/material";
-import Paper from "@material-ui/core/Paper";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 
 const styles = {

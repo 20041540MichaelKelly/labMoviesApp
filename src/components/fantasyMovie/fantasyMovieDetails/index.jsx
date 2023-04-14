@@ -11,7 +11,6 @@ import Card from "@mui/material/Card";
 import { supabase } from "../../../supabaseClient";
 import CardMedia from "@mui/material/CardMedia";
 
-
 const styles = {
     media: { height: 300 },
 

@@ -10,33 +10,33 @@ import { useParams } from "react-router-dom";
 import Pagination from "../components/pagination";
 
 import TvShowFilterUI, {
-  titleFilter,
-  genreFilter,
-  voteFilter,
-  languageFilter
+  tvTitleFilter,
+  tvGenreFilter,
+  tvVoteFilter,
+  tvLanguageFilter
 } from "../components/tvshows/tvShowFilterUI";
 
-const titleFiltering = {
-  name: "title",
+const tvTitleFiltering = {
+  name: "tvTitle",
   value: "",
-  condition: titleFilter,
+  condition: tvTitleFilter,
 };
-const genreFiltering = {
-  name: "genre",
+const tvGenreFiltering = {
+  name: "tvGenre",
   value: "0",
-  condition: genreFilter,
+  condition: tvGenreFilter,
 };
 
-const voteFiltering = {
-  name: "vote",
+const tvVoteFiltering = {
+  name: "tvVote",
   value: "0",
-  condition: voteFilter,
+  condition: tvVoteFilter,
 };
 
-const languageFiltering = {
-  name: "language",
+const tvLanguageFiltering = {
+  name: "tvLanguage",
   value: "",
-  condition: languageFilter,
+  condition: tvLanguageFilter,
 };
 
  const TvShowPage = (props) => {
@@ -44,7 +44,7 @@ const languageFiltering = {
   const { data, error, isLoading, isError } = useQuery(["tvShows", { page: page }], getTvShows);
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],
-    [titleFiltering, genreFiltering, voteFiltering, languageFiltering]
+    [tvTitleFiltering, tvGenreFiltering, tvVoteFiltering, tvLanguageFiltering]
   );
 
   if (isLoading) {
@@ -58,14 +58,14 @@ const languageFiltering = {
   const changeFilterValues = (type, value) => {
     const changedFilter = { name: type, value: value };
     const updatedFilterSet =
-      type === "title" ?
-        [changedFilter, filterValues[1], filterValues[2], filterValues[3], filterValues[4]] : null |
-          type === "genre" ?
-          [filterValues[0], changedFilter, filterValues[2], filterValues[3], filterValues[4]] : null |
-            type === "vote" ?
-            [filterValues[0], filterValues[1], changedFilter, filterValues[3], filterValues[4]] : null |
-              type === "language" ?
-              [filterValues[0], filterValues[1], filterValues[2], changedFilter, filterValues[4]] : null |
+      type === "tvTitle" ?
+        [changedFilter, filterValues[1], filterValues[2], filterValues[3]] : null |
+          type === "tvGenre" ?
+          [filterValues[0], changedFilter, filterValues[2], filterValues[3]] : null |
+            type === "tvVote" ?
+            [filterValues[0], filterValues[1], changedFilter, filterValues[3]] : null |
+              type === "tvLanguage" ?
+              [filterValues[0], filterValues[1], filterValues[2], changedFilter] : null |
     setFilterValues(updatedFilterSet);
   };
 
@@ -88,10 +88,10 @@ const languageFiltering = {
       <Pagination urlValue = { urlValue } pg={ page } />
       <TvShowFilterUI
         onFilterValuesChange={changeFilterValues}
-        titleFilter={filterValues[0].value}
-        genreFilter={filterValues[1].value}
-        voteFilter={filterValues[2].value}
-        languageFilter={filterValues[3].value}
+        tvTitleFilter={filterValues[0].value}
+        tvGenreFilter={filterValues[1].value}
+        tvVoteFilter={filterValues[2].value}
+        tvLanguageFilter={filterValues[3].value}
       />
     </>
   );
