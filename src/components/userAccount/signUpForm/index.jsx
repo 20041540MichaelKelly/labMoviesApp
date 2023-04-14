@@ -42,7 +42,6 @@ export default function SignUp() {
       .select()
       .eq('email', formData.get("email"))
 
-      console.log(validateEmail)
       if(validateEmail.length > 0) {
         setErrorMessage("The Email entered already exists");
         setErrorHappened(true);
