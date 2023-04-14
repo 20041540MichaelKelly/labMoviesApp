@@ -8,18 +8,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import Avatar from "@mui/material/Avatar";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CardHeader from "@mui/material/CardHeader";
-
-const styles = {
-    root: {  
-    display: "flex",
-    justifyContent: "space-around",
-    alignItems: "center",
-    flexWrap: "wrap",
-    padding: 1.5,
-  },avatar: {
-    backgroundColor: "rgb(255, 0, 0)",
-  },
-};
+import ReusableStyles from "../../../reusableStyles";
 
 const ActorHeader = (props) => {
   const actor = props.actor;
@@ -29,13 +18,13 @@ const ActorHeader = (props) => {
   }
 
   return (
-    <Paper component="div" sx={styles.root}>
+    <Paper component="div" sx={ReusableStyles.headerRoot}>
       <IconButton aria-label="go back">
         <ArrowBackIcon color="primary" fontSize="large" />
       </IconButton>
       <CardHeader avatar={
           fave ? (
-            <Avatar sx={styles.avatar}>
+            <Avatar sx={ReusableStyles.avatar}>
               <FavoriteIcon />
             </Avatar>
           ) : null

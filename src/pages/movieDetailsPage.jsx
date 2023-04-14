@@ -2,9 +2,9 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import MovieDetails from "../components/movies/movieDetails";
 import PageTemplate from "../components/movies/templateMoviePage";
-import { getMovie } from '../api/tmdb-api'
+import { getMovie } from '../api/tmdb-api';
 import { useQuery } from "react-query";
-import Spinner from '../components/spinner'
+import Spinner from '../components/spinner';
 import ErrorAlert from "../components/alerts/errorAlert";
 
 const MovieDetailsPage = () => {

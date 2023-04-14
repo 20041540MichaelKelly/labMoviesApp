@@ -5,6 +5,9 @@ import { getPopularMovies } from "../api/tmdb-api";
 import AddToPlaylistIcon from '../components/cardIcons/addToPlaylist';
 import Spinner from "../components/spinner";
 import useFiltering from "../hooks/useFiltering";
+import { useParams } from "react-router-dom";
+import Pagination from "../components/pagination";
+import AddToFavouritesIcon from "../components/cardIcons/addToFavourites";
 
 import MovieFilterUI, {
   titleFilter,
@@ -23,8 +26,9 @@ const genreFiltering = {
 };
 
 const MostPopularMoviesPage = (props) => {
-  const { data, error, isLoading, isError } = useQuery("discover", getPopularMovies);
+  const { page } = useParams();
 
+  const { data, error, isLoading, isError } = useQuery(["popular", { page: page }], getPopularMovies);
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],
     [titleFiltering, genreFiltering]
@@ -49,16 +53,21 @@ const MostPopularMoviesPage = (props) => {
 
   const movies = data ? data.results : [];
   const displayedMovies = filterFunction(movies);
+  const urlValue = "/movies/popular/page/"
 
   return (
     <>
     <PageTemplate
       title='Popular Movies'
       movies={displayedMovies}
-      action={(movie) => {
-        return <AddToPlaylistIcon movie={movie} />
+      actionFav={(tvShow) => {
+        return <AddToFavouritesIcon movie={tvShow} />
       }}
+      action={(tvShow) => {
+       return <AddToPlaylistIcon movie={tvShow} />
+     }}
     />
+    <Pagination urlValue={ urlValue} pg={ page } />
     <MovieFilterUI
         onFilterValuesChange={changeFilterValues}
         titleFilter={filterValues[0].value}

@@ -4,22 +4,13 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-
-const styles = {
-  root: {
-    display: "flex",
-    justifyContent: "space-around",
-    alignItems: "center",
-    flexWrap: "wrap",
-    marginBottom: 1.5,
-  },
-};
+import ReusableStyles from "../../../reusableStyles";
 
 const Header = (props ) => {
   const title = props.title
 
   return (
-    <Paper component="div" sx={styles.root}>
+    <Paper component="div" sx={ReusableStyles.headerRoot}>
       <IconButton
         aria-label="go back"
       >

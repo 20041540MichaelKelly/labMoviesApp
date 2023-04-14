@@ -1,10 +1,28 @@
 import React from "react";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
 
-const MovieReview =  ({ review }) => {
+const MovieReview = ({ review }) => {
   return (
     <>
-      <p>Review By: {review.author} </p>
-      <p>{review.content} </p>
+      <Card>
+        <CardContent>
+          <Grid container>
+            <Grid item xs={6}>
+              <Typography variant="h6" component="p">
+                Review By: {review.author}
+              </Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography variant="h6" component="p">
+                {review.content}
+              </Typography>
+            </Grid>
+          </Grid>
+        </CardContent>
+      </Card>
     </>
   );
 };

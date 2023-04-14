@@ -1,90 +1,125 @@
-// import { useState, useEffect } from 'react'
-// import { supabase } from '../supabaseClient'
-// import Auth from '../components/loginTemplate'
-// import Account from '../components/accountSetup'
-// import Home from './homePage'
-// import SignUp from './signupPage'
-// import { useNavigate, Navigate } from "react-router-dom";
-// import MostPopularMoviesPage from './mostPopularMoviesPage'
-// import SiteHeader from '../components/siteHeader'
-
-// function login() {
-//   const [session, setSession] = useState(null)
-//   const [user, setUser] = useState(null)
-
-
-//   useEffect(() => {
-//     supabase.auth.getSession().then(({ data: { session } }) => {
-//       setSession(session)
-//     })
-
-//     supabase.auth.onAuthStateChange((_event, session) => {
-//       setSession(session)
-//     })
-
-//     supabase.auth.getUser(({ data: { user } }) => {
-//       setUser(user)
-//     })
-
-//   }, []) 
-
-//   return(
-//     <div className="container" style={{ padding: '50px 0 100px 0' }}>
-//       {!session ? <Auth /> : <Home /> }
-//     </div>
-//   ) 
-// }
-
-// export default login;
-
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { supabase } from '../supabaseClient';
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-
-
-
+import ErrorAlert from "../components/alerts/errorAlert";
+import HomePage from './homePage';
+import { useNavigate } from "react-router-dom";
+import Alert from '@mui/material/Alert';
+import Snackbar from "@mui/material/Snackbar";
+import styles from '../components/reviewForm';
+import { IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
 export default function Auth() {
   const [loading, setLoading] = useState(true)
-  const [email, setEmail] = useState('')
-  const errorMessage = "";
+  const [errorMsg, setErrorMsg] = useState('')
+  const [errorMessage, setErrorMessage] = useState("")
+  const [errorHappened, setErrorHappened] = useState(false)
+  const [open,setOpen] = useState(false)
+  const navigate = useNavigate();
 
+  const [showMessage, setShowMessage] = useState(false);
+useEffect(()=>{
+   if(errorMsg){
+      setShowMessage(true);
+   }
+},[errorMsg])
+
+{showMessage ? <ErrorAlert message={errorMsg} />: ""}
+
+const handleSnackClose = async (event) => {
+  setOpen(false);
+  navigate("/");
+}
+
+const handleErrorClose = async (event) => {
+  setErrorHappened(false);
+}
 
   const handleSubmit = async (event) => {
     event.preventDefault()
 
-   const formData = new FormData(event.currentTarget);
-  
-  const { data: validEmails, error, isError, isLoading } = await supabase.auth.signInWithPassword({
-    email: formData.get("email"),
-    password: formData.get("password"),
-  })
+    const formData = new FormData(event.currentTarget);
+
+    const { error} = await supabase.auth.signInWithPassword({
+      email: formData.get("email"),
+      password: formData.get("password"),
+    })
 
     if (error) {
-        alert(error.message)
-    } 
+      setErrorMessage(error.message)
+      setErrorHappened(true)
 
-   setLoading(false)
-}
+    } else {
+      navigate(<HomePage />)
+    }
+
+  }
 
   return (
     <Container component="main" maxWidth="xs">
+      {showMessage ? <ErrorAlert message={errorMsg} /> : <></>}
       <Box
-        sx={{  
+        sx={{
           marginTop: 8,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
         }}
       >
+        <Snackbar
+        sx={styles.snack}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        open={errorHappened}
+        onClose={handleErrorClose}
+      >
+        <Alert severity="error"
+          open={errorHappened}
+          onClose={handleErrorClose}
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={handleErrorClose}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+          sx={{ mb: 2 }}>
+          {errorMessage}</Alert>
+      </Snackbar>
+      <Snackbar
+        sx={styles.snack}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        open={open}
+        onClose={handleSnackClose}
+      >
+        <Alert severity="success"
+          open={open}
+          onClose={handleSnackClose}
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={handleSnackClose}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+          sx={{ mb: 2 }}>
+          <Typography variant="h4">
+            Thank you for signing up
+          </Typography>
+        </Alert>
+      </Snackbar>
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
@@ -109,10 +144,6 @@ export default function Auth() {
             id="password"
             autoComplete="current-password"
           />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
           <Button
             type="submit"
             fullWidth
@@ -121,20 +152,14 @@ export default function Auth() {
           >
             Sign In
           </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
             <Grid item>
-              <Link href= "/signup" variant="body2">
+              <Link href="/signup" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
-          </Grid>
         </Box>
       </Box>
     </Container>
+
   );
 };

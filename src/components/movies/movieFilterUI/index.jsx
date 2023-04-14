@@ -16,8 +16,8 @@ export const voteFilter = function (movie, value) {
  return value > 0 ? movie.vote_average>= value : true;
 };
 
-export const nameFilter = function (movie, value) {
-  return actor.name.toLowerCase().search(value.toLowerCase()) !== -1;
+export const languageFilter = function (movie, value) {
+  return movie.original_language.toLowerCase().search(value.toLowerCase()) !== -1;
 };
 
 const styles = {
@@ -32,7 +32,7 @@ const styles = {
   },
 };
 
-const MovieFilterUI = ({ onFilterValuesChange, titleFilter, genreFilter}) => {
+const MovieFilterUI = ({ onFilterValuesChange, titleFilter, genreFilter, voteFilter, languageFilter}) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
@@ -54,6 +54,9 @@ const MovieFilterUI = ({ onFilterValuesChange, titleFilter, genreFilter}) => {
           onUserInput={onFilterValuesChange}
           titleFilter={titleFilter}
           genreFilter={genreFilter}
+          voteFilter={voteFilter}
+          languageFilter={languageFilter}
+
         />
       </Drawer>
     </>

@@ -9,14 +9,20 @@ import { useQuery } from "react-query";
 import NavigationIcon from "@mui/icons-material/Navigation";
 import Fab from "@mui/material/Fab";
 import Drawer from "@mui/material/Drawer";
-import { getTvShowCredits } from "../../../api/tmdb-api";
+import { getTvShowAggregateCredits } from "../../../api/tmdb-api";
 import Spinner from '../../spinner';
 import { Link } from "react-router-dom";
-import Button from "@mui/material/Button";
-import CardActions from "@mui/material/CardActions";
-import Stack from '@mui/material/Stack';
+import ImageList from "@mui/material/ImageList";
+import ImageListItem from "@mui/material/ImageListItem";
+import img from '../../../images/film-poster-placeholder.png';
+import Image from "mui-image";
+import Card from "@mui/material/Card";
+import Button from '@mui/material/Button';
 import { useNavigate } from "react-router-dom";
 import ErrorAlert from "../../alerts/errorAlert";
+import ReusableStyles from "../../../reusableStyles";
+import DvrIcon from '@mui/icons-material/Dvr';
+import CardActions from "@mui/material/CardActions";
 
 const styles = {
   chipSet: {
@@ -38,42 +44,48 @@ const styles = {
   },
 };
 
-//TODO: Could the below paper component be minimised out into it's own componenet
-
 const TvDetails = ( {tvShow}) => {
-  const [drawerOpen, setDrawerOpen] = useState(false); 
   const navigate = useNavigate();
 
-  const { data, error, isLoading, isError } = useQuery(
-    ["tvCast", { id: tvShow.id }],
-    getTvShowCredits
-  );
+const { data, error, isLoading, isError } = useQuery(
+  ["tvCast", { id: tvShow.id }],
+  getTvShowAggregateCredits
+);
 
-  const handleClick = (pageURL) => {
-    navigate(pageURL);
+const handleClick = (pageURL) => {
+  navigate(pageURL);
+};
+
+if (isLoading) {
+  return <Spinner />;
+}
+
+if (isError) {
+  return <ErrorAlert message={error.message} />
+}
+
+const credits = data ? data.cast : [];
+
+function srcset(image, size, rows = 1, cols = 1) {
+  return {
+    src: `${image}?w=${size * cols}&h=${size * rows}&fit=crop&auto=format`,
+    srcSet: `${image}?w=${size * cols}&h=${size * rows
+      }&fit=crop&auto=format&dpr=2 2x`,
   };
+}
 
-  if (isLoading) {
-    return <Spinner />;
-  }
-
-  if (isError) {
-    return <ErrorAlert message={error.message} />
-  }
-
-  const casts = data.cast
-
-  return (
-    <>
-      <Typography variant="h5" component="h3">
+return (
+  <>
+    <Card sx={{ boxShadow: 3, my:2, mx:2 }}>
+      <Typography variant="h5" component="h3" sx={{fontWeight: 'bold'}}>
         Overview
       </Typography>
 
-      <Typography variant="h6" component="p">
+      <Typography variant="h6" component="p" sx={{ my:2, mx:2 }}>
         {tvShow.overview}
       </Typography>
-
-      <Paper component="ul" sx={styles.chipSet}>
+    
+    <Card component="ul" sx={styles.chipSet}>
         <li>
           <Chip label="Genres" sx={styles.chipLabel} color="primary" />
         </li>
@@ -82,22 +94,12 @@ const TvDetails = ( {tvShow}) => {
             <Chip label={g.name}  />
           </li>
         ))}
-      </Paper>
-      <Paper component="ul" sx={styles.chipSet} >
-        <li>
-          <Chip label="Cast" sx={styles.chipLabel} color="primary" />
-        </li>
-        {casts.map((c) => (
-          <li key={c.name}>
-              <Chip label={c.name} onClick={() => {handleClick(`/person/${c.id}`)}} />
-          </li>
-        ))}
-      </Paper>
+      </Card>
       <Paper component="ul" sx={styles.chipSet}>
         <Chip icon={<AccessTimeIcon />} label={`${tvShow.episode_run_time} min.`} />
         <Chip
-          icon={<MonetizationIcon />}
-          label={`${tvShow.number_of_seasons}`}
+          icon={<DvrIcon />}
+          label={`Season(s): ${tvShow.number_of_seasons} `}
         />
         <Chip
           icon={<StarRate />}
@@ -110,21 +112,36 @@ const TvDetails = ( {tvShow}) => {
             Similar TV Shows ...
           </Button>
         </Link>
+          <Button onClick={()=>{handleClick(`/reviews/form/${tvShow.id}`)}} variant="outlined" size="medium" color="primary">
+            Create Review ...
+          </Button>
         </CardActions>
-      </Paper>
-      {/* <Fab    
-        color="secondary"
-        variant="extended"
-        onClick={() =>setDrawerOpen(true)}
-        sx={styles.fab}
-      > */}
-        {/* <NavigationIcon />
-        Reviews
-      </Fab>
-      <Drawer anchor="top" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
-        <MovieReviews movie={movie} />
-      </Drawer> */}
+        </Paper>
+        </Card>
+
+    <Card sx={{ my:2, mx:2}}>
+    <Typography variant="h5" component="h3" sx={{fontWeight: 'bold'}}>
+        Cast
+      </Typography>
+    <ImageList sx={{ height: 700, my:2, mx:2}}
+      variant="woven" cols={3} gap={8}>
+      {credits.map((item) => (
+        <ImageListItem sx={ReusableStyles.cardHover} key={item.profile_path} cols={item.cols || 1} rows={item.rows || 1}>
+          <Image
+            {...srcset(item.profile_path
+              ? `https://image.tmdb.org/t/p/w500/${item.profile_path}`
+              : img, 121, item.rows, item.cols)}
+            alt={item.title}
+            loading="lazy"
+            onClick={() => { handleClick(`/person/${item.id}`) }}
+          />
+        </ImageListItem>
+      ))}
+    
+      </ImageList>
+      </Card>
     </>
   );
 };
-export default  TvDetails ;
+
+export default TvDetails;

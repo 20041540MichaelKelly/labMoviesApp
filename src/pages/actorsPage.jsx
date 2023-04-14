@@ -4,9 +4,13 @@ import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import { getActors } from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
+import { useParams } from "react-router-dom";
+import Pagination from "../components/pagination";
+import AddToFavouriteActorsIcon from '../components/cardIcons/addToFavouriteActors';
 
 import ActorFilterUI, {
-  nameFilter
+  nameFilter,
+  genderFilter
 } from "../components/actors/actorsFilterUI";
 
 const nameFiltering = {
@@ -15,12 +19,19 @@ const nameFiltering = {
   condition: nameFilter,
 };
 
+const genderFiltering = {
+  name: "gender",
+  value: "",
+  condition: genderFilter,
+};
 
 const ActorsPage = (props) => {
-  const { data, error, isLoading, isError } = useQuery("actors", getActors);
+  const { page } = useParams();
+
+  const { data, error, isLoading, isError } = useQuery(["actors", { page: page }], getActors);
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],
-    [nameFiltering]
+    [nameFiltering, genderFiltering]
   );
 
   if (isLoading) {
@@ -42,16 +53,22 @@ const ActorsPage = (props) => {
 
   const actors = data ? data.results : [];
   const displayedActors = filterFunction(actors);
+  const urlValue = "/person/popular/page/"
 
   return (
     <>
      <PageTemplate
        title="Famous People"
        actors={displayedActors}
+       action={(actor) => {
+        return <AddToFavouriteActorsIcon actor={actor} />
+      }}
      />
+      <Pagination urlValue = { urlValue } pg={ page }/>
        <ActorFilterUI
         onFilterValuesChange={changeFilterValues}
         nameFilter={filterValues[0].value}
+        genderFilter={filterValues[1].value}
         actors={actors}
       /> 
     </>

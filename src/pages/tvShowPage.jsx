@@ -4,37 +4,41 @@ import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import { getTvShows } from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
-import AddToFavouritesIcon from '../components/cardIcons/addToFavourites'
+import AddToFavouritesIcon from '../components/cardIcons/addToFavouriteTvShows';
+import AddToPlaylistIcon from '../components/cardIcons/addToTvShowPlaylist';
+import { useParams } from "react-router-dom";
+import Pagination from "../components/pagination";
 
-// import MovieFilterUI, {
-//   titleFilter,
-//   genreFilter,
-//   voteFilter,
-// } from "../components/movies/movieFilterUI";
+import TvShowFilterUI, {
+  tvTitleFilter,
+  tvGenreFilter,
+  tvVoteFilter,
+} from "../components/tvshows/tvShowFilterUI";
 
-// const titleFiltering = {
-//   name: "title",
-//   value: "",
-//   condition: titleFilter,
-// };
-// const genreFiltering = {
-//   name: "genre",
-//   value: "0",
-//   condition: genreFilter,
-// };
+const tvTitleFiltering = {
+  name: "tvTitle",
+  value: "",
+  condition: tvTitleFilter,
+};
+const tvGenreFiltering = {
+  name: "tvGenre",
+  value: "0",
+  condition: tvGenreFilter,
+};
 
-// const voteFiltering = {
-//   name: "vote",
-//   value: "0",
-//   condition: voteFilter,
-// };
+const tvVoteFiltering = {
+  name: "tvVote",
+  value: "0",
+  condition: tvVoteFilter,
+};
 
- const TvShowPage = (props) => {
-  const { data, error, isLoading, isError } = useQuery("tvShows", getTvShows);
-//   const { filterValues, setFilterValues, filterFunction } = useFiltering(
-//     [],
-//     [titleFiltering, genreFiltering]
-//   );
+const TvShowPage = (props) => {
+  const { page } = useParams();
+  const { data, error, isLoading, isError } = useQuery(["tvShows", { page: page }], getTvShows);
+  const { filterValues, setFilterValues, filterFunction } = useFiltering(
+    [],
+    [tvTitleFiltering, tvGenreFiltering, tvVoteFiltering]
+  );
 
   if (isLoading) {
     return <Spinner />;
@@ -44,28 +48,41 @@ import AddToFavouritesIcon from '../components/cardIcons/addToFavourites'
     return <h1>{error.message}</h1>;
   }
 
-//   const changeFilterValues = (type, value) => {
-//     const changedFilter = { name: type, value: value };
-//     const updatedFilterSet =
-//       type === "title"
-//         ? [changedFilter, filterValues[1]]
-//         : [filterValues[0], changedFilter];
-//     setFilterValues(updatedFilterSet);
-//   };
+  const changeFilterValues = (type, value) => {
+    const changedFilter = { name: type, value: value };
+    const updatedFilterSet =
+      type === "tvTitle" ?
+        [changedFilter, filterValues[1], filterValues[2]] : null |
+          type === "tvGenre" ?
+          [filterValues[0], changedFilter, filterValues[2]] : null |
+            type === "tvVote" ?
+            [filterValues[0], filterValues[1], changedFilter] : null |
+            setFilterValues(updatedFilterSet);
+  };
 
   const tvShows = data ? data.results : [];
-  //const displayedMovies = filterFunction(movies);
+  const urlValue = "/tv/popular/page/";
+  const displayedTvShows = filterFunction(tvShows);
 
   return (
     <>
-     <TvShowListPage
-       title="Discover TV Shows"
-       tvShows={tvShows}
-    //    action={(tvShow) => {
-    //      return <AddToFavouritesIcon movie={movie} />
-    //    }}
-     />
-      
+      <TvShowListPage
+        title="Discover TV Shows"
+        tvShows={displayedTvShows}
+        actionFav={(tvShow) => {
+          return <AddToFavouritesIcon tvShow={tvShow} />
+        }}
+        action={(tvShow) => {
+          return <AddToPlaylistIcon tvShow={tvShow} />
+        }}
+      />
+      <Pagination urlValue={urlValue} pg={page} />
+      <TvShowFilterUI
+        onFilterValuesChange={changeFilterValues}
+        tvTitleFilter={filterValues[0].value}
+        tvGenreFilter={filterValues[1].value}
+        tvVoteFilter={filterValues[2].value}
+      />
     </>
   );
 };

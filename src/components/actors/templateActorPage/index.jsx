@@ -39,9 +39,9 @@ const TemplateActorPage = ({ actor, children }) => {
      <ActorHeader actor={actor} /> 
 
       <Grid container spacing={5} style={{ padding: "15px" }}>
-        <Grid item xs={3}>
+        <Grid item xs={3 }>
           <div sx={styles.gridListRoot}>
-            <ImageList cols={1}>
+            <ImageList cols={1} sx={{height: '200vh'}} >
               {images.map((image) => (
                 <ImageListItem
                   key={image.file_path}
@@ -57,7 +57,6 @@ const TemplateActorPage = ({ actor, children }) => {
             </ImageList>
           </div>
         </Grid>
-
         <Grid item xs={9}>
           {children}
         </Grid>

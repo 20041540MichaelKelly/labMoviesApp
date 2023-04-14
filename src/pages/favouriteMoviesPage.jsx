@@ -54,8 +54,6 @@ const FavouriteMoviesPage = () => {
     ? filterFunction(allFavourites)
     : [];
 
-  const toDo = () => true;
-
   const changeFilterValues = (type, value) => {
     const changedFilter = { name: type, value: value };
     const updatedFilterSet =
@@ -70,7 +68,7 @@ const FavouriteMoviesPage = () => {
       <PageTemplate
         title="Favourite Movies"
         movies={displayMovies}
-        action={(movie) => {
+        actionFav={(movie) => {
           return (
             <>
               <RemoveFromFavourites movie={movie} />
@@ -78,6 +76,7 @@ const FavouriteMoviesPage = () => {
             </>
           );
         }}
+        action={null}
       />
       <MovieFilterUI
         onFilterValuesChange={changeFilterValues}

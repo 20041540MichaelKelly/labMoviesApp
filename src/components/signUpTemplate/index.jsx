@@ -37,11 +37,6 @@ export default function SignUp() {
         }
       )
 
-
-    
-  
-
-
     // let { data: validEmails, error } = await supabase
     // .from('authentication')
     // .select('email')
@@ -60,15 +55,23 @@ export default function SignUp() {
   return (
     <Container component="main" maxWidth="xs">
       <Box
-        sx={{  
-          marginTop: 8,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+        sx={{
+          boxShadow: 3,
+          width: '8rem',
+          height: '5rem',
+          bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#101010' : '#fff'),
+          color: (theme) =>
+            theme.palette.mode === 'dark' ? 'grey.300' : 'grey.800',
+          p: 1,
+          m: 1,
+          borderRadius: 2,
+          textAlign: 'center',
+          fontSize: '0.875rem',
+          fontWeight: '700',
         }}
       >
         <Typography component="h1" variant="h5">
-          Sign up
+          Sign Up
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
         <Grid container>
@@ -116,10 +119,6 @@ export default function SignUp() {
             type="password"
             id="password"
             autoComplete="current-password"
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
           />
           <Button
             type="submit"

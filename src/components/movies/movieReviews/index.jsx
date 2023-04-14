@@ -1,4 +1,4 @@
-import React, { useEffect, useState }  from "react";
+import React, { useEffect, useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -7,8 +7,8 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Link } from "react-router-dom";
-import { getMovieReviews } from "../../../api/tmdb-api";
 import { excerpt } from "../../../util";
+import { supabase } from "../../../supabaseClient";
 
 const styles = {
   table: {
@@ -19,12 +19,20 @@ const styles = {
 export default function MovieReviews({ movie }) {
   const [reviews, setReviews] = useState([]);
 
+  const fetchReviews = async () => {
+    const { data } = await supabase
+    .from('reviews')
+    .select()
+    .eq('movieId', movie.id)
+
+    setReviews(data)
+}
+
   useEffect(() => {
-    getMovieReviews(movie.id).then((reviews) => {
-      setReviews(reviews);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    fetchReviews()
   }, []);
+
+  if (!reviews) return <div>Loading...</div>;
 
   return (
     <TableContainer component={Paper}>
@@ -44,11 +52,11 @@ export default function MovieReviews({ movie }) {
               </TableCell>
               <TableCell >{excerpt(r.content)}</TableCell>
               <TableCell >
-                            <Link
+                <Link
                   to={`/reviews/${r.id}`}
                   state={{
-                      review: r,
-                      movie: movie,
+                    review: r,
+                    movie: movie,
                   }}
                 >
                   Full Review
